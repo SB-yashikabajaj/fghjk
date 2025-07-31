@@ -5,7 +5,7 @@
   },
   "info": {
     "title": "Activity Management Service",
-    "description": "The Activity Management Service provides the API operations for running, monitoring, and managing activities in Synergy Studio. \nThe Activity Monitor in Synergy Studio generates activity logs for the submitted activities. You can use this log to view the detailed log or the error summary section in the API response.",
+    "description": "The Activity Management Service provides the API operations for running, monitoring, and managing activities in Synergy Studio. \nThe Activity Monitor in Synergy Studio generates activity logs for the submitted activities.fg You can use this log to view the detailed log or the error summary section in the API response.",
     "termsOfService": "",
     "contact": {
       "name": "",
