@@ -1,0 +1,2882 @@
+openapi: 3.1.0
+x-stoplight:
+  id: t1udq57743yk4
+info:
+  title: Program management service
+  version: '1.0'
+  contact:
+    name: ''
+    url: ''
+    email: ''
+  termsOfService: ''
+  license:
+    name: ''
+    url: ''
+  summary: VSS Program API
+  description: "The Program Management Service provides the API operations for managing reinsurance programs and portfolios.\r\n\r\nA program in this context defines a reinsurance arrangement between a company (a.k.a. \"ceding company\" or cedent or cedant) and one or more insurance companies (the \"reinsurer\") directly or through a broker as a means of risk management.\r\n\r\nA scenario is a specific set of financial perspectives or filters, which is used to illustrate different ways in which losses are grouped and applied on programs.\r\n\r\n### Create Program with Scenario and Layer:\r\nFollow these steps to create a program:\r\n\r\n1. **POST** to the `/programs` endpoint: This returns the unique sid that identifies the newly created program.\r\n2. **POST** to the `/programs/{sid}/loss-groups` endpoint: Create loss sources for the program.\r\n3. **POST** to the `/programs/{sid}/layers endpoint` endpoint: Create layers.\r\n4. **POST** to the `/programs/{sid}/scenarios endpoint` endpoint: Add scenarios to the program."
+servers:
+  - url: 'https://staging-na.synergystudio.verisk.com/api/program-management/v1'
+    description: Staging
+paths:
+  /programs:
+    get:
+      summary: Retrieve Programs
+      tags:
+        - Programs
+      responses:
+        '200':
+          description: "The request has succeeded. \r\n\r\nContains a list of existing reinsurance programs for a tenant. "
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: ListPrograms
+      x-stoplight:
+        id: ek8loqqpsbus9
+      description: "Retrieves the existing reinsurance programs for a given tenant. \r\n"
+      parameters:
+        - $ref: '#/components/parameters/paginationSkip'
+        - $ref: '#/components/parameters/paginationCount'
+      security:
+        - JWT: []
+    post:
+      summary: Create Program
+      tags:
+        - Programs
+      responses:
+        '201':
+          description: "Created. \r\n\r\nThe response retuns the newly created reinsurance programs. "
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: CreateProgram
+      x-stoplight:
+        id: l7gz63gxshmk3
+      description: Creates a new reinsurance program for a given tenant.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramCreate'
+      security:
+        - JWT: []
+    parameters: []
+  '/programs/{sid}':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+    get:
+      summary: Retrieve Program
+      tags:
+        - Programs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: RetrieveProgram
+      x-stoplight:
+        id: rcnq0ubmlon8t
+      description: Retrieve a Program
+      x-internal: true
+    put:
+      summary: Update Program
+      tags:
+        - Programs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: UpdateProgram
+      x-stoplight:
+        id: oulelz0jexl4v
+      description: Update Program
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Program'
+      x-internal: true
+    delete:
+      summary: Delete Program
+      tags:
+        - Programs
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: DeleteProgram
+      x-stoplight:
+        id: xb0xarl80uxu6
+      description: Delete Program
+      x-internal: true
+  '/programs/{sid}/layers':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+    get:
+      summary: List Layers
+      tags:
+        - Layers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LayerList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: ListLayers
+      x-stoplight:
+        id: wuagxf5r8qouc
+      parameters:
+        - $ref: '#/components/parameters/paginationSkip'
+        - $ref: '#/components/parameters/paginationCount'
+      description: List Layers
+      x-internal: true
+    post:
+      summary: Create Layer
+      tags:
+        - Layers
+      responses:
+        '201':
+          description: "Created\r\n\r\nThe response returns the unique sid and name of the new layer, and details including the program terms, relationship between loss sets, coverage, and other metadata information. "
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Layer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: CreateLayer
+      x-stoplight:
+        id: by6xgkkwlm2za
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LayerCreate'
+      description: Creates a new layer for an existing reinsurance program.
+      x-internal: false
+      security:
+        - JWT: []
+  '/programs/{sid}/layers/{layerSid}':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: layerSid
+        in: path
+        required: true
+        description: Layer Sid
+    get:
+      summary: Retrieve Layer
+      tags:
+        - Layers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Layer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: RetrieveLayer
+      x-stoplight:
+        id: wccz0a0t73486
+      description: Retrieve Layer
+      x-internal: true
+    put:
+      summary: Update Layer
+      tags:
+        - Layers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Layer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: UpdateLayer
+      x-stoplight:
+        id: awgme7rcgid4y
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Layer'
+      description: Update Layer
+      x-internal: true
+    delete:
+      summary: Delete Layer
+      tags:
+        - Layers
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: DeleteLayer
+      x-stoplight:
+        id: s3nz05rtozozy
+      description: Delete Layer
+      x-internal: true
+  '/programs/{sid}/loss-groups':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+    get:
+      summary: List Loss Groups
+      tags:
+        - Loss Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LossGroupList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: ListLossGroups
+      x-stoplight:
+        id: folmvlhhxqmr4
+      parameters:
+        - $ref: '#/components/parameters/paginationSkip'
+        - $ref: '#/components/parameters/paginationCount'
+      description: List Loss Groups
+      x-internal: true
+    post:
+      summary: Create Loss Group
+      tags:
+        - Loss Groups
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LossGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: CreateLossGroup
+      x-stoplight:
+        id: l39gof20yk380
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LossGroupCreate'
+      description: Create Loss Groups
+      x-internal: true
+  '/programs/{sid}/loss-groups/{lossGroupSid}':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: lossGroupSid
+        in: path
+        required: true
+        description: Loss source Sid
+    get:
+      summary: Retrieve Loss Group
+      tags:
+        - Loss Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LossGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: RetrieveLossGroup
+      x-stoplight:
+        id: 4elaqyyjg9vqc
+      description: Retrieve Loss Group
+      x-internal: true
+    put:
+      summary: Update Loss Group
+      tags:
+        - Loss Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LossGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: UpdateLossGroup
+      x-stoplight:
+        id: j2j55t7v6ipyr
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LossGroup'
+      description: |
+        Update Loss Group
+      x-internal: true
+    delete:
+      summary: Delete Loss Group
+      tags:
+        - Loss Groups
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: DeleteLossGroup
+      x-stoplight:
+        id: w7fqh4e11xep2
+      description: Delete Loss Group
+      x-internal: true
+  '/programs/{sid}/scenarios':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+    get:
+      summary: List Scenarios
+      tags:
+        - Scenarios
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: ListScenarios
+      x-stoplight:
+        id: qo3g7w9zhkfo2
+      parameters:
+        - $ref: '#/components/parameters/paginationSkip'
+        - $ref: '#/components/parameters/paginationCount'
+      description: List Scenarios
+      x-internal: true
+    post:
+      summary: Create Scenarios
+      tags:
+        - Scenarios
+      responses:
+        '201':
+          description: "Created\r\n\r\nThe response returns the newly created scenario information, including the scenario sid, reinsurnace program sid associated with this scenario, terms, coverage, metadata for tagging, and other user  information.  "
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scenario'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: CreateScenario
+      x-stoplight:
+        id: h4ezd31k10vi2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScenarioCreate'
+      description: Creates a new scenario for a specific reinsurance program.
+      security:
+        - JWT: []
+  '/programs/{programSid}/scenarios/{scenarioSid}':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: scenarioSid
+        in: path
+        required: true
+        description: Scenario Sid
+    get:
+      summary: Retrieve Scenario
+      tags:
+        - Scenarios
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scenario'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: RetrieveScenario
+      x-stoplight:
+        id: mchsyq7ah9vkl
+      description: Retrieve Scenario
+      x-internal: true
+    put:
+      summary: Update Scenario
+      tags:
+        - Scenarios
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scenario'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: UpdateScenario
+      x-stoplight:
+        id: 9y04n8ukwnqdr
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scenario'
+      description: Update Scenario
+      x-internal: true
+    delete:
+      summary: Delete Scenario
+      tags:
+        - Scenarios
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: DeleteScenario
+      x-stoplight:
+        id: ho0eppvukm816
+      description: Delete Scenario
+      x-internal: true
+  '/programs/{programSid}/scenarios/actions/apply':
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+        name: programSid
+        in: path
+        required: true
+        description: Program Sid
+    post:
+      summary: Apply Scenario
+      tags:
+        - Scenarios
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ProgramView'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: ApplyScenario
+      x-stoplight:
+        id: 5pgpz1n2o1dyc
+      description: |-
+        Retrieve the Program with the supplied scenarios applied. These can be either referenced scenarios
+        or provided inline, scenarios will be applied in order from first to last. This is a read-only
+        operation and does not mutate the saved Program.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 0
+              maxItems: 100
+              items:
+                x-stoplight:
+                  id: pax85nuea26tv
+                oneOf:
+                  - $ref: '#/components/schemas/ScenarioInline'
+                  - $ref: '#/components/schemas/ScenarioReference'
+                    x-stoplight:
+                      id: jvp49rxfrje03
+                type: object
+      x-internal: true
+  /layers:
+    get:
+      summary: List Layers Across All Programs
+      tags:
+        - Layers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/LayerList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: ListAllLayers
+      x-stoplight:
+        id: bhs8oa06gi1bm
+      parameters:
+        - $ref: '#/components/parameters/paginationSkip'
+        - $ref: '#/components/parameters/paginationCount'
+      description: List Layers Across All Programs
+      x-internal: true
+components:
+  schemas:
+    LossGroupList:
+      title: LossGroupList
+      x-stoplight:
+        id: ueopbup6t7uym
+      type: object
+      x-tags:
+        - Loss Groups
+      description: 'A LossGroupList is a collection of loss groups from multiple sources. associated with a reinsurance program. Each object represents a grouping of losses based on specific factors such as relationship between loss entities, loss adjustment filters, and other metadata tags.'
+      properties:
+        items:
+          type: array
+          x-stoplight:
+            id: pwjkwne733g6a
+          minItems: 0
+          maxItems: 100
+          description: Contains a set of loss groupings linked to a reinsurance program.
+          items:
+            $ref: '#/components/schemas/LossGroup'
+            x-stoplight:
+              id: 9c0bxo3t4dtfd
+        count:
+          type: integer
+          x-stoplight:
+            id: 9mzxhjqq80fxb
+    LayerList:
+      title: LayerList
+      x-stoplight:
+        id: kwda4ftl9jktk
+      type: object
+      x-tags:
+        - Layers
+      properties:
+        items:
+          type: array
+          x-stoplight:
+            id: ucoow61suqy1z
+          minItems: 0
+          maxItems: 100
+          description: 'A definition of a set of financial terms, their values, their coverages and the links to their subject and inuring relationships'
+          items:
+            $ref: '#/components/schemas/Layer'
+            x-stoplight:
+              id: olz265c20arpz
+        count:
+          type: integer
+          x-stoplight:
+            id: tcf1ipe3g4ab0
+      description: A collection of financial terms and coverages for a given layer associated with a reinsurance program.
+    ProgramList:
+      title: ProgramList
+      x-stoplight:
+        id: 18hp2ireyk7fa
+      type: object
+      properties:
+        items:
+          type: array
+          x-stoplight:
+            id: aav4bhgzrg1uz
+          minItems: 0
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Program'
+            x-stoplight:
+              id: 1zo2e5vbqi35i
+        count:
+          type: integer
+          x-stoplight:
+            id: i6rrxezp8pi5l
+      x-tags:
+        - Programs
+      description: 'A collection of reinsurance program objects. Each program object contains the scenarios, loss groupings, layer terms associated with a specific reinsurance program. '
+    ScenarioList:
+      title: ScenarioList
+      x-stoplight:
+        id: 1eo7tlzyeb80g
+      type: object
+      properties:
+        items:
+          type: array
+          x-stoplight:
+            id: 6zuhfskmeewks
+          minItems: 0
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Scenario'
+            x-stoplight:
+              id: va7nsnwrucb4i
+        count:
+          type: integer
+          x-stoplight:
+            id: begbt81ueyur6
+      x-tags:
+        - Scenarios
+      description: 'A collection of scenarios. Each item represents the unique sid of the scenario associated with the program, program override expression, metadata for tagging scenarios, and user information. '
+    EBAF:
+      title: EBAF
+      x-stoplight:
+        id: 8qfg6fl0ju8xb
+      type: object
+      x-tags:
+        - AdjustmentFactors
+      description: 'The event-based adjustment factors (EBAF) maps to graphene''s recordwise adjustment factor. '
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          const: EBAF
+          x-stoplight:
+            id: pf3nz7xej140v
+          example: EBAF
+        label:
+          type: string
+          x-stoplight:
+            id: dlsybc5ao5k0g
+          description: A label that can be assigned to the individual contribution of this adjustment and be later reported on.
+        factorTypeName:
+          type: string
+          x-stoplight:
+            id: irzarl59ntgwm
+          example: Factor
+        path:
+          type: string
+          x-stoplight:
+            id: zdlsgog77q8s0
+          example: 's3://example_bucket/uploads/ledgers/example_ledger_upload/load_factors.parquet'
+        matchBy:
+          type: array
+          x-stoplight:
+            id: lftllr9xkghbo
+          items:
+            x-stoplight:
+              id: 4wp2i5yrkt18f
+            type: string
+            example: Event
+    LayerCreate:
+      title: LayerCreate
+      x-stoplight:
+        id: 8v1uczamhr4jy
+      type: object
+      description: 'A definition of a set of financial terms, including their values, coverages, and links to their subject and inuring relationships.'
+      x-tags:
+        - Layers
+      required:
+        - name
+        - terms
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: gddskpx90wj39
+          description: Name of the new layer.
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          x-stoplight:
+            id: tyqvtuauly2dx
+          description: Name of the new layer.
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: l3pp9poln241f
+          default: true
+        terms:
+          x-stoplight:
+            id: iw3lmqe2sr7ut
+          oneOf:
+            - $ref: '#/components/schemas/CatXL'
+              x-stoplight:
+                id: frt2o0vshgtlg
+            - $ref: '#/components/schemas/AggXL'
+              x-stoplight:
+                id: ft23qrfbkf3v6
+            - $ref: '#/components/schemas/QuotaShare'
+              x-stoplight:
+                id: 3rw1cn7vz05pi
+          discriminator:
+            propertyName: type
+            mapping:
+              CatXL_1.0: '#/components/schemas/CatXL'
+              AggXL_1.0: '#/components/schemas/AggXL'
+              QuotaShare: '#/components/schemas/QuotaShare'
+          description: The terms of the layer.
+        relationships:
+          x-stoplight:
+            id: c31pz7dqzbdml
+          description: Define the relationship between this layer an other entities.
+          type: array
+          items:
+            x-stoplight:
+              id: 3irqxymey2qt0
+            anyOf:
+              - $ref: '#/components/schemas/SourceRelationship'
+                x-stoplight:
+                  id: eczwbu177q3f3
+              - $ref: '#/components/schemas/InuringRelationship'
+                x-stoplight:
+                  id: 401357ciz8mgb
+              - $ref: '#/components/schemas/StepRelationship'
+                x-stoplight:
+                  id: 3i2j4pvylel0v
+        status:
+          type: string
+          x-stoplight:
+            id: 9cvx6wkdzbw5h
+          example: unbound
+        exclude:
+          type: boolean
+          x-stoplight:
+            id: hcb6kh2q7vjug
+          description: When true this layer is not aggregated to the top level of the program
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+          x-stoplight:
+            id: p72re7b3lhpe3
+          description: Defines the coverage constraints for this layer.
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    LayerView:
+      title: LayerView
+      x-stoplight:
+        id: bwvm3gem8dxzc
+      type: object
+      description: 'A definition of a set of financial terms, their values, their coverages and the links to their subject and inuring relationships​.'
+      x-tags:
+        - Layers
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: o8okd3jc5yk03
+          example: 123
+          minimum: 1
+          maximum: 9223372036854776000
+          description: Indicates the unique identifier (SID) for a layer.
+        programSid:
+          type: integer
+          format: int64
+          example: 300
+          minimum: 1
+          maximum: 9223372036854776000
+          description: 'Indicates the unique identifier for a program. '
+        name:
+          type: string
+          x-stoplight:
+            id: glbo9dvyw508v
+          description: Name of the layer.
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          description: Name of the layer.
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: opcvtau8u7ccd
+          default: true
+        terms:
+          x-stoplight:
+            id: s4frrubeaphm1
+          oneOf:
+            - $ref: '#/components/schemas/CatXL'
+              x-stoplight:
+                id: xv0kj2uzpbziq
+            - $ref: '#/components/schemas/AggXL'
+              x-stoplight:
+                id: hnd29w7xgvkgj
+            - $ref: '#/components/schemas/QuotaShare'
+              x-stoplight:
+                id: sdzvz8hacq6w4
+          discriminator:
+            propertyName: type
+            mapping:
+              CatXL_1.0: '#/components/schemas/CatXL'
+              AggXL_1.0: '#/components/schemas/AggXL'
+              QuotaShare: '#/components/schemas/QuotaShare'
+          description: The terms of the layer.
+        relationships:
+          type: array
+          x-stoplight:
+            id: laswvfwj4n9wa
+          description: Define the relationship between this layer an other entities.
+          items:
+            x-stoplight:
+              id: wtl8xil977e7y
+            anyOf:
+              - $ref: '#/components/schemas/SourceRelationship'
+                x-stoplight:
+                  id: 7zvwskll9gh9t
+              - $ref: '#/components/schemas/InuringRelationship'
+                x-stoplight:
+                  id: mge5xzgwwyqef
+              - $ref: '#/components/schemas/StepRelationship'
+                x-stoplight:
+                  id: 42y3vtxwz95jg
+        status:
+          type: string
+          x-stoplight:
+            id: 3kfkcghv4xj15
+          example: unbound
+        exclude:
+          type: boolean
+          x-stoplight:
+            id: ckpeppe99p7at
+          description: When true this layer is not aggregated to the top level of the program
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+          x-stoplight:
+            id: ypvs39dfzmzgk
+          description: Defines the coverage constraints for this layer.
+        dateCreated:
+          type: string
+          format: date-time
+          x-stoplight:
+            id: dm217rzzaqrey
+        dateModified:
+          type: string
+          format: date-time
+          x-stoplight:
+            id: wg7eo9hexc212
+        userCreated:
+          $ref: ../models/UserInfo.json
+          x-stoplight:
+            id: hsa6iru4qgiv8
+        userModified:
+          $ref: ../models/UserInfo.json
+          x-stoplight:
+            id: m8w9nrx3m0e24
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    Layer:
+      title: Layer
+      x-stoplight:
+        id: r2cxlo1v4k6lz
+      type: object
+      description: 'A definition of a set of financial terms, their values, their coverages and the links to their subject and inuring relationships​.'
+      x-tags:
+        - Layers
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: paimwkta1pz5c
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 123
+          readOnly: true
+        programSid:
+          type: integer
+          format: int64
+          example: 500
+          minimum: 1
+          maximum: 9223372036854776000
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: ozksuv01esba4
+          example: NA CatXL
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          example: North America Layer
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: 4uvsw0g0k8lhe
+          default: true
+        terms:
+          x-stoplight:
+            id: qt5rw30vh81iw
+          oneOf:
+            - $ref: '#/components/schemas/CatXL'
+              x-stoplight:
+                id: 451claaccin5l
+              description: Indicates the catastrophe excess of loss program type code filter to use with an aggregate portfolio loss analysis.
+            - $ref: '#/components/schemas/AggXL'
+              x-stoplight:
+                id: mvknofh1scc3z
+              description: 'Indicates the Aggregate excess of loss program type code filter to use with an aggregate portfolio loss analysis. '
+            - $ref: '#/components/schemas/QuotaShare'
+              x-stoplight:
+                id: n5d7pxlj1i75j
+              description: Indicates the quota share program type code filter to use with an aggregate portfolio loss analysis.
+          discriminator:
+            propertyName: type
+            mapping:
+              CatXL_1.0: '#/components/schemas/CatXL'
+              AggXL_1.0: '#/components/schemas/AggXL'
+              QuotaShare: '#/components/schemas/QuotaShare'
+          description: The terms of the layer.
+        relationships:
+          type: array
+          x-stoplight:
+            id: fvetgienjoyvl
+          description: Define the relationship between this layer an other entities.
+          items:
+            x-stoplight:
+              id: k2h7bbsaoujek
+            anyOf:
+              - $ref: '#/components/schemas/SourceRelationship'
+                x-stoplight:
+                  id: idbsy19z1euod
+              - $ref: '#/components/schemas/InuringRelationship'
+                x-stoplight:
+                  id: sbw8hqon41c78
+              - $ref: '#/components/schemas/StepRelationship'
+                x-stoplight:
+                  id: rqhvzlo21npo6
+        status:
+          type: string
+          x-stoplight:
+            id: 98caymuwl1399
+          example: unbound
+        exclude:
+          type: boolean
+          x-stoplight:
+            id: ydf1ykmtgqoxz
+          description: When true this layer is not aggregated to the top level of the program
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+          x-stoplight:
+            id: 6y1dj5l4vt1xq
+          description: Defines the coverage constraints for this layer.
+        dateCreated:
+          type: string
+          format: date-time
+          readOnly: true
+        dateModified:
+          type: string
+          format: date-time
+          readOnly: true
+        userCreated:
+          $ref: ../models/UserInfo.json
+        userModified:
+          $ref: ../models/UserInfo.json
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    LossModifier:
+      title: LossModifier
+      x-stoplight:
+        id: pkpp9lbwb36n1
+      type: object
+      description: A filter definition and a set of loss adjustments objects.
+      x-tags:
+        - Loss Groups
+      properties:
+        filter:
+          x-stoplight:
+            id: 1ty75wfgs2kev
+          description: An optional filter of losses to which modifications are applied.
+          anyOf:
+            - $ref: '#/components/schemas/BasicFilter'
+              x-stoplight:
+                id: rfaxjyvfrmjs4
+            - type: string
+              x-stoplight:
+                id: 4bm7qxfqo6rlv
+              description: 'An metadata filter expressions. See https://graphene.analyzere.net/query_expressions/ledger_data.html#filter-expressions.'
+        adjustments:
+          type: array
+          x-stoplight:
+            id: o5h42cr9g08sd
+          description: A list of loss modification operators (linear and non-linear) applied as part of this loss modification.
+          minItems: 0
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/Scale'
+              - $ref: '#/components/schemas/EBAF'
+            x-stoplight:
+              id: kvjzf2xvtf1e1
+        aggregation:
+          x-stoplight:
+            id: qji27ej1bdob4
+          type: string
+          enum:
+            - ADD
+            - MULTIPLY
+    LossGroupCreate:
+      title: LossGroupCreate
+      x-stoplight:
+        id: kuco5q22ttly1
+      type: object
+      description: The LossGroupCreate object groups losses from multiple sources and optionally applies loss modifications.
+      x-tags:
+        - Loss Groups
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: vof4ywvk4td6e
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        relationships:
+          type: array
+          x-stoplight:
+            id: 0es7jo4vl3nho
+          description: A list of relationships with other loss sources.
+          items:
+            x-stoplight:
+              id: wq0m1bda8j3rf
+            anyOf:
+              - $ref: '#/components/schemas/SourceRelationship'
+                x-stoplight:
+                  id: 4ydrtdnygor8x
+              - $ref: '#/components/schemas/InuringRelationship'
+                x-stoplight:
+                  id: zle5n736h6f86
+        modifiers:
+          type: array
+          x-stoplight:
+            id: 8o82huvwt0mai
+          items:
+            $ref: '#/components/schemas/LossModifier'
+            x-stoplight:
+              id: kl8k82stsm9ad
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    LossGroupView:
+      title: LossGroupView
+      x-stoplight:
+        id: e04rfin4a0gvo
+      type: object
+      description: The LossGroupView object groups losses from multiple sources and optionally applies loss modifications.
+      x-tags:
+        - Loss Groups
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: 8zoo1rxuevckr
+          minimum: 1
+          maximum: 9223372036854776000
+        programSid:
+          type: integer
+          format: int64
+          example: 300
+          minimum: 1
+          maximum: 9223372036854776000
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: 9xl1vieaw1dnt
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        relationships:
+          type: array
+          x-stoplight:
+            id: zfutxry8opbak
+          description: A list of relationships with other loss sources.
+          items:
+            x-stoplight:
+              id: jiwhjqwcy6pp9
+            anyOf:
+              - $ref: '#/components/schemas/SourceRelationship'
+                x-stoplight:
+                  id: q7efibx616xr8
+              - $ref: '#/components/schemas/InuringRelationship'
+                x-stoplight:
+                  id: cnycduyvsyj1u
+        modifiers:
+          type: array
+          x-stoplight:
+            id: cq8m0eh9u1q6p
+          items:
+            $ref: '#/components/schemas/LossModifier'
+            x-stoplight:
+              id: 9bktoxi75binj
+        dateCreated:
+          type: string
+          format: date-time
+        dateModified:
+          type: string
+          format: date-time
+        userCreated:
+          $ref: ../models/UserInfo.json
+        userModified:
+          $ref: ../models/UserInfo.json
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    LossGroup:
+      title: LossGroup
+      x-stoplight:
+        id: 3s2q11j2ts18y
+      type: object
+      description: The LossGroup object groups losses from multiple sources and optionally apply loss modifications.
+      x-tags:
+        - Loss Groups
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: 0fqsfq4nxb1b6
+          example: 543
+          minimum: 1
+          maximum: 9223372036854776000
+          readOnly: true
+        programSid:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 300
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: 2gey86zr6whys
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        relationships:
+          type: array
+          x-stoplight:
+            id: e3ugf8af5e0x3
+          description: A list of relationships with other loss sources.
+          items:
+            x-stoplight:
+              id: 9ika4l4m57zsk
+            anyOf:
+              - $ref: '#/components/schemas/SourceRelationship'
+                x-stoplight:
+                  id: bxyiopnbkui4i
+              - $ref: '#/components/schemas/InuringRelationship'
+                x-stoplight:
+                  id: fm3r8qdbmv0mi
+        modifiers:
+          type: array
+          x-stoplight:
+            id: g7ya0rtaxz13v
+          items:
+            $ref: '#/components/schemas/LossModifier'
+            x-stoplight:
+              id: cbw9ky97cdy8v
+        dateCreated:
+          type: string
+          format: date-time
+          readOnly: true
+        dateModified:
+          type: string
+          format: date-time
+          readOnly: true
+        userCreated:
+          $ref: ../models/UserInfo.json
+          readOnly: true
+        userModified:
+          $ref: ../models/UserInfo.json
+          readOnly: true
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    ProgramOverride:
+      title: ProgramOverride
+      x-stoplight:
+        id: t1eq6xpe1brzm
+      type: object
+      examples:
+        - override: 'layers[?(@.sid == 100)].lossGroups'
+          value:
+            - 22
+        - override: 'layers[?(@.tags.location == ''Florida'')].enabled'
+          value: false
+      x-tags:
+        - Scenarios
+      required:
+        - override
+      properties:
+        override:
+          x-stoplight:
+            id: iar5pfzqwv6w4
+          description: jsonpath expression query the program and define which field to override.
+          type: string
+        value:
+          x-stoplight:
+            id: 35si8sjejeje2
+          anyOf:
+            - type: object
+              x-stoplight:
+                id: zr4kjhohupdxz
+            - type: array
+              x-stoplight:
+                id: f3ab6p8tmxmki
+              items: {}
+            - type: number
+              x-stoplight:
+                id: h75auf95di8lm
+            - type: string
+              x-stoplight:
+                id: 1gv0ibgxnbx4u
+            - type: boolean
+              x-stoplight:
+                id: qdxo94zzbhcc8
+          description: The value to override the field with.
+        op:
+          x-stoplight:
+            id: xvkgfwksp1j2y
+          type: string
+          enum:
+            - ASSIGN
+            - APPEND
+            - DELETE
+            - ADD
+            - MULTIPLY
+          default: ASSIGN
+      description: The ProgramOverride object stores the JSONPath expression that queries the program and specifies the field to override.
+    ProgramCreate:
+      title: ProgramCreate
+      x-stoplight:
+        id: drbv295rrydn1
+      type: object
+      description: A collection of program scenarios (automatically containing a base scenario) and associated metadata.​
+      x-tags:
+        - Programs
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: 24bghs4q1pjna
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          x-stoplight:
+            id: tlejq04v2a5bd
+        inceptionDate:
+          type: string
+          x-stoplight:
+            id: 05ivzc5lh2c3x
+          format: date-time
+        expirationDate:
+          type: string
+          x-stoplight:
+            id: k7wkexibb16yg
+          format: date-time
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    ProgramView:
+      title: ProgramView
+      x-stoplight:
+        id: x1pnq9bzy79io
+      type: object
+      description: 'The view of an existing program with a scenario applied excludes the fields ''scenarios'' and ''lossGroups'' from this program, with the lossGroups inlined in the layer definitions.'
+      x-tags:
+        - Programs
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: 2nsz99m00bsdi
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 300
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: jy6oejcn1t4cr
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          x-stoplight:
+            id: 4gv3kkgjen4fr
+        inceptionDate:
+          type: string
+          x-stoplight:
+            id: v3ur157rcbyxs
+          format: date-time
+        expirationDate:
+          type: string
+          x-stoplight:
+            id: bfjj02xjqa3u6
+          format: date-time
+        lossGroups:
+          x-stoplight:
+            id: 8jfk2knzzllbq
+          type: array
+          items:
+            $ref: '#/components/schemas/LossGroupView'
+            x-stoplight:
+              id: l6h5hy27jlqaf
+        layers:
+          x-stoplight:
+            id: xhb0fqu25go4d
+          type: array
+          items:
+            $ref: '#/components/schemas/LayerView'
+            x-stoplight:
+              id: 3iqgowewivcs4
+        dateCreated:
+          type: string
+          format: date-time
+        dateModified:
+          type: string
+          format: date-time
+        userCreated:
+          $ref: ../models/UserInfo.json
+        userModified:
+          $ref: ../models/UserInfo.json
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    Program:
+      title: Program
+      x-stoplight:
+        id: ujnjdygxbccc0
+      type: object
+      description: A collection of program scenarios (automatically containing a base scenario) and associated metadata.​
+      x-tags:
+        - Programs
+      required:
+        - name
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: e03wuw7hsq3fe
+          example: 300
+          minimum: 1
+          maximum: 9223372036854776000
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: adaqin9757h7h
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          x-stoplight:
+            id: v3orkxv598red
+        inceptionDate:
+          type: string
+          x-stoplight:
+            id: aez0mmx0l74l1
+          format: date-time
+        expirationDate:
+          type: string
+          x-stoplight:
+            id: 5goeyj8gnb1ew
+          format: date-time
+        scenarioSids:
+          type: array
+          x-stoplight:
+            id: lhc5khqbcb42a
+          items:
+            x-stoplight:
+              id: 1qc4ruzks7i5i
+            type: integer
+            format: int64
+            minimum: 0
+          readOnly: true
+        lossGroupSids:
+          x-stoplight:
+            id: vukciuzyvxpvl
+          type: array
+          items:
+            x-stoplight:
+              id: 7szmmyjejfwfn
+            type: integer
+            format: int64
+            minimum: 0
+          readOnly: true
+        layerSids:
+          x-stoplight:
+            id: nynx87z6hafdh
+          type: array
+          items:
+            x-stoplight:
+              id: k3133gs5r49hf
+            type: integer
+            format: int64
+            minimum: 0
+          readOnly: true
+        dateCreated:
+          type: string
+          format: date-time
+          readOnly: true
+        dateModified:
+          type: string
+          format: date-time
+          readOnly: true
+        userCreated:
+          $ref: ../models/UserInfo.json
+          readOnly: true
+        userModified:
+          $ref: ../models/UserInfo.json
+          readOnly: true
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    Scale:
+      title: Scale
+      x-stoplight:
+        id: uzhjiz60qbvqi
+      type: object
+      x-tags:
+        - AdjustmentFactors
+      description: Scale Adjustment Factor
+      required:
+        - type
+        - factor
+      properties:
+        type:
+          type: string
+          x-stoplight:
+            id: c3ek4zyvfsahs
+          const: Scale
+          example: Scale
+        label:
+          type: string
+          x-stoplight:
+            id: q3x85bm53uwr3
+          description: A label that can be assigned to the individual contribution of this adjustment and be later reported on.
+        factor:
+          type: number
+          x-stoplight:
+            id: cgpace7difasn
+          example: 1.2
+    ScenarioCreate:
+      title: ScenarioCreate
+      x-stoplight:
+        id: 79swpz6i8082y
+      type: object
+      x-tags:
+        - Scenarios
+      required:
+        - name
+        - overrides
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+          x-stoplight:
+            id: er3xnk19a9ur1
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+          x-stoplight:
+            id: 1jkcoezyxi5hg
+        overrides:
+          type: array
+          x-stoplight:
+            id: 419w4rykwzwce
+          items:
+            $ref: '#/components/schemas/ProgramOverride'
+            x-stoplight:
+              id: h50zx1i0z6h56
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+      description: 'This object stores the newly created scenario, metadata tags, and any overrides. '
+    ScenarioInline:
+      title: ScenarioInline
+      x-stoplight:
+        id: fxg4xwfzqxria
+      type: object
+      required:
+        - overrides
+      properties:
+        overrides:
+          type: array
+          x-stoplight:
+            id: 161wzk3qm79v9
+          items:
+            $ref: '#/components/schemas/ProgramOverride'
+            x-stoplight:
+              id: uwqnlnia0ad81
+      x-tags:
+        - Scenarios
+    Scenario:
+      title: Scenario
+      x-stoplight:
+        id: oq2rtpyl70g13
+      type: object
+      x-tags:
+        - Scenarios
+      required:
+        - name
+        - overrides
+      properties:
+        sid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: pliin68ghylzt
+          example: 700
+          minimum: 1
+          maximum: 9223372036854776000
+          readOnly: true
+        programSid:
+          type: integer
+          format: int64
+          example: 300
+          minimum: 1
+          maximum: 9223372036854776000
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+          maxlength: 256
+        description:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        overrides:
+          type: array
+          x-stoplight:
+            id: sq0e03v8f19sw
+          items:
+            $ref: '#/components/schemas/ProgramOverride'
+            x-stoplight:
+              id: odwtntwno2com
+        dateCreated:
+          type: string
+          format: date-time
+          readOnly: true
+        dateModified:
+          type: string
+          format: date-time
+          readOnly: true
+        userCreated:
+          $ref: ../models/UserInfo.json
+          readOnly: true
+        userModified:
+          $ref: ../models/UserInfo.json
+          readOnly: true
+        tags:
+          type: array
+          minItems: 0
+          maxItems: 50
+          items:
+            $ref: ../models/Tag.json
+    ScenarioReference:
+      title: ScenarioReference
+      x-stoplight:
+        id: n91da83zl1g7r
+      type: object
+      x-tags:
+        - Scenarios
+      properties:
+        scenarioSid:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: vrr3i2u3lkzvi
+          example: 700
+          minimum: 1
+          maximum: 9223372036854776000
+    BasicFilter:
+      title: BasicFilter
+      x-stoplight:
+        id: vrg8m88sjtyg5
+      type: object
+      description: A basic filter that is applied to the losses. The basic filter is used to define the coverage for a layer and constraints for the application of loss modifiers.
+      properties:
+        perils:
+          type:
+            - array
+          x-stoplight:
+            id: 404xf1zcaa10i
+          description: |-
+            Defines the perils that are selected.
+
+            - If unspecified, all perils in the source losses are selected.
+            - If an empty list, no perils are selected effectively excluding everything.
+            - If a non-empty list, only specified perils are selected.
+          items:
+            x-stoplight:
+              id: 6oty30izgtl4h
+            type: integer
+            format: int32
+            minimum: 0
+        linesOfBusiness:
+          type:
+            - array
+          x-stoplight:
+            id: eyoeu9gmvoyez
+          description: |-
+            Defines the lines of business that are selected.
+
+            - If unspecified, all lines of business in the source losses are selected.
+            - If an empty list, no lines of business are selected effectively excluding everything.
+            - If a non-empty list, only specified lines of business are selected.
+          items:
+            x-stoplight:
+              id: 570pgd0pchag8
+            type: integer
+            format: int32
+            minimum: 0
+        area:
+          type:
+            - object
+          x-stoplight:
+            id: sn8mjabggd4fs
+          description: |-
+            Defines geographic constraints for losses selected by the basic filter.
+
+            If this field is unspecified, no geographic constraints are applied to the losses.
+
+            If the field is specified, geographic constraints are applied by combining the filter for each geographic level with a logical `OR`. For example, consider the following constraint definition:
+
+            ```json
+            {
+                "level1GeoSids": [],
+                "level2GeoSids": [5, 13, 85],
+                "level3GeoSids": [43, 47, 91, 107]
+            }
+            ```
+
+            This constraint definition will includes losses whose Level 2 GeoSIDs are either 5, 13, or 85 **OR** Level 3 GeoSIDs are either 43, 47, 91, or 107.
+          required:
+            - level1GeoSids
+            - level2GeoSids
+            - level3GeoSids
+          properties:
+            level1GeoSids:
+              type: array
+              x-stoplight:
+                id: o60qjrosm9sqo
+              description: A list of Level 1 GeoSIDs for which losses are selected.
+              items:
+                x-stoplight:
+                  id: md6djo5ka0j42
+                type: integer
+                format: int64
+                minimum: 0
+            level2GeoSids:
+              type: array
+              x-stoplight:
+                id: y6h14hsoyyd46
+              description: A list of Level 2 GeoSIDs for which losses are selected.
+              items:
+                x-stoplight:
+                  id: cexv5wqmvyj2v
+                type: integer
+                format: int64
+                minimum: 0
+            level3GeoSids:
+              type: array
+              x-stoplight:
+                id: fjuigeiknr2ec
+              description: A list of Level 3 GeoSIDs for which losses are selected.
+              items:
+                x-stoplight:
+                  id: vakik8ljzgu8v
+                type: integer
+                format: int64
+                minimum: 0
+      examples:
+        - perils:
+            - 45
+          linesOfBusiness:
+            - 27
+          area:
+            level1GeoSids: []
+            level2GeoSids:
+              - 5
+              - 13
+              - 85
+            level3GeoSids:
+              - 43
+              - 47
+              - 91
+              - 107
+      x-tags:
+        - Coverage
+    Coverage:
+      title: Coverage
+      type: object
+      description: A Coverage filter that is applied to the losses. The Coverage filter is used to define the peril and geographic coverage for a layer and apply the coverage rate for lines of business.
+      properties:
+        perils:
+          type:
+            - array
+          description: |-
+            Defines the perils that are covered.
+
+            - If unspecified, all perils in the source losses are covered.
+            - If an empty list, no perils are covered effectively excluding everything.
+            - If a non-empty list, only specified perils are covered.
+          items:
+            type: integer
+            format: int32
+        linesOfBusiness:
+          type:
+            - array
+          description: |-
+            Defines the coverage rates for the lines of business that are covered by the layer.
+
+            - If unspecified, all lines of business in the source losses are covered at 100%.
+            - If an empty list, no lines of business are covered, effectively excluding everything.
+            - If a non-empty list, only specified lines of business are covered at the specified coverage rate.
+          items:
+            type: object
+            required:
+              - lobCode
+              - rate
+            properties:
+              lobCode:
+                type: integer
+                format: int32
+                description: The `lobCode` for which the rate is to be applied.
+                example: 15
+              rate:
+                type: number
+                format: double
+                description: The coverage rate for the specified `lobCode`.
+                example: 0.5
+        area:
+          type:
+            - object
+          description: |-
+            Defines geographic constraints for losses covered by the layer.
+
+            If this field is unspecified, no geographic constraints are applied to the losses and all geographies are covered.
+
+            If the field is specified, geographic constraints are applied by combining the filter for each geographic level with a logical `OR`. For example, consider the following constraint definition:
+
+            ```json
+            {
+                "level1GeoSids": [],
+                "level2GeoSids": [5, 13, 85],
+                "level3GeoSids": [43, 47, 91, 107]
+            }
+            ```
+
+            This constraint definition will includes losses whose Level 2 GeoSIDs are either 5, 13, or 85 **OR** Level 3 GeoSIDs are either 43, 47, 91, or 107.
+          required:
+            - level1GeoSids
+            - level2GeoSids
+            - level3GeoSids
+          properties:
+            level1GeoSids:
+              type: array
+              description: A list of Level 1 GeoSIDs for which losses are selected.
+              items:
+                type: integer
+                format: int64
+                minimum: 0
+            level2GeoSids:
+              type: array
+              description: A list of Level 2 GeoSIDs for which losses are selected.
+              items:
+                type: integer
+                format: int64
+                minimum: 0
+            level3GeoSids:
+              type: array
+              description: A list of Level 3 GeoSIDs for which losses are selected.
+              items:
+                type: integer
+                format: int64
+                minimum: 0
+      x-tags:
+        - Coverage
+      x-stoplight:
+        id: 4p55bhdv9t6qa
+    AppliesToArea:
+      title: AppliesToArea
+      type: object
+      required:
+        - geoId
+        - scale
+      properties:
+        geoId:
+          title: Geography ID
+          description: ID of the geographical area
+          type: integer
+          minimum: 0
+          examples:
+            - 100
+            - 10
+            - 1
+        scale:
+          title: Scale
+          description: Scaled number
+          type: number
+          minimum: 0
+          examples:
+            - 0.5
+            - 1
+            - 10
+      x-tags:
+        - Coverage
+      x-stoplight:
+        id: 5rtk8zw7j1xhf
+    QuotaShare:
+      title: QuotaShare
+      type: object
+      additionalProperties: true
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          const: QuotaShare_1.0
+        expirationDate:
+          title: Expiration Date
+          description: Timestamp on which the contract expires. Cannot be less than inception_date.
+          type: string
+          example: '2025-12-31T23:59:59Z'
+          format: date-time
+        inceptionDate:
+          title: Inception Date
+          description: Timestamp on which the contract incepts. Cannot be greater than expiration_date.
+          type: string
+          example: '2025-01-01T00:00:00Z'
+          format: date-time
+        aggregateAttachment:
+          $ref: ../models/Money.json
+          description: The aggregate attachment or retention of the contract in currency units.
+        aggregateLimit:
+          $ref: ../models/Money.json
+          description: The aggregate limit of the contract in currency units.
+        occurrenceAttachment:
+          $ref: ../models/Money.json
+          description: The occurrence attachment or retention of the contract in currency units.
+        occurrenceLimit:
+          $ref: ../models/Money.json
+          description: The occurrence limit of the contract in currency units.
+        cededRateLevel1:
+          title: Ceded Rate Level 1
+          description: Ceded Rate works as a filter which will apply the layer terms to only the geographies selected.
+          type: array
+          examples:
+            - - geoId: 100
+                scale: 10
+              - geoId: 200
+                scale: 15
+          items:
+            $ref: '#/components/schemas/AppliesToArea'
+        cededRateLevel2:
+          title: Ceded Rate Level 2
+          description: Ceded Rate works as a filter which will apply the layer terms to only the geographies selected.
+          type: array
+          examples:
+            - - geoId: 150
+                scale: 5
+              - geoId: 250
+                scale: 10
+          items:
+            $ref: '#/components/schemas/AppliesToArea'
+        cededRateLevel3:
+          title: Ceded Rate Level 3
+          description: Ceded Rate works as a filter which will apply the layer terms to only the geographies selected.
+          type: array
+          examples:
+            - - geoId: 300
+                scale: 8
+              - geoId: 400
+                scale: 12
+          items:
+            $ref: '#/components/schemas/AppliesToArea'
+        companyLossTrigger:
+          $ref: '#/components/schemas/TriggerMinMax'
+          description: Company loss trigger describe the minimum and the maximum amount of ceded event losses that are covered by the layer.
+        industryLossTrigger:
+          $ref: '#/components/schemas/TriggerMinMax'
+          description: The minimum and maximum estimated industry loss that need to be satified for the ceded losses to be covered by the terms of this layer.
+        industryLossPath:
+          title: Industry Loss Path
+          description: Amazon S3 path that stores Loss Files
+          type: string
+          examples:
+            - 's3://{client_bucket_name}/uploads/ledgers/test-files/parquet/{control_ledger}'
+            - 's3://foo/bar'
+        matchLoss:
+          title: Match Loss
+          description: 'Match Loss to Occurrence Limit. When enabled sets attaching cedent losses to the value of the occurrence limit. It is used to implement Industry Loss Warranties, which when triggerd always pay a fixed amount.'
+          type: boolean
+          examples:
+            - false
+            - true
+        participations:
+          type: object
+          description: The list of named participations provided for this layer.
+          additionalProperties:
+            type: number
+            format: double
+        useParticipation:
+          oneOf:
+            - type: number
+              format: double
+              description: Override the participation of the layer with a specific value.
+            - type: string
+              description: Select the specified named participation.
+          description: If specified either sets the participation to a specific value or selects one of the defined named participations.
+        premium:
+          $ref: ../models/Money.json
+          description: The amount of premium paid upfront in currency units. Premium is paid at time of inception.
+        startingEvent:
+          title: Starting Event
+          description: The ordinal number of the occurrence at which coverage starts.
+          type: integer
+          minimum: 1
+          examples:
+            - 1
+            - 3
+        coinsuranceRate:
+          title: Coinsurance
+          description: The sharing of risk between the insurer and the insured.
+          type: number
+          minimum: 0
+          maximum: 1
+          examples:
+            - 0
+            - 0.15
+        brokerageRate:
+          title: Brokerage
+          description: The rate of brokerage paid on the upfront premium. Brokerage is paid at time of inception.
+          type: number
+          minimum: 0
+          examples:
+            - 0.1
+            - 0
+      x-tags:
+        - Contract Types
+      x-stoplight:
+        id: 90onuug3rfkdl
+    AggXL:
+      title: AggXL
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          const: AggXL_1.0
+        expirationDate:
+          title: Expiration Date
+          description: Timestamp on which the contract expires. Cannot be less than inception_date.
+          type: string
+          example: '2025-12-31T23:59:59Z'
+          format: date-time
+        inceptionDate:
+          title: Inception Date
+          description: Timestamp on which the contract incepts. Cannot be greater than expiration_date.
+          type: string
+          example: '2025-01-01T00:00:00Z'
+          format: date-time
+        companyLossTrigger:
+          $ref: '#/components/schemas/TriggerMinMax'
+          description: Company loss trigger describe the minimum and the maximum amount of ceded event losses that are covered by the layer.
+        industryLossTrigger:
+          $ref: '#/components/schemas/TriggerMinMax'
+          description: The minimum and maximum estimated industry loss that need to be satified for the ceded losses to be covered by the terms of this layer.
+        industryLossPath:
+          title: Industry Loss Path
+          description: Amazon S3 path that stores Loss Files
+          type: string
+          examples:
+            - 's3://{client_bucket_name}/uploads/ledgers/test-files/parquet/{control_ledger}'
+            - 's3://foo/bar'
+        occurrenceAttachment:
+          $ref: ../models/Money.json
+          description: The occurrence attachment or retention of the contract in currency units.
+        occurrenceLimit:
+          $ref: ../models/Money.json
+          description: The occurrence limit of the contract in currency units.
+        aggregateAttachment:
+          $ref: ../models/Money.json
+          description: The aggregate attachment or retention of the contract in currency units.
+        aggregateLimit:
+          $ref: ../models/Money.json
+          description: The aggregate limit of the contract in currency units.
+        matchLoss:
+          title: Match Loss
+          description: 'Match Loss to Occurrence Limit. When enabled sets attaching cedent losses to the value of the occurrence limit. It is used to implement Industry Loss Warranties, which when triggerd always pay a fixed amount.'
+          type: boolean
+          examples:
+            - false
+            - true
+        startingEvent:
+          title: Starting Event
+          description: The ordinal number of the occurrence at which coverage starts.
+          type: integer
+          minimum: 1
+          examples:
+            - 1
+            - 3
+        participations:
+          type: object
+          description: The list of named participations provided for this layer.
+          additionalProperties:
+            type: number
+            format: double
+        useParticipation:
+          oneOf:
+            - type: number
+              format: double
+              description: Override the participation of the layer with a specific value.
+            - type: string
+              description: Select the specified named participation.
+          description: If specified either sets the participation to a specific value or selects one of the defined named participations.
+        premium:
+          $ref: ../models/Money.json
+          description: The amount of premium paid upfront in currency units. Premium is paid at time of inception.
+        coinsuranceRate:
+          title: Coinsurance
+          description: The sharing of risk between the insurer and the insured.
+          type: number
+          minimum: 0
+          maximum: 1
+          examples:
+            - 0
+            - 0.15
+        brokerageRate:
+          title: Brokerage
+          description: The rate of brokerage paid on the upfront premium. Brokerage is paid at time of inception.
+          type: number
+          minimum: 0
+          examples:
+            - 0.1
+            - 0
+      x-tags:
+        - Contract Types
+      x-stoplight:
+        id: 2hnyzld42rf7i
+    CatXL:
+      title: CatXL
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          const: CatXL_1.0
+        expirationDate:
+          title: Expiration Date
+          description: Timestamp on which the contract expires. Cannot be less than inception_date.
+          type: string
+          example: '2025-12-31T23:59:59Z'
+          format: date-time
+        inceptionDate:
+          title: Inception Date
+          description: Timestamp on which the contract incepts. Cannot be greater than expiration_date.
+          type: string
+          example: '2025-01-01T00:00:00Z'
+          format: date-time
+        companyLossTrigger:
+          $ref: '#/components/schemas/TriggerMinMax'
+          description: Company loss trigger describe the minimum and the maximum amount of ceded event losses that are covered by the layer.
+        industryLossTrigger:
+          $ref: '#/components/schemas/TriggerMinMax'
+          description: The minimum and maximum estimated industry loss that need to be satified for the ceded losses to be covered by the terms of this layer.
+        industryLossPath:
+          title: Industry Loss Path
+          description: Amazon S3 path that stores Loss Files
+          type: string
+          examples:
+            - 's3://{client_bucket_name}/uploads/ledgers/test-files/parquet/{control_ledger}'
+            - 's3://foo/bar'
+        occurrenceAttachment:
+          $ref: ../models/Money.json
+          description: The occurrence attachment or retention of the contract in currency units.
+        occurrenceLimit:
+          $ref: ../models/Money.json
+          description: The occurrence limit of the contract in currency units.
+        reinstatements:
+          title: Reinstatements
+          description: 'The list of reinstatements if any. The list is ordered, with the first element describing the first reinstatement, the second element the second reinstatement, and so on.'
+          type: array
+          example:
+            - premiumRate: 1
+              timeProvision: 1
+              amountProvision: 0.9
+            - premiumRate: 1
+              timeProvision: ProRata
+              amountProvision: ProRata
+            - premiumRate: 1
+              timeProvision: 0.9
+              amountProvision: 1
+          items:
+            $ref: '#/components/schemas/Reinstatements'
+        matchLoss:
+          title: Match Loss
+          description: 'Match Loss to Occurrence Limit. When enabled sets attaching cedent losses to the value of the occurrence limit. It is used to implement Industry Loss Warranties, which when triggerd always pay a fixed amount.'
+          type: boolean
+          examples:
+            - false
+            - true
+        startingEvent:
+          title: Starting Event
+          description: The ordinal number of the occurrence at which coverage starts.
+          type: integer
+          minimum: 1
+          examples:
+            - 1
+            - 3
+        participations:
+          type: object
+          description: The list of named participations provided for this layer.
+          additionalProperties:
+            type: number
+            format: double
+        useParticipation:
+          oneOf:
+            - type: number
+              format: double
+              description: Override the participation of the layer with a specific value.
+            - type: string
+              description: Select the specified named participation.
+          description: If specified either sets the participation to a specific value or selects one of the defined named participations.
+        premium:
+          $ref: ../models/Money.json
+          description: The amount of premium paid upfront in currency units. Premium is paid at time of inception.
+        coinsuranceRate:
+          title: Coinsurance
+          description: The sharing of risk between the insurer and the insured.
+          type: number
+          minimum: 0
+          maximum: 1
+          examples:
+            - 0
+            - 0.15
+        brokerageRate:
+          title: Brokerage
+          description: The percentage of brokerage paid on the upfront premium. Brokerage is paid at time of inception.
+          type: number
+          minimum: 0
+          examples:
+            - 0.1
+            - 0
+      examples:
+        - type: CatXL_1.0
+          expirationDate: '2025-12-31T23:59:59Z'
+          inceptionDate: '2025-01-01T00:00:00Z'
+          companyLossTrigger:
+            min:
+              amount: 1000000
+              currencyCode: USD
+            max:
+              amount: 1000000
+              currencyCode: USD
+          industryLossTrigger:
+            min:
+              amount: 1000000
+              currencyCode: USD
+            max:
+              amount: 1000000
+              currencyCode: USD
+          industryLossPath: 's3://{client_bucket_name}/uploads/ledgers/test-files/parquet/{control_ledger}'
+          occurrenceAttachment:
+            amount: 1000000
+            currencyCode: USD
+          occurrenceLimit:
+            amount: 1000000
+            currencyCode: USD
+          reinstatements:
+            - premiumRate: 1
+              timeProvision: 1
+              amountProvision: 0.9
+            - premiumRate: 1
+              timeProvision: ProRata
+              amountProvision: ProRata
+            - premiumRate: 1
+              timeProvision: 0.9
+              amountProvision: 1
+          matchLoss: false
+          startingEvent: 1
+          participations:
+            property1: 0
+            property2: 0
+          useParticipation: 0
+          premium:
+            amount: 1000000
+            currencyCode: USD
+          coinsuranceRate: 0
+          brokerageRate: 0.1
+      x-tags:
+        - Contract Types
+      x-stoplight:
+        id: xs25pu453qwon
+    Reinstatements:
+      title: Reinstatements
+      type: object
+      additionalProperties: false
+      required:
+        - premiumRate
+        - timeProvision
+        - amountProvision
+      properties:
+        premiumRate:
+          title: Premium Ratio
+          description: The percentage of upfront premium paid as reinstatement premium for the reinstatement. Reinstatement premium is paid proportionally to either the remaining coverage period or the amount of reinstated limit at the time of the event depending on whether the reinstatement is setup as Time Provision or Amount Provision.
+          type: number
+          exclusiveMinimum: 0
+          examples:
+            - 1
+            - 0.5
+          format: double
+        timeProvision:
+          title: Time Provision
+          description: When configured as pro-rata the reinstatement premium is paid proportionally to the remaining coverage period at the time of the occurrence. Otherwise a fixed ratio of the reinstatement premium is paid at the time of the reinstatement.
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              const: ProRata
+          examples:
+            - 1
+            - ProRata
+        amountProvision:
+          title: Amount Provision
+          description: When configured as pro-rata the reinstatement premium is paid proportionally to the amount of reinstated limit at the time of occurrence. Otherwise a fixed ratio of the reinstatement premium is paid at the time of the reinstatement.
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              const: ProRata
+          examples:
+            - 0.5
+            - ProRata
+      x-tags:
+        - Contract Types
+      x-stoplight:
+        id: 2pzplcbxmwy8w
+    TriggerMinMax:
+      title: TriggerMinMax
+      x-stoplight:
+        id: 7nvwwzhwl1m99
+      type: object
+      properties:
+        min:
+          $ref: ../models/Money.json
+          x-stoplight:
+            id: uwx4itm1w35tx
+        max:
+          $ref: ../models/Money.json
+          x-stoplight:
+            id: 4efq3m5thut66
+      x-tags:
+        - Contract Types
+    SourceRelationship:
+      title: SourceRelationship
+      x-stoplight:
+        id: l62sg6ju7hreg
+      type: object
+      description: 'Represents a source relationship between the subject and another loss producing entity. '
+      x-tags:
+        - Relationships
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          x-stoplight:
+            id: qgpqe8y2ipa15
+          const: Source
+          description: Relationship type must be "Source".
+        from:
+          x-stoplight:
+            id: 21qrdvl6fqqqm
+          anyOf:
+            - $ref: '#/components/schemas/LossSetSourceReference'
+              x-stoplight:
+                id: qdytb972qap51
+            - $ref: '#/components/schemas/LayerSourceReference'
+              x-stoplight:
+                id: 0620dszkuee8u
+            - $ref: '#/components/schemas/ProgramSourceReference'
+              x-stoplight:
+                id: 04fdjnhwcxlsk
+            - $ref: '#/components/schemas/LossGroupSourceReference'
+              x-stoplight:
+                id: 2azwz5l1hc5wg
+    InuringRelationship:
+      title: InuringRelationship
+      x-stoplight:
+        id: zq21mtwu4osar
+      type: object
+      x-tags:
+        - Relationships
+      description: Represents an inuring relationship where the subject receives the output from another loss producing entity as benefits.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          x-stoplight:
+            id: dff1ho7ur3d39
+          const: Inuring
+          description: The relationship type must be "Inuring".
+        from:
+          x-stoplight:
+            id: ywrv7pgxv86hi
+          anyOf:
+            - $ref: '#/components/schemas/LossSetSourceReference'
+              x-stoplight:
+                id: jt4f0kk0bq8j5
+            - $ref: '#/components/schemas/LayerSourceReference'
+              x-stoplight:
+                id: 77aiv92boe84d
+            - $ref: '#/components/schemas/ProgramSourceReference'
+              x-stoplight:
+                id: nx1kvbl7m5pqk
+            - $ref: '#/components/schemas/LossGroupSourceReference'
+              x-stoplight:
+                id: 9tal7y88cdadv
+    StepRelationship:
+      title: StepRelationship
+      x-stoplight:
+        id: cmun4biu6sgkr
+      type: object
+      x-tags:
+        - Relationships
+      description: A step relationship with another layer. The subject covers the parent layer's subject losses only after the parent layer's limit is exhausted.
+      required:
+        - type
+        - parentLayerSid
+      properties:
+        type:
+          type: string
+          x-stoplight:
+            id: dg1q9avj0hmlx
+          const: Step
+          description: The type of the relationship must be "Step".
+        parentLayerSid:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          x-stoplight:
+            id: ka029nj4efe50
+          description: The unique identifier of the parent layer in this step layer relationship.
+    LossSetSourceReference:
+      title: LossSetSourceReference
+      x-stoplight:
+        id: k70k8wdt5sndy
+      type: object
+      x-tags:
+        - Loss Sources
+      required:
+        - type
+      properties:
+        type:
+          x-stoplight:
+            id: bh5btd0nnqo0q
+          type: string
+          const: LossSetSourceReference
+        lossSetSid:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          x-stoplight:
+            id: 2km33a9fxzq4l
+          description: Loss set's unique identifier.
+        uri:
+          type: string
+          x-stoplight:
+            id: hndav9uljb60v
+          format: uri
+          description: Optional field that can be set instead of a sid for type LossSet
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: USD
+          descripton: Optional field used to provide currency for the loss set when using the optional uri
+    LayerSourceReference:
+      title: LayerSourceReference
+      x-stoplight:
+        id: jqggunqjkkhue
+      type: object
+      x-tags:
+        - Loss Sources
+      required:
+        - type
+        - programSid
+        - layerSid
+      properties:
+        type:
+          x-stoplight:
+            id: 26b7id2jg60jh
+          type: string
+          const: LayerSourceReference
+        programSid:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          x-stoplight:
+            id: 0mcm9gtn45d31
+        layerSid:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          x-stoplight:
+            id: ubls3nvp8qznk
+          description: The layer's unique identifier.
+        useParticipation:
+          x-stoplight:
+            id: 4dxm9wkyeprsq
+          oneOf:
+            - type: number
+              x-stoplight:
+                id: 49ktd4oii8uuf
+              description: A numeric participation value for the layer. This will override any configured participation for the layer when this layer is referenced as a loss source.
+            - type: string
+              x-stoplight:
+                id: xa7hn8sb3t4wa
+              description: The name of a named participation on the layer.
+        usePerspective:
+          $ref: '#/components/schemas/Perspective'
+          x-stoplight:
+            id: jh6u2rhcaw5ee
+          description: Perspective of layer losses to use.
+    ProgramSourceReference:
+      title: ProgramSourceReference
+      x-stoplight:
+        id: dxp43z8pxgj3m
+      type: object
+      x-tags:
+        - Loss Sources
+      required:
+        - type
+        - programSid
+      properties:
+        type:
+          x-stoplight:
+            id: zh8rgi7g4cef3
+          type: string
+          const: ProgramSourceReference
+        programSid:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          x-stoplight:
+            id: jynikm93eorvr
+          description: The program's unique identifier.
+        usePerspective:
+          $ref: '#/components/schemas/Perspective'
+          x-stoplight:
+            id: xj10xw1xzrd4o
+          description: The perspective of program losses to use.
+    LossGroupSourceReference:
+      title: LossGroupSourceReference
+      x-stoplight:
+        id: ebr5l3owtm4vb
+      type: object
+      x-tags:
+        - Loss Sources
+      required:
+        - type
+        - lossGroupSid
+      properties:
+        type:
+          x-stoplight:
+            id: brdmzj4xcldyh
+          type: string
+          const: LossGroupSourceReference
+        lossGroupSid:
+          type: integer
+          x-stoplight:
+            id: y33xdmuyyoy0k
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+    Perspective:
+      title: Perspectives
+      x-stoplight:
+        id: 8s24rk2md188b
+      type: string
+      enum:
+        - GroundUp
+        - Gross
+        - Net
+        - NetRetained
+      description: Indicates the loss perspectives.
+  parameters:
+    paginationSkip:
+      name: skip
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int64
+        default: 0
+        minimum: 0
+        maximum: 9223372036854776000
+      description: Offset of where to start the page
+    paginationCount:
+      name: count
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 1
+        maximum: 100
+        default: 50
+      description: Maximum number of items per page
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../models/ProblemDetails.json
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../models/ProblemDetails.json
+    Forbidden:
+      description: Forbidden
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../models/ProblemDetails.json
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../models/ProblemDetails.json
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../models/ProblemDetails.json
+  requestBodies: {}
+  securitySchemes:
+    JWT:
+      name: Authorization
+      type: apiKey
+      in: header
+tags:
+  - name: AdjustmentFactors
+    description: Loss modifier adjustment factors
+  - name: Layers
+    description: Layers of a program
+  - name: Loss Groups
+    description: Sources of loss for layers
+  - name: Programs
+    description: 'Collection of layers, loss sources and scenarios'
+  - name: Scenarios
+    description: Set of overrides to play out different scenarios for a given program
+  - name: Contract Types
+    description: Insurance/Reinsurance contract types
+  - name: Coverage
+    description: Coverage models

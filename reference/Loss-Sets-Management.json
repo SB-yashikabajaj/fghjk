@@ -1,0 +1,1339 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "g54c8k089ytax"
+  },
+  "info": {
+    "title": "Loss Sets Management Service",
+    "version": "1.0",
+    "summary": "Provides functionality for loss set management.  ",
+    "description": "The Loss Sets Management Service provides API operations for managing loss sets (CLF, CLA) in reinsurance portfolio loss workflows. \r\n\r\nYou can create loss sets in one centralized location and decide which ones to retain or delete based on: usage, size, installation date, program expiration date, and model incompatibility indicators.",
+    "contact": {
+      "name": "",
+      "email": "",
+      "url": ""
+    },
+    "termsOfService": "",
+    "license": {
+      "name": "",
+      "url": ""
+    }
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/loss-set-management/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/loss-sets": {
+      "get": {
+        "summary": "Retrieve list of loss sets",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LossSetList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "408": {
+            "description": "Request Timeout"
+          }
+        },
+        "operationId": "get-loss-sets",
+        "x-stoplight": {
+          "id": "wchixxo6330kp"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "nameAndIdOnly",
+            "description": "When this is set to true, the list items will have only id and name values."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "listProperties",
+            "description": "Comma separated property names to retrieve"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "count",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Pagination"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "filter",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Filtering"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "skip",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Pagination"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "orderBy",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Pagination"
+          }
+        ],
+        "description": "Retrieves list of loss sets.  ",
+        "x-internal": true
+      },
+      "post": {
+        "summary": "Create a new loss set",
+        "tags": [],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded.\r\n\r\nReturns the newly created **Loss Set SID** and other information such as the program initiation information, model details, and catalog type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/LossSet"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-loss-sets",
+        "x-stoplight": {
+          "id": "0avyg0343slub"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/LossSet"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DetailedAnalysisLossSet",
+                    "x-stoplight": {
+                      "id": "ldo51ir30p8lb"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/MarketShareLossSet",
+                    "x-stoplight": {
+                      "id": "nmxtntg8d3iex"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ExposureFootprintLossSet",
+                    "x-stoplight": {
+                      "id": "44u5yvps67cvw"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ParametricLossSet",
+                    "x-stoplight": {
+                      "id": "vttdl10tgi7jc"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "description": "Create a new company loss set.\r\n\r\nA company loss set can include a set of company loss files (CLFs) or company loss associations. \r\n",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/loss-sets/{sid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a loss set",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LossSet"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-loss-sets-lossSetId",
+        "x-stoplight": {
+          "id": "uq8fofb20vrqj"
+        },
+        "x-internal": true
+      },
+      "patch": {
+        "summary": "Modify a loss set",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "operationId": "patch-loss-sets-lossSetId",
+        "x-stoplight": {
+          "id": "5yuajcdyr876e"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LossSet"
+              }
+            }
+          }
+        },
+        "description": "Modify some of the properties of the loss set",
+        "x-internal": true
+      },
+      "delete": {
+        "summary": "Delete a loss set",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/LossSet"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "delete-loss-sets-lossSetId",
+        "x-stoplight": {
+          "id": "kzv38ev8wds44"
+        },
+        "description": "Delete the loss set record and its associated data.",
+        "x-internal": true
+      }
+    },
+    "/loss-sets/{lossSetSid}/analysis-views/{analysisViewSid}/profile": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lossSetSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisViewSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieve the loss set profile.",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LossSetFieldMetaData",
+                    "x-stoplight": {
+                      "id": "jqis8nm5k7gfs"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-loss-sets-lossSetId-profile",
+        "x-stoplight": {
+          "id": "0kqy5lt86wrfd"
+        },
+        "description": "The returned data includes a list of columns, with data type information and distinct values or range for each column.\r\nAdditional restrictions may apply.  \r\n\r\nDetails TBD",
+        "x-internal": true
+      }
+    },
+    "/loss-sets/{lossSetSid}/analysis-views/{analysisViewSid}/data": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lossSetSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisViewSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a subset of data from the loss set.",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/LossSetData",
+                    "x-stoplight": {
+                      "id": "6un9esbmogcn5"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-loss-sets-lossSetId-data",
+        "x-stoplight": {
+          "id": "3jsa783d3nnoe"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "nameAndIdOnly",
+            "description": "When this is set to true, the list items will have only id and name values."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "listProperties",
+            "description": "Comma separated property names to retrieve"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "count",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Pagination"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "filter",
+            "description": "https://epm.verisk.com/confluence/pages/viewpage.action?pageId=608308568#Filtering-CustomQueriesQueryParameter"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "skip",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Pagination"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "orderBy",
+            "description": "https://epm.verisk.com/confluence/display/AIRSDGD/Pagination"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "groupBy",
+            "description": "comma separated column names"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "aggregationFunction",
+            "description": "comma separated list of: min, max, mean and sum;  default to 'sum'"
+          }
+        ],
+        "description": "\r\n   The is for getting a small faction of the aggregated loss data.  There will be probably restriction for count, # of columns, etc.  \r\n   \r\n  It may return empty results and subsequent calls with the same input may get the result data.  More details TBD.",
+        "x-internal": true
+      }
+    },
+    "/loss-sets/{lossSetSid}/analysis-views": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lossSetSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "List analysis views",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisViewList"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-loss-sets-lossSetSid-analysis-views",
+        "x-stoplight": {
+          "id": "ikkklu6c7ddks"
+        },
+        "description": "List all analysis views of the loss set.\r\n\r\nTODO: add types for list and list item for the response",
+        "x-internal": true
+      },
+      "post": {
+        "summary": "Add a new analysis view",
+        "tags": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisView"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-loss-sets-lossSetSid-analysis-views",
+        "x-stoplight": {
+          "id": "u2rfmt1taqky9"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalysisView"
+              }
+            }
+          }
+        },
+        "x-internal": true
+      }
+    },
+    "/loss-sets/{lossSetSid}/analysis-views/{analysisViewSid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lossSetSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisViewSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get analysis view",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisView"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-loss-sets-lossSetSid-analysis-views-analysisViewSid",
+        "x-stoplight": {
+          "id": "z3ndlpagvic8y"
+        },
+        "x-internal": true
+      },
+      "delete": {
+        "summary": "Remove analysis view",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisView"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "delete-loss-sets-lossSetSid-analysis-views-analysisViewSid",
+        "x-stoplight": {
+          "id": "83nmz9agxgqlp"
+        },
+        "x-internal": true
+      },
+      "patch": {
+        "description": "",
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "zwn0ktuiri7ol"
+        }
+      }
+    },
+    "/loss-sets/{lossSetSid}/analysis-views/{analysisViewSid}/actions/validate": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lossSetSid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisViewSid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "post": {
+        "summary": "validate analysis view data update upload",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {}
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64",
+                  "example": 1,
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-loss-sets-lossSetSid-analysis-views-analysisViewSid-actions-validate",
+        "x-stoplight": {
+          "id": "off0r1qik980u"
+        },
+        "description": "This returns either an activity sid if the validation takes a long time or 0 if it can finish validate quickly.",
+        "x-internal": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LossSet": {
+        "title": "LossSet",
+        "x-stoplight": {
+          "id": "ppjwr783ry9fg"
+        },
+        "type": "object",
+        "description": "Loss set contains properties about a loss set.  It may also contain model catalog details of the loss set data.\n",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "npi0gmgijx1jh"
+            },
+            "default": 1,
+            "example": 111,
+            "format": "int64",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "ri0gdiwmh5gvd"
+            }
+          },
+          "type": {
+            "x-stoplight": {
+              "id": "ho67cx5e1ipgn"
+            },
+            "enum": [
+              "Default",
+              "DetailedAnalysis",
+              "MarketShare",
+              "Parametric",
+              "EventLossTable",
+              "EpSimulations",
+              "Quantile",
+              "ExposureFootprint",
+              "External"
+            ],
+            "description": "follow up on naming of types"
+          },
+          "description": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "ketrvk3vfric6"
+            }
+          },
+          "createdBy": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "xojqhz91zssfo"
+            }
+          },
+          "dateCreated": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "8ajuq2gwajuwh"
+            },
+            "format": "date-time",
+            "readOnly": true
+          },
+          "analysisViews": {
+            "x-stoplight": {
+              "id": "kwx6u8i85udj1"
+            },
+            "description": "Leave empty in requests.  This is usually set in responses.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnalysisView",
+              "x-stoplight": {
+                "id": "mcksog3byc0xi"
+              }
+            },
+            "readOnly": true
+          }
+        }
+      },
+      "LossSetList": {
+        "title": "LossSetList",
+        "x-stoplight": {
+          "id": "7dwyjztq0rqvl"
+        },
+        "type": "object",
+        "description": "List of loss sets",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "8hmk8931uy4p5"
+            },
+            "format": "int32",
+            "default": 0,
+            "minimum": 0,
+            "description": "Number of items contained in this list. ",
+            "readOnly": true
+          },
+          "offset": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "1pl6n08ycvccn"
+            },
+            "default": 0,
+            "minimum": 0,
+            "description": "Number of items skipped when retrieving this list of items.  This is "
+          },
+          "totalCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "j87n917c8odok"
+            },
+            "default": 0,
+            "minimum": 0
+          },
+          "items": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "i7nt9fygcf7zz"
+            },
+            "items": {
+              "$ref": "#/components/schemas/LossSetListItem",
+              "x-stoplight": {
+                "id": "0dqgbmlrw6coq"
+              }
+            },
+            "readOnly": true
+          }
+        }
+      },
+      "ParametricLossSet": {
+        "title": "ParametricLossSet",
+        "x-stoplight": {
+          "id": "9fcb7mcvuxtzr"
+        },
+        "type": "object",
+        "description": "work in progress",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "tmvxhtsnu9wsx"
+            },
+            "format": "int64"
+          },
+          "Type": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "1q637i7bu89du"
+            }
+          },
+          "severityDistribution": {
+            "type": "object",
+            "x-stoplight": {
+              "id": "yyuwj8hjddxbr"
+            }
+          }
+        }
+      },
+      "LossSetFieldMetaData": {
+        "title": "LossSetFieldMetaData",
+        "x-stoplight": {
+          "id": "44c80cnr34s8u"
+        },
+        "type": "object",
+        "description": "Contains information about a loss set field.  Not final, maybe used in LossSetProfile",
+        "properties": {
+          "columnName": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "k7v21j1luqd4v"
+            }
+          },
+          "dataType": {
+            "x-stoplight": {
+              "id": "slncexpenv75u"
+            },
+            "enum": [
+              "string",
+              "integer",
+              "double"
+            ]
+          },
+          "values": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "gg3hmpnm5mme5"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "m1vw9m2bhdz40"
+              },
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "x-stoplight": {
+                    "id": "f1cnmuzr0oypp"
+                  }
+                },
+                {
+                  "type": "string",
+                  "x-stoplight": {
+                    "id": "zxkocd3wrd871"
+                  }
+                }
+              ]
+            }
+          },
+          "minValue": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "u9rtbpn6tsv6t"
+            }
+          },
+          "maxValue": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "2eb1rvvzpvhkp"
+            }
+          }
+        }
+      },
+      "LossSetModelInfo": {
+        "title": "LossSetModelInfo",
+        "x-stoplight": {
+          "id": "jza1rbkg12x6m"
+        },
+        "type": "object",
+        "properties": {
+          "modelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "joygkvs3gm2h2"
+            },
+            "readOnly": true
+          },
+          "modelVersion": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "x0u9lxgjnow4x"
+            },
+            "readOnly": true
+          },
+          "maxYear": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "lcnhfqkkn3rm7"
+            },
+            "readOnly": true
+          },
+          "yearCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "02vg8a0uv9qiy"
+            },
+            "readOnly": true
+          },
+          "eventCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "k3dj6n0iq56z5"
+            },
+            "readOnly": true
+          },
+          "perils": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "q21yyj3fv9rnv"
+            },
+            "description": "number must be a valid peril code;",
+            "items": {
+              "x-stoplight": {
+                "id": "c0ku5wpzkbfj3"
+              },
+              "type": "integer"
+            },
+            "readOnly": true
+          },
+          "hasDemandSurgeApplied": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "oz48owhiaxlyp"
+            },
+            "readOnly": true
+          },
+          "geoResolution": {
+            "x-stoplight": {
+              "id": "1q5u09ip9guyc"
+            },
+            "enum": [
+              "L1",
+              "L2",
+              "L3",
+              "None"
+            ],
+            "readOnly": true
+          },
+          "oilPriceAmount": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "gwxhgjeb8f89f"
+            },
+            "format": "double",
+            "readOnly": true
+          },
+          "oilPriceCurrencyCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "2fcr9hfjt8r5g"
+            },
+            "readOnly": true
+          }
+        }
+      },
+      "LossSetProfile": {
+        "title": "LossSetProfile",
+        "x-stoplight": {
+          "id": "crrv4hjq236kl"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4u4br594zya52"
+            }
+          }
+        },
+        "description": "Place holder for loss set profile.  details TBD"
+      },
+      "LossSetData": {
+        "title": "LossSetData",
+        "x-stoplight": {
+          "id": "9h79t1ppgywlv"
+        },
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "9wjyqr5o57g49"
+            }
+          },
+          "offset": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "74mgxdjll6vv4"
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "42vvgbd4lry6b"
+            }
+          },
+          "columns": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "4nvzdnn67v3rh"
+            },
+            "description": "column name as key, column data type as value",
+            "items": {
+              "x-stoplight": {
+                "id": "wjicjwy0ezu18"
+              },
+              "type": "object",
+              "additionalProperties": {
+                "x-stoplight": {
+                  "id": "klh8xhxyqfrmj"
+                },
+                "enum": [
+                  "String",
+                  "Integer",
+                  "Double"
+                ]
+              }
+            }
+          },
+          "data": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "1gev5jufm3byn"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "vh247k5hnv0aq"
+              },
+              "type": "array",
+              "items": {
+                "x-stoplight": {
+                  "id": "dbchtu8onv0lu"
+                },
+                "type": [
+                  "integer",
+                  "string",
+                  "number"
+                ]
+              }
+            }
+          }
+        },
+        "description": "Loss set data "
+      },
+      "LossSetListItem": {
+        "title": "LossSetListItem",
+        "x-stoplight": {
+          "id": "lyxv8m0aqqk9b"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "default": 0,
+            "x-stoplight": {
+              "id": "vukkp98rkqkxq"
+            },
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdBy": {
+            "$ref": "../models/UserInfo.json"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "AnalysisView": {
+        "title": "AnalysisView",
+        "x-stoplight": {
+          "id": "b66rnjjtfmyxn"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "4q9snaiquwakc"
+            },
+            "default": 1,
+            "example": 1,
+            "format": "int64",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4lk5snflk7064"
+            },
+            "description": "Recommend naming convention of [AnalysisName].[Type].  For example, \"anlysis1.stochastic\" and \"anlysis1.historical\"."
+          },
+          "modelType": {
+            "x-stoplight": {
+              "id": "u7sdfr45keldi"
+            },
+            "enum": [
+              "Stochastic",
+              "Historical",
+              "Scenarios"
+            ]
+          },
+          "status": {
+            "x-stoplight": {
+              "id": "s7or40ij3jgrb"
+            },
+            "enum": [
+              "Empty",
+              "Invalid",
+              "Validating",
+              "Complete"
+            ],
+            "description": "The status of the data.  it is empty when first created.  users can upload data and set it to validating, once validated, it is set to complete."
+          },
+          "runId": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "od3xhnevi73vz"
+            },
+            "format": "int64",
+            "description": "used to group mutliple analysis views as one run group. For example, we run analysis that generate a stochastic, historical and scenario analysis view in the same run.\r\nWhen create a new AnalysisView, leave this null or 0 will start a new run group with the runId set as the sid of this object;  Use the runId of an existing AnalysisView to assoicate the new object with the existing run group.\r\n\r\nThis runId can also be used to create parent-children AnalysisView's with the parent AnalysisView created first, followed by child AnalysisView's using the parent's runId.  This can be used to implement the TouchstoneRe behavior,when a analysis generates stochastic, historical and scenario AnalysisViews in the same run with the stochastic one as the parent and historical and scenario AnalysisView's as children. "
+          },
+          "s3Path": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "e92togk0cd7u7"
+            },
+            "format": "uri",
+            "readOnly": true
+          },
+          "metaData": {
+            "type": "object",
+            "x-stoplight": {
+              "id": "9fkeb79wyk96x"
+            },
+            "additionalProperties": {
+              "x-stoplight": {
+                "id": "530hqc43kilex"
+              },
+              "anyOf": [
+                {
+                  "type": "string",
+                  "x-stoplight": {
+                    "id": "d6p0sax5t6w8s"
+                  }
+                },
+                {
+                  "type": "integer",
+                  "x-stoplight": {
+                    "id": "qsko2t1s68rua"
+                  }
+                },
+                {
+                  "type": "number",
+                  "x-stoplight": {
+                    "id": "yw3qpu2zwx6x1"
+                  }
+                },
+                {
+                  "type": "boolean",
+                  "x-stoplight": {
+                    "id": "k1i5o9ysemc2f"
+                  }
+                },
+                {
+                  "type": "object",
+                  "x-stoplight": {
+                    "id": "ymy471vlilpf9"
+                  }
+                }
+              ]
+            }
+          },
+          "modelInfo": {
+            "$ref": "#/components/schemas/LossSetModelInfo",
+            "x-stoplight": {
+              "id": "vd3qbmidpuxzk"
+            },
+            "description": "Leave empty in requests.  This is usually set in responses."
+          }
+        }
+      },
+      "DetailedAnalysisLossSet": {
+        "title": "DetailedAnalysisLossSet",
+        "x-stoplight": {
+          "id": "7hupnm0atqzfx"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "e5awsdlpgy8s5"
+            },
+            "format": "int64",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "ih8xi3l4arfzq"
+            },
+            "default": "DetailedAnalysis",
+            "example": "DetailedAnalysis",
+            "description": "Must be DetailedAnalysis"
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "xfjiyejjkcsw7"
+            }
+          },
+          "description": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "7oowie7qsnoe4"
+            }
+          },
+          "othersTBD": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "8jhrvvb7khnzo"
+            }
+          }
+        }
+      },
+      "MarketShareLossSet": {
+        "title": "MarketShareLossSet",
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "default": "DetailedAnalysis",
+            "example": "DetailedAnalysis",
+            "description": "Must be DetailedAnalysis"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "othersTBD": {
+            "type": "string"
+          }
+        },
+        "x-stoplight": {
+          "id": "lxxrxkd2khjun"
+        }
+      },
+      "ExposureFootprintLossSet": {
+        "title": "ExposureFootprintLossSet",
+        "x-stoplight": {
+          "id": "onmu65r2sfa9a"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "default": "DetailedAnalysis",
+            "example": "DetailedAnalysis",
+            "description": "Must be DetailedAnalysis"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "othersTBD": {
+            "type": "string"
+          }
+        }
+      },
+      "AnalysisViewList": {
+        "title": "AnalysisViewList",
+        "x-stoplight": {
+          "id": "tw26j249vwvgk"
+        },
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "81c18nzd73s4c"
+            }
+          },
+          "items": {
+            "$ref": "#/components/schemas/AnalysisViewListItem",
+            "x-stoplight": {
+              "id": "igcqr3x4yulhy"
+            }
+          }
+        }
+      },
+      "AnalysisViewListItem": {
+        "title": "AnalysisViewListItem",
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "default": 1,
+            "example": 1,
+            "format": "int64",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "modelType": {
+            "enum": [
+              "Stochastic",
+              "Historical",
+              "Scenarios"
+            ]
+          },
+          "status": {
+            "enum": [
+              "Empty",
+              "Invalid",
+              "Validating",
+              "Complete"
+            ],
+            "description": "The status of the data.  it is empty when first created.  users can upload data and set it to validating, once validated, it is set to complete."
+          },
+          "runId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "used to group mutliple analysis views as one run group. For example, we run analysis that generate a stochastic, historical and scenario analysis view in the same run.\r\nWhen create a new AnalysisView, leave this null or 0 will start a new run group with the runId set as the sid of this object;  Use the runId of an existing AnalysisView to assoicate the new object with the existing run group."
+          }
+        },
+        "x-stoplight": {
+          "id": "zh35uzj40pi7b"
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header"
+      }
+    }
+  }
+}

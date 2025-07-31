@@ -1,0 +1,23 @@
+title: PreSignedUrl
+x-stoplight:
+  id: tsb6yfbsyy2s4
+type: object
+description: Represents a pre-signed URL.  This can be used for both upload and download.
+properties:
+  urlId:
+    type: string
+    x-stoplight:
+      id: hefgkvsqgubdu
+    readOnly: true
+  url:
+    type: string
+    x-stoplight:
+      id: rtnrie38u7pxr
+    readOnly: true
+  mode:
+    x-stoplight:
+      id: qd6rs37ftxxms
+    enum:
+      - upload
+      - download
+    readOnly: true

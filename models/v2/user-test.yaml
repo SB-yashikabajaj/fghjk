@@ -1,0 +1,36 @@
+title: user-test
+x-stoplight:
+  id: 7zd14usccq5qd
+type: object
+properties:
+  id:
+    type: string
+    x-stoplight:
+      id: 68r7b13gnt8da
+  first-name:
+    type: string
+    x-stoplight:
+      id: x7be4ei6rxnw6
+  last-name:
+    type: string
+    x-stoplight:
+      id: 7ot1q11a0yo4l
+  email:
+    type: string
+    x-stoplight:
+      id: 4ex2lg8qrq9vb
+  dob:
+    type: string
+    x-stoplight:
+      id: tz29e1yqcb4pa
+  address:
+    type: string
+    x-stoplight:
+      id: i509vpeg4orgn
+examples:
+  - id: string
+    first-name: string
+    last-name: string
+    email: string
+    dob: string
+    address: string

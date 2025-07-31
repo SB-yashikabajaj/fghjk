@@ -1,0 +1,2140 @@
+{
+  "openapi": "3.0.1",
+  "x-stoplight": {
+    "id": "7g80kvf1x4xbj"
+  },
+  "info": {
+    "title": "Activity Management Service",
+    "description": "The Activity Management Service provides the API operations for running, monitoring, and managing activities in Synergy Studio. \nThe Activity Monitor in Synergy Studio generates activity logs for the submitted activities. You can use this log to view the detailed log or the error summary section in the API response.",
+    "termsOfService": "",
+    "contact": {
+      "name": "",
+      "url": "",
+      "email": ""
+    },
+    "license": {
+      "name": "",
+      "url": ""
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/activity-management/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/activities": {
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Submit a new activity.",
+        "description": "Submit a new activity.",
+        "operationId": "SubmitActivity",
+        "requestBody": {
+          "description": "The creation of the activity is in progress.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewActivity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "n2i3t330gdph4"
+        }
+      },
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Retrieve activities",
+        "description": "Retrieves detailed information about one or more activities associated with the user's tenant specified in the request.",
+        "operationId": "GetActivities",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/skip"
+          },
+          {
+            "$ref": "#/components/parameters/count"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contains a list of activities that you have chosen to retrieve.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityCollection"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "dowmhuob611r1"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/activities/{sid}": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Retrieve activity information",
+        "description": "Retrieves detailed information about of an activity associated with the user's tenant specified in the request.",
+        "operationId": "GetActivity",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "0j53eydxl1cn2"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Update activity",
+        "description": "Modifies the activity associated with the specified activity ID.",
+        "operationId": "UpdateActivity",
+        "requestBody": {
+          "description": "The properties to update.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActivity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "4x9fu9gme2dvn"
+        },
+        "x-internal": true
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/sid"
+        }
+      ]
+    },
+    "/activities/{sid}/status": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Retrieve activity status",
+        "description": "Retrieves the status of the activity specified in the request.",
+        "operationId": "GetActivityStatus",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "03g81gmrtdpyf"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/sid"
+        }
+      ]
+    },
+    "/activities/{sid}/actions/cancel": {
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Cancel activity",
+        "description": "Cancels the activity identified by the unique activity ID in the request.",
+        "operationId": "CancelActivity",
+        "responses": {
+          "202": {
+            "description": "Request accepted, and the asynchronous cancellation process is ongoing.\r\n\r\nThe response message validates whether the passed activity sid is a cancellable activity.\r\n\r\n"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "7x7nsjnbg8p0d"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "requestBody": {
+          "description": ""
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/sid"
+        }
+      ]
+    },
+    "/activities/{sid}/actions/resubmit": {
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Resubmits an activity",
+        "description": "Resubmits the activity specified by the activity ID, generating a new activity with a different activity ID.",
+        "operationId": "ResubmitActivity",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Activity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "pfh31su0qsl3l"
+        },
+        "x-internal": true
+      },
+      "parameters": [
+        {
+          "name": "sid",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9223372036854776000,
+            "format": "int64",
+            "example": 9976
+          },
+          "description": "The ID of the activity."
+        }
+      ]
+    },
+    "/definitions/{definitionId}/{definitionVersion}": {
+      "get": {
+        "tags": [
+          "ActivityDefinition"
+        ],
+        "summary": "Get a ActivityDefinition record by Id",
+        "description": "Get a ActivityDefinition record by Id",
+        "operationId": "GetActivityDefinitionByIdAndVersion",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinition"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinition"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "wm3k9p4gogje7"
+        },
+        "x-internal": true
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/definitionId"
+        },
+        {
+          "$ref": "#/components/parameters/definitionVersion"
+        }
+      ]
+    },
+    "/definitions/{definitionId}": {
+      "get": {
+        "tags": [
+          "ActivityDefinition"
+        ],
+        "summary": "Get the ActivityDefinition records for specified Id",
+        "description": "Get the ActivityDefinition records for specified Id",
+        "operationId": "GetActivityDefinitionById",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinitionCollection"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinitionCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "j4bd2u0yueme8"
+        },
+        "x-internal": true
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/definitionId"
+        }
+      ]
+    },
+    "/definitions": {
+      "get": {
+        "tags": [
+          "ActivityDefinition"
+        ],
+        "summary": "Get all ActivityDefinitions",
+        "description": "Get all ActivityDefinitions",
+        "operationId": "GetActivityDefinitions",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinitionCollection"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinitionCollection"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "j431vvmunydxb"
+        },
+        "x-internal": true
+      },
+      "post": {
+        "tags": [
+          "ActivityDefinition"
+        ],
+        "summary": "Register a new activity definition",
+        "description": "Register a new activity definition.",
+        "operationId": "RegisterActivityDefinition",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewActivityDefinition"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinition"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityDefinition"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "2xe6nnu121fq5"
+        }
+      }
+    },
+    "/tenants/{tenantId}/stats/activities": {
+      "get": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Returns activity statistics for the specified tenant",
+        "description": "Returns activity statistics for the specified tenant.",
+        "operationId": "GetActivityStatsByTenant",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityMetrics"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityMetrics"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "klm0zfwk9r76v"
+        },
+        "x-internal": true
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/tenantId"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Activity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "x-stoplight": {
+              "id": "ozayrfoekgnjt"
+            },
+            "example": "1976-09-09T06:12:00.123Z",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "description": "The system-generated date and time when the activity is initiated.",
+            "readOnly": true
+          },
+          "dateFinished": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1976-09-09T06:17:00.123Z",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "description": "The date and time generated by the system when the activity is completed.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "dateModified": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1976-09-09T06:12:00.123Z",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "description": "The date and time generated by the system when the activity is modified and resubmitted.",
+            "readOnly": true
+          },
+          "dateScheduled": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1976-09-09T06:12:00.123Z",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "description": "The date and time specified by the user to schedule the submission of an activity.",
+            "readOnly": true
+          },
+          "dateStarted": {
+            "type": "string",
+            "format": "date-time",
+            "example": "1976-09-09T06:12:30.123Z",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "description": "The start date and time of the activity when it is initiated.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "definition": {
+            "$ref": "#/components/schemas/ActivityDefinitionInfo"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 1024,
+            "nullable": true,
+            "readOnly": true
+          },
+          "duration": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "7rgszhb3phj8v"
+            },
+            "minimum": 0,
+            "example": 120,
+            "format": "int64",
+            "description": "The duration of the activity, in seconds.",
+            "readOnly": true
+          },
+          "input": {
+            "type": "string",
+            "maxLength": 16384,
+            "nullable": true,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 256,
+            "description": "Name of the activity.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 50,
+            "description": "The user specified comments.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "output": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "percentCompleted": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 42,
+            "description": "The percentage of the activity that is completed.",
+            "readOnly": true
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "readOnly": true
+          },
+          "sid": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "The system-assigned identifier for the activity.",
+            "readOnly": true
+          },
+          "stages": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ActivityStage"
+            },
+            "readOnly": true
+          },
+          "stageOverrides": {
+            "type": "array",
+            "uniqueItems": true,
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/StageOverride"
+            },
+            "readOnly": true
+          },
+          "state": {
+            "$ref": "#/components/schemas/ActivityState"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "tenantId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "readOnly": true
+          },
+          "uid": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json"
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json"
+          }
+        },
+        "x-stoplight": {
+          "id": "ciokk3t3hokud"
+        },
+        "description": "An activity refers to the analysis that a user initiates within the platform.",
+        "title": ""
+      },
+      "ActivityAction": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "uri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "hxmsu6vtjuzo1"
+        },
+        "description": ""
+      },
+      "ActivityActions": {
+        "type": "object",
+        "properties": {
+          "onCancelled": {
+            "$ref": "#/components/schemas/ActivityAction"
+          },
+          "onCompleted": {
+            "$ref": "#/components/schemas/ActivityAction"
+          },
+          "onFailed": {
+            "$ref": "#/components/schemas/ActivityAction"
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "bdh9mxvduxamo"
+        },
+        "description": "Contains the status of each activity."
+      },
+      "ActivityCollection": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "8t0ewsjvzpx06"
+            },
+            "format": "int32",
+            "minimum": 0,
+            "readOnly": true
+          },
+          "items": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "brry601ggwx6e"
+            },
+            "minItems": 0,
+            "items": {
+              "$ref": "#/components/schemas/Activity"
+            },
+            "readOnly": true
+          }
+        },
+        "x-stoplight": {
+          "id": "hk7a7qwdr6n0f"
+        },
+        "description": "Contains a list of activity objects with detailed information for reporting purposes. Each activity object includes the activity sid, creation, modification, and completion dates, the progress of the activity, its duration, the scheduled time, and tenant details like who created the activity and when."
+      },
+      "ActivityDefinition": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actions": {
+            "$ref": "#/components/schemas/ActivityActions"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateCreated": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "pumnrheicz6ir"
+            },
+            "format": "date-time",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "readOnly": true
+          },
+          "dateModified": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "bk4tk5q6wuuus"
+            },
+            "format": "date-time",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "readOnly": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "input": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "output": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "stepFunctionArn": {
+            "type": "string",
+            "nullable": true
+          },
+          "stages": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/Stage"
+            }
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json"
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "title": "",
+        "x-stoplight": {
+          "id": "1uinqeackql6o"
+        },
+        "description": "Contains the activity status and user metadata, including details such as who created the activity, who modified it, when it was modified, product ID, and version."
+      },
+      "ActivityDefinitionCollection": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "readOnly": true
+          },
+          "items": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+              "$ref": "#/components/schemas/ActivityDefinition"
+            },
+            "readOnly": true
+          }
+        },
+        "x-stoplight": {
+          "id": "6up6z8q7oe1ks"
+        },
+        "description": "A collection of activity definition objects. Each object in the array identifies a specific activity definition and its corresponding metadata information."
+      },
+      "ActivityDefinitionInfo": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "detailed-loss",
+            "description": "Contains the unique identifier of the activity. "
+          },
+          "name": {
+            "type": "string",
+            "example": "Detailed Loss Analysis",
+            "description": "Name of the activity.",
+            "readOnly": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "example": 1,
+            "nullable": true
+          }
+        },
+        "x-stoplight": {
+          "id": "866u9s2zbsmyb"
+        },
+        "description": "Contains the name of the activity supported by the platform."
+      },
+      "ActivityMetrics": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "byDefinition": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivityMetricsByActivityDefinition"
+            },
+            "nullable": true
+          },
+          "byState": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivityMetricsByState"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "ubsu10jgghg2y"
+        },
+        "description": "Contains a counter to track the activities by state and unique activity definition sid."
+      },
+      "ActivityMetricsByActivityDefinition": {
+        "type": "object",
+        "properties": {
+          "activityDefinitionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "byState": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivityMetricsByState"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "cyv2keszk7nty"
+        },
+        "description": "Contains the activity metrics by unique activity definition ID for reporting purposes."
+      },
+      "ActivityMetricsByState": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "rtsgsfxhisel4"
+        },
+        "description": "Contains the activity metrics by state of the activity for reporting purposes."
+      },
+      "ActivityStage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cardinality": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "dateModified": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$"
+          },
+          "dateStarted": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\\.(0|\\d{3})Z$",
+            "nullable": true
+          },
+          "dependsOn": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "percentCompleted": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "x-stoplight": {
+          "id": "9pb3gvccgf40k"
+        },
+        "description": "Contains activity details such as the unique ID of the activity creator (associated with a tenant), creation date, last modified date, and progress of the activity."
+      },
+      "ActivityState": {
+        "title": "ActivityState",
+        "x-stoplight": {
+          "id": "5o4og9v75hi6b"
+        },
+        "enum": [
+          "Cancelled",
+          "Cancelling",
+          "Completed",
+          "CompletedWithExceptions",
+          "Failed",
+          "Queued",
+          "Running"
+        ],
+        "readOnly": true,
+        "description": "The state of the activity submitted to the platform."
+      },
+      "ActivityStatus": {
+        "title": "ActivityStatus",
+        "x-stoplight": {
+          "id": "tppifl0ch21zk"
+        },
+        "type": "object",
+        "description": "Represents the progress of an activity.",
+        "properties": {
+          "percentCompleted": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "vg35667fwj4fz"
+            },
+            "minimum": 0,
+            "maximum": 100,
+            "example": 42,
+            "default": 0,
+            "format": "int32",
+            "readOnly": true
+          },
+          "state": {
+            "$ref": "#/components/schemas/ActivityState"
+          }
+        }
+      },
+      "NewActivity": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definition",
+          "name"
+        ],
+        "properties": {
+          "definition": {
+            "$ref": "#/components/schemas/ActivityDefinitionInfo"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "input": {
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 50,
+            "nullable": true,
+            "writeOnly": true
+          },
+          "stageOverrides": {
+            "type": "array",
+            "uniqueItems": true,
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/StageOverride"
+            }
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "vln06jtl9cvg5"
+        },
+        "description": "Contains the new activity details such as the unique ID and name of the activity, creator (associated with a tenant), and other metadata tags that the creator associated with this new activity.  "
+      },
+      "NewActivityDefinition": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "description",
+          "name",
+          "productId",
+          "stepFunctionArn",
+          "stages",
+          "version"
+        ],
+        "properties": {
+          "actions": {
+            "$ref": "#/components/schemas/ActivityActions"
+          },
+          "category": {
+            "maxLength": 256,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 3,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 1024,
+            "minLength": 0,
+            "type": "string",
+            "writeOnly": true
+          },
+          "name": {
+            "maxLength": 256,
+            "minLength": 5,
+            "type": "string",
+            "writeOnly": true
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid",
+            "writeOnly": true
+          },
+          "input": {
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "output": {
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "stepFunctionArn": {
+            "minLength": 1,
+            "pattern": "^arn:(aws|aws-cn|aws-us-gov):states:[a-zA-Z0-9-]+:[0-9]+:stateMachine:[^<>\\[\\]{}?*\"#%\\\\^|~`$&,;:/]+$",
+            "type": "string"
+          },
+          "stages": {
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/components/schemas/Stage"
+            }
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "version": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "x-stoplight": {
+          "id": "7wi9bemigusdg"
+        },
+        "description": "Contains the activity definition details for the new activity, including its state, unique identifier, step function, and stage."
+      },
+      "Stage": {
+        "type": "object",
+        "properties": {
+          "cardinality": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "jklxije948v00"
+        },
+        "description": "Indicates the stage of a specific activity on the platform. "
+      },
+      "StageOverride": {
+        "type": "object",
+        "properties": {
+          "cardinality": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "9l2gnxa6h2xb1"
+        },
+        "description": "Indicates whether the activity has any override."
+      },
+      "UpdateActivity": {
+        "type": "object",
+        "properties": {
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "3if500opgez0v"
+        },
+        "description": "User notes for updated activity"
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header"
+      }
+    },
+    "parameters": {
+      "sid": {
+        "name": "sid",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854776000,
+          "format": "int64",
+          "example": 9976
+        },
+        "description": "The ID of the activity."
+      },
+      "tenantId": {
+        "name": "tenantId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "example": "b6c51e9e-16e2-4b09-a32b-f91f50e7b0a3"
+        },
+        "description": "The ID of the tenant."
+      },
+      "definitionId": {
+        "name": "definitionId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-\\\\._~\\\\{{\\\\}}\\\\[\\\\]@!\\\\$'\\\\(\\\\)\\\\*\\\\+,;%=]{{{10},{256}}}",
+          "minLength": 10,
+          "maxLength": 256
+        },
+        "description": "The ID of the activity definition."
+      },
+      "definitionVersion": {
+        "name": "definitionVersion",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^([1-9][0-9]*|[lL][aA][tT][eE][sS][tT])",
+          "minLength": 1
+        },
+        "description": "The version of the activity definition."
+      },
+      "skip": {
+        "name": "skip",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 0,
+          "format": "int32",
+          "minimum": 0,
+          "maximum": 2147483647,
+          "example": 10
+        },
+        "description": "The number of records to skip before retrieving new records."
+      },
+      "count": {
+        "name": "count",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 2147483647,
+          "maximum": 2147483647,
+          "minimum": 0,
+          "example": 100
+        },
+        "description": "The number of records to retrieve."
+      },
+      "orderBy": {
+        "name": "orderBy",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "example": "desc,datecreated",
+          "default": "desc,datecreated"
+        },
+        "description": "The order to return the records."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Activities",
+      "description": "Activities"
+    },
+    {
+      "name": "ActivityDefinition",
+      "description": "Activity Definitions"
+    },
+    {
+      "name": "Tenants",
+      "description": "Tenants"
+    }
+  ]
+}

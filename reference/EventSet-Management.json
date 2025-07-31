@@ -1,0 +1,1511 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "uhvfbivhg8ij5"
+  },
+  "info": {
+    "title": "Event Set Management Service",
+    "description": "The Event Set Management Service provides the API operations for managing event sets in Synergy Studio. \nAn event set contains stochastic or historical occurrences of a specific peril or a combination of perils in a particular geographic region. The Synergy Studio platform includes event set data files for each peril and region licensed by your company. \n\nWhen you run a detailed loss analysis or an aggregate loss analysis on a reinsurance program or portfolio of reinsurance treaties, you supply an Event Set SID to indicate the set of stochastic, historical, or RDS events to include in the analysis.\n\nAll users can: \n- retrieve the event set details, and\n- add the custom event sets. \n\nAdministrators can: \n- modify or delete custom event sets.\n",
+    "termsOfService": "",
+    "contact": {
+      "name": "",
+      "url": "",
+      "email": ""
+    },
+    "license": {
+      "name": "",
+      "url": ""
+    },
+    "version": "1.0",
+    "summary": "Provides the API operations for managing event sets."
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/event-set-management/v1",
+      "description": "Staging"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Catalog",
+      "description": "Catalog"
+    },
+    {
+      "name": "CatalogDetails",
+      "description": "CatalogDetails"
+    },
+    {
+      "name": "EventSet",
+      "description": "EventSet"
+    },
+    {
+      "name": "EventSets",
+      "description": "EventSets"
+    },
+    {
+      "name": "Model",
+      "description": "Model"
+    },
+    {
+      "name": "Models",
+      "description": "Models"
+    }
+  ],
+  "paths": {
+    "/event-sets": {
+      "parameters": [],
+      "get": {
+        "summary": "Retrieve event sets",
+        "responses": {
+          "200": {
+            "description": "Retrieves a list of all existing event sets for the tenant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventSetInformationCollection"
+                },
+                "examples": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "GetEventSets",
+        "description": "Retrieves a list of all existing event sets for the tenant.",
+        "x-stoplight": {
+          "id": "ksu7tl7nzklkd"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "filter",
+            "description": "The analysis type of event sets that is to be returned. For example: /event-sets?filter=analysisType eq 'Detailed'"
+          }
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/event-sets/{sid}": {
+      "get": {
+        "summary": "Retrieve event set",
+        "operationId": "GetEventset",
+        "responses": {
+          "200": {
+            "description": "Returns the event set corresponding to the sid provided\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventSet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {},
+          "description": {}
+        },
+        "description": "Returns the event set corresponding to the sid provided",
+        "x-stoplight": {
+          "id": "pfogawj9ps9w0"
+        },
+        "parameters": [],
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "exclusiveMinimum": false
+          },
+          "name": "sid",
+          "in": "path",
+          "description": "Contains the software-generated sequential identifier (SID) that uniquely identifies the event set.",
+          "required": true,
+          "deprecated": false
+        }
+      ],
+      "put": {
+        "summary": "Update event set",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "put-event-sets-sid",
+        "x-stoplight": {
+          "id": "r0h1n6ufg17uz"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventSetUpdateDto"
+              }
+            }
+          }
+        },
+        "description": "Updates the event set level and model level settings of that particular event set",
+        "x-internal": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DetailedEventSet": {
+        "title": "Event Set",
+        "description": "An Event Set is a data file of stochastic or historical occurrences of a particular peril or combination of perils in a particular geographic region. Use event sets to configure analysis options and perform the Detailed and Aggregate loss analyses.",
+        "type": "object",
+        "x-stoplight": {
+          "id": "z96klgaho9qpm"
+        },
+        "required": [
+          "sid",
+          "models"
+        ],
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "x-stoplight": {
+              "id": "carw74vhjer3b"
+            }
+          },
+          "disaggregationRegions": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "p9gact854fmqh"
+            },
+            "items": {
+              "$ref": "#/components/schemas/DisaggregationRegion",
+              "x-stoplight": {
+                "id": "aslil6j31mf3t"
+              }
+            }
+          },
+          "moveMarineCraftGeocodes": {
+            "type": "boolean"
+          },
+          "models": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Model"
+            }
+          }
+        }
+      },
+      "EventSetInformation": {
+        "title": "EventSetInformation",
+        "description": " Contains information about an Event Set.",
+        "x-stoplight": {
+          "id": "el3fcrfyl1thu"
+        },
+        "type": "object",
+        "required": [
+          "sid"
+        ],
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "7lmvl2xr2n1ks"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "8ot4zhf4t575h"
+            }
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventSetType",
+            "x-stoplight": {
+              "id": "75f2cb7fd8p8m"
+            }
+          },
+          "analysisType": {
+            "x-stoplight": {
+              "id": "6ka6tc5c4gsib"
+            },
+            "example": "Detailed,Aggregate",
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "14u1as5ki53cn"
+            },
+            "format": "date-time"
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "f5o03h1f3hn3k"
+            }
+          },
+          "dateModified": {
+            "x-stoplight": {
+              "id": "31i02ibgcwbs8"
+            },
+            "type": "string",
+            "format": "date-time"
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "ajlforowkg8b0"
+            }
+          }
+        }
+      },
+      "Catalog": {
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "id": 1,
+            "catalogTypeCode": "STC",
+            "catalog": "100K_Alternate_US_Eq_14",
+            "version": "20.00.00",
+            "modelCode": 11,
+            "modelVersion": "09.01.0613",
+            "maximumYear": 100000,
+            "YearCount": 99613,
+            "maximumEvent": 1881603,
+            "eventCount": 716612,
+            "baseName": "M11_Cat_100k_TID",
+            "dateEntered": "2014-11-03",
+            "dateEdited": "2017-02-16",
+            "statusCode": "INV",
+            "previousVersionModel": false,
+            "custom": false
+          }
+        },
+        "examples": [
+          {
+            "id": 0,
+            "catalogTypeCode": "string",
+            "catalog": "string",
+            "version": "string",
+            "modelCode": 0,
+            "modelVersion": "string",
+            "maximumYear": 0,
+            "yearCount": 0,
+            "maximumEvent": 0,
+            "eventCount": 0,
+            "baseName": "string",
+            "dateEntered": "string",
+            "dateEdited": "string",
+            "statusCode": "string",
+            "previousVersionModel": true,
+            "custom": true
+          }
+        ],
+        "required": [
+          "sid",
+          "typeCode",
+          "catalogModelCode"
+        ],
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "1nyof3zq6e4kd"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "typeCode": {
+            "$ref": "#/components/schemas/CatalogType",
+            "x-stoplight": {
+              "id": "47qq60en8bmnv"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "5gv3dnzibdduy"
+            }
+          },
+          "version": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "ur9nrvb7rwjr1"
+            }
+          },
+          "catalogModelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "yx4ock7ibybaw"
+            },
+            "readOnly": true
+          },
+          "modelVersion": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "hh41rk2mdsbng"
+            }
+          },
+          "maximumYear": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "pqnnmeyzgd0m0"
+            }
+          },
+          "yearCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "43tjeesegj63b"
+            }
+          },
+          "maximumEvent": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "f3elajz4a9yju"
+            }
+          },
+          "eventCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "0e4s320f4rdzr"
+            }
+          },
+          "baseName": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4pf8pwqlatn3z"
+            }
+          },
+          "dateCreated": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "9numn6s85dtri"
+            },
+            "format": "date-time"
+          },
+          "dateModified": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "um6tgs9dqml1h"
+            },
+            "format": "date-time"
+          },
+          "statusCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "i6v2bfhgsq4nm"
+            }
+          },
+          "previousVersionModel": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "qpz9576n9t6sd"
+            }
+          },
+          "custom": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "tdhgvm76znfdh"
+            }
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "angaslxiq1he3"
+            }
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "7lwfm8t3aqb4r"
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "w9ja9gpiniqmi"
+        },
+        "description": "The catalog for each model associated with the event set."
+      },
+      "Model": {
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "id": 1,
+            "modelCode": 1,
+            "model": "Verisk Terrorism Loss Estimation Model",
+            "perilSetCode": 32,
+            "catalogModelCode": 1,
+            "modelDLLVersion": "2.0.0",
+            "modelLineOfBusiness": "PP",
+            "dateEntered": "2014-10-22",
+            "dateEdited": "2015-10-07",
+            "statusCode": "INV",
+            "modelProductVersion": "3.0.0",
+            "previousVersionModel": false,
+            "demandsurge": "WITH",
+            "averageProperty": "ON",
+            "remapInvalidConstructionOccupancy": false
+          }
+        },
+        "required": [
+          "sid",
+          "modelCode",
+          "name"
+        ],
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "wvx1jmfmw4nia"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "modelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "wvomzr4tief1h"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "blsigmv7vmna2"
+            }
+          },
+          "modelVersion": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "vv5d18ew35570"
+            }
+          },
+          "previousVersionModel": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "ljk1j6a6q4fsh"
+            }
+          },
+          "perils": {
+            "x-stoplight": {
+              "id": "hwk0mn0buqd8a"
+            },
+            "type": "array",
+            "items": {
+              "x-stoplight": {
+                "id": "zapd24kqnmbzr"
+              },
+              "type": "string"
+            }
+          },
+          "selectedPerils": {
+            "x-stoplight": {
+              "id": "qn1eks4l4ujc2"
+            },
+            "type": "array",
+            "items": {
+              "x-stoplight": {
+                "id": "anoszo37c04wc"
+              },
+              "type": "string"
+            }
+          },
+          "earthquakeOptions": {
+            "$ref": "#/components/schemas/EarthquakeOptions",
+            "x-stoplight": {
+              "id": "oqmkaintlukza"
+            }
+          },
+          "stormSurgeOptions": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "5y9mehjrgq02i"
+            },
+            "items": {
+              "$ref": "#/components/schemas/PercentageByLineOfBusiness",
+              "x-stoplight": {
+                "id": "ip6ub8logc9iz"
+              }
+            }
+          },
+          "precipitationFloodOptions": {
+            "$ref": "#/components/schemas/PrecipitationFloodOptions",
+            "x-stoplight": {
+              "id": "fd2se3aqu3mi6"
+            }
+          },
+          "inlandFloodOptions": {
+            "$ref": "#/components/schemas/InlandFloodOptions",
+            "x-stoplight": {
+              "id": "15z7mf1gig8p7"
+            }
+          },
+          "demandSurgeOptions": {
+            "$ref": "#/components/schemas/DemandSurgeOptions",
+            "x-stoplight": {
+              "id": "4gh0wjqstxr4d"
+            }
+          },
+          "averageProperties": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "2kr58l19ovwd8"
+            }
+          },
+          "ignoreInvalidConstructionOccupancyCodes": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "wy9ybrvrb0mr0"
+            }
+          },
+          "catalogs": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "4r7ayok1nu4bc"
+            },
+            "items": {
+              "$ref": "#/components/schemas/Catalog",
+              "x-stoplight": {
+                "id": "ieej50loqndgb"
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "qprfh96qrglyn"
+        },
+        "description": "The name of each model associated with the event set."
+      },
+      "WorkersCompensation": {
+        "title": "WorkersCompensation",
+        "x-stoplight": {
+          "id": "ix2fynguwgd8j"
+        },
+        "type": "object",
+        "properties": {
+          "modelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "uoimnv06wcdba"
+            }
+          },
+          "modelName": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "xcuxlbbxocypn"
+            }
+          },
+          "modelVersion": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "khkd45vehlc1h"
+            }
+          }
+        },
+        "description": "Contains the model code, model name, and version for coding Workers' Compensation exposure data."
+      },
+      "EarthquakeOptions": {
+        "title": "EarthquakeOptions",
+        "x-stoplight": {
+          "id": "wx8mi9mzy1e2v"
+        },
+        "type": "object",
+        "properties": {
+          "seismicityEvents": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "mj4m3ktwex4k2"
+            }
+          },
+          "inducedEvents": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "jf90ou9e3usxa"
+            }
+          }
+        },
+        "description": "Contains options to indicate seismic and induced events when configuring the loss analysis options for the Verisk Earthquake Model."
+      },
+      "DemandSurgeOptions": {
+        "title": "DemandSurgeOptions",
+        "x-stoplight": {
+          "id": "r22tlrev0287e"
+        },
+        "type": "object",
+        "properties": {
+          "applyCustom": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "g76oyfvl1b7ce"
+            }
+          }
+        },
+        "description": "Indicates whether you want to apply demand surge when configuring a Detailed loss analysis."
+      },
+      "InlandFloodOptions": {
+        "title": "InlandFloodOptions",
+        "x-stoplight": {
+          "id": "xn4tp8b8y3ie1"
+        },
+        "type": "object",
+        "properties": {
+          "onFloodPlain": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "o71xlx93v6sxm"
+            }
+          },
+          "offFloodPlain": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "dv2fgc2thnhsu"
+            }
+          },
+          "floodZones": {
+            "$ref": "#/components/schemas/FloodZones",
+            "x-stoplight": {
+              "id": "jgkxsib312k81"
+            }
+          }
+        },
+        "description": "Indicates whether you want the platform to apply flood zones and flood plain options for this Detailed loss analysis."
+      },
+      "FloodZones": {
+        "title": "FloodZones",
+        "x-stoplight": {
+          "id": "3ju1o9a4qchdy"
+        },
+        "type": "object",
+        "description": "Use this setting to select the flood zones that you want the platform to analyze when performing a catastrophe peril analysis that includes the inland flood peril for Europe.",
+        "properties": {
+          "default": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "zvw239ywjembn"
+            },
+            "description": "Includes exposures that have not been assigned to a specific custom flood zone in the analysis."
+          },
+          "zone1": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "5eb3xdt6kjxwu"
+            },
+            "description": "Includes exposures in flood zone 1 in a catastrophe peril analysis that includes the inland flood peril. "
+          },
+          "zone2": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "4zpq7g2pe72ah"
+            },
+            "description": "Includes exposures in flood zone 2 in a catastrophe peril analysis that includes the inland flood peril."
+          },
+          "zone3": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "71wm90ghhh4jx"
+            },
+            "description": "Includes exposures in flood zone 3 in a catastrophe peril analysis that includes the inland flood peril."
+          },
+          "zone4": {
+            "x-stoplight": {
+              "id": "kurcjne8yb8eo"
+            },
+            "type": "boolean",
+            "description": "Includes exposures in flood zone 4 in a catastrophe peril analysis that includes the inland flood peril."
+          }
+        }
+      },
+      "PercentageByLineOfBusiness": {
+        "title": "PercentageByLineOfBusiness",
+        "x-stoplight": {
+          "id": "8dt2joe9yruzu"
+        },
+        "type": "object",
+        "required": [
+          "percentage"
+        ],
+        "properties": {
+          "userLinesOfBusiness": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "x-stoplight": {
+              "id": "p25d9mwsq1t94"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "euk852hga1cgj"
+              },
+              "type": "string"
+            }
+          },
+          "percentage": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "ndq02ef8ztj5s"
+            },
+            "format": "float",
+            "maximum": 100,
+            "minimum": 0
+          }
+        },
+        "description": "Indicates the percentage of line of business for each user-created lines of business."
+      },
+      "PrecipitationFloodOptions": {
+        "title": "PrecipitationFloodOptions",
+        "x-stoplight": {
+          "id": "lfqy4cudmr6zz"
+        },
+        "type": "object",
+        "description": "Represents the precipitation flood options and percentage for each line of business (LOB) associated with the target for a catastrophe peril analysis. \n\nSpecify the desired flood plain and precipitation flood percentage for each LOB.  ",
+        "properties": {
+          "onFloodPlain": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "7h2lj4rgpuemt"
+            },
+            "description": "(Required if you want to calculate Flood Plain hazard losses in a Detailed loss analysis) Indicates whether the platform should include the 'OnFloodPlain' option during a DetailedLossAnalysis."
+          },
+          "offFloodPlain": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "5bchpq0og8ibm"
+            },
+            "description": "(Required if you want to calculate Flood Plain hazard losses in a Detailed loss analysis) Indicates whether the platform should include the 'OffFloodPlain' option during a DetailedLossAnalysis."
+          },
+          "percentagesByLineOfBusiness": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "q1hbzogvgwsbs"
+            },
+            "description": "Represents the precipitation flood percentage for each line of business (LOB).",
+            "items": {
+              "$ref": "#/components/schemas/PercentageByLineOfBusiness",
+              "x-stoplight": {
+                "id": "duq8z3sonm7m7"
+              }
+            }
+          }
+        }
+      },
+      "ModelTransferDto": {
+        "title": "ModelTransferDto",
+        "x-stoplight": {
+          "id": "v4gaxrg42dg4f"
+        },
+        "type": "object",
+        "properties": {
+          "modelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "hfhvqg22b6upl"
+            }
+          },
+          "selectedPerils": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "7j41ouxk05c8l"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "93srgjo970vjw"
+              },
+              "type": "string"
+            }
+          },
+          "earthquakeOptions": {
+            "$ref": "#/components/schemas/EarthquakeOptions",
+            "x-stoplight": {
+              "id": "f403sdp8ketj9"
+            }
+          },
+          "stormSurgeOptions": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "m31n5em3wyam9"
+            },
+            "items": {
+              "$ref": "#/components/schemas/PercentageByLineOfBusiness",
+              "x-stoplight": {
+                "id": "31grh0s65rfn7"
+              }
+            }
+          },
+          "precipitationFloodOptions": {
+            "$ref": "#/components/schemas/PrecipitationFloodOptions",
+            "x-stoplight": {
+              "id": "flyy76kh3d13z"
+            }
+          },
+          "inlandFloodOptions": {
+            "$ref": "#/components/schemas/InlandFloodOptions",
+            "x-stoplight": {
+              "id": "b0vjb5bqrw968"
+            }
+          },
+          "demandSurgeOptions": {
+            "$ref": "#/components/schemas/DemandSurgeOptions",
+            "x-stoplight": {
+              "id": "20y06yqppfef5"
+            }
+          },
+          "averageProperties": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "3vz2dj2jzzcbf"
+            }
+          },
+          "ignoreInvalidConstructionOccupancyCodes": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "7yfbk1rgr84j6"
+            }
+          }
+        },
+        "description": "Contains the model transfer details for Verisk Models supported by the platform."
+      },
+      "EventSetTransferDto": {
+        "title": "EventSetTransferDto",
+        "x-stoplight": {
+          "id": "gbkty0h031200"
+        },
+        "type": "object",
+        "properties": {
+          "applyDisaggregation": {
+            "$ref": "#/components/schemas/DisaggregationRegionUpdateDto",
+            "x-stoplight": {
+              "id": "gefmzpm4a823z"
+            }
+          },
+          "moveMarineCraftGeocodes": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "9cu3of5vr9ido"
+            }
+          }
+        },
+        "description": "Contains options for the platform to use, including applying disaggregation by selected countries and moving marine craft geocodes for event sets when configuring a Detailed Loss Analysis."
+      },
+      "EventSetUpdateDto": {
+        "title": "EventSetUpdateDto",
+        "x-stoplight": {
+          "id": "ozkp6rx9bnewy"
+        },
+        "type": "object",
+        "properties": {
+          "detailedEventSetUpdateDto": {
+            "$ref": "#/components/schemas/DetailedEventSetUpdateDto",
+            "x-stoplight": {
+              "id": "sp9utpnt4w5h2"
+            }
+          },
+          "aggregateModelUpdateDto": {
+            "$ref": "#/components/schemas/AggregateModelUpdateDto",
+            "x-stoplight": {
+              "id": "g5r9pu698d20l"
+            }
+          }
+        },
+        "description": "Contains the detailed information about each event set included in the Detailed and Aggregate event modeling."
+      },
+      "DetailedEventSetUpdateDto": {
+        "title": "DetailedEventSetUpdateDto",
+        "x-stoplight": {
+          "id": "absfdflmdl1ee"
+        },
+        "type": "object",
+        "properties": {
+          "eventSetSettings": {
+            "$ref": "#/components/schemas/EventSetTransferDto",
+            "x-stoplight": {
+              "id": "3g8cr41dl14j3"
+            }
+          },
+          "modelSettings": {
+            "$ref": "#/components/schemas/ModelTransferDto",
+            "x-stoplight": {
+              "id": "0oewn3eyzunpp"
+            }
+          }
+        },
+        "description": "Contains information about the event set settings, including the disaggregation, model parameters, and construction/occupancy codes information for the selected events sets in this Detailed loss analysis."
+      },
+      "AggregateEventSet": {
+        "title": "AggregateEventSet",
+        "x-stoplight": {
+          "id": "8hla79o1f1knc"
+        },
+        "type": "object",
+        "x-internal": false,
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "9ig4el81dv029"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "wykego8c7ss65"
+            }
+          },
+          "models": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "m0dzok39ufbss"
+            },
+            "items": {
+              "$ref": "#/components/schemas/AggregateModelDto",
+              "x-stoplight": {
+                "id": "56arwk3j0dlvd"
+              }
+            }
+          }
+        },
+        "description": "Contains the consolidated information for each event set used in the Aggregate loss modeling, including its unique sid and name of the event, model associated with the event set, industry loss file, and perils. "
+      },
+      "AggregateModelDto": {
+        "title": "AggregateModelDto",
+        "x-stoplight": {
+          "id": "hko87ig9yjkyn"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "5x9t87h59dhe1"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "s2ygchl62qvpl"
+            }
+          },
+          "modelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "kzs5vzjymafew"
+            }
+          },
+          "modelVersion": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "7kl03ovoy8zbq"
+            }
+          },
+          "years": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "c32d4a7r805sz"
+            }
+          },
+          "events": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "1oeil631tonc5"
+            }
+          },
+          "currency": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "cypg7y23j9fin"
+            }
+          },
+          "industryLossFileName": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "5ejt8qe6oi5jq"
+            }
+          },
+          "perils": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "46nsfobd7mifh"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "3zi1zslbmcz1e"
+              },
+              "type": "string"
+            }
+          },
+          "selectedPerils": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "ac28kk8wy7qpc"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "pqnty2p1mtwdw"
+              },
+              "type": "string"
+            }
+          },
+          "iedSettings": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "oohqn4qdt1rib"
+            }
+          },
+          "customLobs": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "cwby5vsqbp559"
+            }
+          },
+          "earthquakeOptions": {
+            "$ref": "#/components/schemas/AggregateEarthquakeOptions",
+            "x-stoplight": {
+              "id": "6iigpdnhwulc0"
+            }
+          },
+          "demandSurgeOptions": {
+            "$ref": "#/components/schemas/DemandSurgeOptions",
+            "x-stoplight": {
+              "id": "l9ybxaztwf3pc"
+            }
+          }
+        },
+        "description": "Contains the model details used for the Aggregate loss analysis."
+      },
+      "AggregateEarthquakeOptions": {
+        "title": "AggregateEarthquakeOptions",
+        "x-stoplight": {
+          "id": "brxlqv9nhi6is"
+        },
+        "type": "object",
+        "properties": {
+          "seismicityEvents": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "2vadkw9r9628y"
+            }
+          }
+        },
+        "description": "Contains the flag that indicates the earthquake options used for the Aggregate loss analysis."
+      },
+      "AggregateModelUpdateDto": {
+        "title": "AggregateModelUpdateDto",
+        "x-stoplight": {
+          "id": "pf3xegym4xh54"
+        },
+        "type": "object",
+        "properties": {
+          "modelCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "pwfrokx7t6l5e"
+            }
+          },
+          "selectedPerils": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "f41lpkstj5sfd"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "606929z6cgve7"
+              },
+              "type": "string"
+            }
+          },
+          "iedSettings": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "zrh3yewda6hb8"
+            }
+          },
+          "customLobs": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "f1wdyj9txr36c"
+            }
+          },
+          "earthquakeOptions": {
+            "$ref": "#/components/schemas/AggregateEarthquakeOptions",
+            "x-stoplight": {
+              "id": "99sorqn76ksuu"
+            }
+          },
+          "demandSurgeOptions": {
+            "$ref": "#/components/schemas/DemandSurgeOptions",
+            "x-stoplight": {
+              "id": "n6aywcazn9yg8"
+            }
+          }
+        },
+        "description": "Contains the detailed information for the model update for this Aggregate loss analysis."
+      },
+      "EventSetType": {
+        "title": "EventSetType",
+        "x-stoplight": {
+          "id": "d8bbhs37toixe"
+        },
+        "enum": [
+          "Industry",
+          "Company",
+          "Historical",
+          "Custom",
+          "RealTime",
+          "User",
+          "RDS",
+          "ALERT",
+          "ModelBuilder"
+        ],
+        "description": "Indicates the type of the event set for the exposures that you are analyzing within the platform. "
+      },
+      "EventSetInformationCollection": {
+        "title": "EventSetInformationCollection",
+        "x-stoplight": {
+          "id": "bcmnr0ss3whi2"
+        },
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "taaf2yqn4ir1c"
+            }
+          },
+          "items": {
+            "x-stoplight": {
+              "id": "sk84yi2uabbht"
+            },
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventSetInformation",
+              "x-stoplight": {
+                "id": "63bcknje7jn3r"
+              }
+            }
+          }
+        },
+        "description": "Contains the detailed information about the all the event sets that you can use in a Detailed or Aggregate event modeling in Synergy Studio."
+      },
+      "EventSet": {
+        "title": "EventSet",
+        "x-stoplight": {
+          "id": "upkcgi4pcxv0l"
+        },
+        "type": "object",
+        "properties": {
+          "detailedEventSet": {
+            "$ref": "#/components/schemas/DetailedEventSet",
+            "x-stoplight": {
+              "id": "nwqf9pfevc098"
+            }
+          },
+          "aggregateEventSet": {
+            "$ref": "#/components/schemas/AggregateEventSet",
+            "x-stoplight": {
+              "id": "a0exumwpjxgqk"
+            }
+          }
+        },
+        "description": "An event set is a collection of detailed information about the stochastic and historical catalogs available for each of Verisk's peril models."
+      },
+      "Country": {
+        "title": "Country",
+        "x-stoplight": {
+          "id": "dhjkkp88r0a0c"
+        },
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4ejqj6qpvma0p"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "lovwg39qes0xo"
+            }
+          },
+          "disaggregation": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "8thhgmqzc2cau"
+            }
+          }
+        },
+        "description": "Indicates whether you want the platform to apply disaggreation for this country."
+      },
+      "DisaggregationRegion": {
+        "title": "DisaggregationRegion",
+        "x-stoplight": {
+          "id": "zwm68bgd8o2hm"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "xgn21upd2okct"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "countries": {
+            "x-stoplight": {
+              "id": "i8m5615fmssm0"
+            },
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Country",
+              "x-stoplight": {
+                "id": "rmbx4erydh5wl"
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "c1xjiy9n3l4od"
+            }
+          }
+        },
+        "description": "Contains the unique sid and countries associated with the disaggregated region for an event set."
+      },
+      "CatalogType": {
+        "title": "CatalogType",
+        "x-stoplight": {
+          "id": "enlcb9d1mj8z2"
+        },
+        "enum": [
+          "ALERT",
+          "Custom",
+          "Historical",
+          "ModelBuilder",
+          "RDS",
+          "RealTime",
+          "Stochastic",
+          "User"
+        ],
+        "description": "Indicates the catalog type for the event set."
+      },
+      "CountryUpdateDto": {
+        "title": "CountryUpdateDto",
+        "x-stoplight": {
+          "id": "2527q78xg7coj"
+        },
+        "type": "object",
+        "properties": {
+          "codes": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "fcttscuu29g8i"
+            }
+          },
+          "disaggregation": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "k7rxjdxpqqp8n"
+            }
+          }
+        },
+        "description": "Indicates whether disaggregation is set for the selected countries."
+      },
+      "DisaggregationRegionUpdateDto": {
+        "title": "DisaggregationRegionUpdateDto",
+        "x-stoplight": {
+          "id": "ce8o9uqx3him5"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "a6y0jzb6w6f9s"
+            },
+            "format": "int64",
+            "minimum": 1
+          },
+          "countries": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "y035rg8b7bo5m"
+            },
+            "items": {
+              "$ref": "#/components/schemas/CountryUpdateDto",
+              "x-stoplight": {
+                "id": "jtnsmy1jz7eud"
+              }
+            }
+          }
+        },
+        "description": "Indicates a list of updated countries within a region for which disaggregation has been selected. Each object consists of all the countries whose disaggregation value is modified"
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header"
+      }
+    }
+  }
+}

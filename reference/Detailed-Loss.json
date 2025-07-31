@@ -1,0 +1,879 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "8b9hub5r7jwbr"
+  },
+  "info": {
+    "title": "Detailed Loss Analysis Service",
+    "description": "The Detailed Loss Analysis Service provides the API operations for performing Insurance Portfolio Loss Analysis in Synergy Studio. This probabilistic analysis models loss estimates for your exposure data (property and workers' compensation) based on simulated events we generate.\n\nYou can use the API to run a detailed loss analysis on the exposure data using a Verisk model.\n\n### Submit a Detailed loss analysis\n\nFollow these steps to perform a Detailed loss analysis: \n\n1. Use one of the **GET** endpoints: `/event-sets` or `/event-sets/{sid}` to retrieve the event sets you want to use in the Detailed loss analysis. \n2. Configure the analysis options: Select a Verisk Model, apply event sets, deductibles, disaggregation, and enable Demand Surge, among other properties.\n3. **POST** to the `/detailed-loss` endpoint: This returns the activity sid associated with the Detailed loss analysis.\n4. **GET** the status of the submitted activity using the: `/activities/{sid}/status` endpoint.\n",
+    "termsOfService": "",
+    "contact": {
+      "name": "",
+      "url": "",
+      "email": ""
+    },
+    "license": {
+      "name": "",
+      "url": ""
+    },
+    "version": "1.0",
+    "summary": ""
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/detailed-loss-analysis/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/detailed-loss": {
+      "post": {
+        "tags": [
+          "DetailedLoss"
+        ],
+        "description": "Initiates a Detailed loss analysis.",
+        "summary": "Submit Detailed loss analysis",
+        "responses": {
+          "201": {
+            "description": "The request has succeeded.\r\n\r\nReturns the **Activity SID** that uniquely identifies the completed Detailed Loss analysis.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activitySid": {
+                      "type": "integer",
+                      "format": "int64",
+                      "x-stoplight": {
+                        "id": "63omhc9lwc9ks"
+                      }
+                    }
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activityId": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activityId": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activityId": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activityId": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activityId": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "SubmitDetailedLossAnalysis",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetailedLossAnalysis"
+              }
+            }
+          },
+          "description": "Analysis options"
+        },
+        "x-stoplight": {
+          "id": "8dmby8bltw64i"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "servers": [],
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "DetailedLossAnalysis": {
+        "title": "DetailedLossAnalysis",
+        "type": "object",
+        "description": "Contains properties that define the target of a loss analysis, including the SID and type of the Data Source on which to store this loss analysis, among other properties.",
+        "required": [
+          "target",
+          "name",
+          "options"
+        ],
+        "properties": {
+          "target": {
+            "type": "object",
+            "x-stoplight": {
+              "id": "ri8pg4qn8yhqx"
+            },
+            "required": [
+              "sid",
+              "type"
+            ],
+            "properties": {
+              "sid": {
+                "type": "integer",
+                "x-stoplight": {
+                  "id": "fl72j20igtymn"
+                },
+                "minimum": 0,
+                "format": "int64",
+                "description": "Contains the Synergy Studio-generated Sequential Identifier (SID) that uniquely identifies this analysis."
+              },
+              "type": {
+                "type": "string",
+                "x-stoplight": {
+                  "id": "c7dbl8sd9go7o"
+                },
+                "description": "Contains the type of database for this analysis : \r\n- Exposure (EXP)\r\n- Results (RES)"
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "Contains the name of this Detailed Loss Analysis."
+          },
+          "options": {
+            "$ref": "#/components/schemas/DetailedLossAnalysisOptions",
+            "description": "Contains options for configuring a Detailed Loss Analysis, including whether to apply the deductible before the limit, and apply loss modification template, among other properties."
+          }
+        },
+        "x-stoplight": {
+          "id": "94fzj581cp1gk"
+        }
+      },
+      "DetailedLossAnalysisOptions": {
+        "type": "object",
+        "description": "Contains options for configuring a Detailed Loss Analysis, including whether to apply the deductible before the limit, and apply loss modification template, among other properties.",
+        "required": [
+          "analysisSettings",
+          "resultSettings"
+        ],
+        "properties": {
+          "analysisSettings": {
+            "type": "object",
+            "description": "Contains the configuration parameters for this analysis.",
+            "required": [
+              "eventSet"
+            ],
+            "properties": {
+              "eventSet": {
+                "type": "object",
+                "description": "Contains the standard name of the Event Set to apply to this Detailed Loss Analysis.  ",
+                "required": [
+                  "sid",
+                  "models"
+                ],
+                "properties": {
+                  "sid": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-stoplight": {
+                      "id": "2tqks3ic7iocm"
+                    },
+                    "minimum": 0,
+                    "description": "Contains the unique sequential identifier for the base analysis. "
+                  },
+                  "disaggregation": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "x-stoplight": {
+                      "id": "zdm5jceuq8vb8"
+                    },
+                    "default": false,
+                    "description": "Specifies whether to apply disaggregation for this Detailed Loss Analysis.\r\n\r\nYou can choose whether to apply disaggregation during an analysis. The default is False. \r\nHowever, Synergy Studio ignores the disaggregation setting for all countries except Central America, Mexico, Japan, and China. For example, if the exposure data includes Canadian CRESTA or FSA centroid Locations, and you specify False for the ApplyDisaggregation property, Synergy Studio still disaggregates the data."
+                  },
+                  "moveMarineCraftGeocodes": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "x-stoplight": {
+                      "id": "8jg3qtgf73a3j"
+                    },
+                    "default": false,
+                    "description": "Specifies whether Synergy Studio should relocate marine craft geocodes \r\nto the nearest coast during this catastrophe peril analysis. \r\nTo enable this relocation, set this property to 'True'."
+                  },
+                  "models": {
+                    "type": "array",
+                    "description": "Contains details about the model associated with the catalog.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "sid",
+                        "perils"
+                      ],
+                      "properties": {
+                        "sid": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-stoplight": {
+                            "id": "8z60h1cnob7kr"
+                          },
+                          "minimum": 0,
+                          "description": "Contains the unique Sequential Identifier associated with the model."
+                        },
+                        "perils": {
+                          "type": "array",
+                          "description": "Contains a peril set code that identifies the peril(s) that you would like to include in this Detailed Loss Analysis.",
+                          "items": {
+                            "type": "string",
+                            "example": "MultiPerilCrop CoastalFlood CropHail EarthquakeShake FireFollowing Hail InlandFlood Liquefaction Landslide NonCat PrecipitationFlood Pandemic SprinklerLeakage Smoke SevereThunderstorm StormSurge StraightLineWinds Wind Tornado Terrorism Tsunami Wildfire WinterStorm"
+                          }
+                        },
+                        "earthquakeOptions": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "description": "Contains the Earthquake Loss options for this Detailed Loss Analysis.",
+                          "properties": {
+                            "seismicityEvents": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ],
+                              "default": false,
+                              "description": "Indicates whether to include additional events in \r\nthe event catalog to account for increased \r\nseismicity beyond the historical average\r\nduring this Detailed Loss Analysis."
+                            },
+                            "inducedEvents": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ],
+                              "default": false,
+                              "description": "Indicates whether to include seismic events caused by fracking, during this \r\nDetailed Loss Analysis."
+                            }
+                          }
+                        },
+                        "stormSurgeOptions": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "description": "Contains the Storm Surge options for this Detailed Loss Analysis.",
+                          "items": {
+                            "$ref": "#/components/schemas/PercentagesByLineOfBusiness",
+                            "x-stoplight": {
+                              "id": "9ved19czhbsg6"
+                            }
+                          }
+                        },
+                        "precipitationFloodOptions": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "description": "Contains the parameters for assessing precipitation-driven flooding for a location. ",
+                          "properties": {
+                            "onFloodplain": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ],
+                              "default": false,
+                              "description": "Indicates whether Synergy Studio should include the 'OnFloodPlain' option during this DetailedLossAnalysis."
+                            },
+                            "offFloodplain": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ],
+                              "default": false,
+                              "description": "Indicates whether Synergy Studio should include the 'OffFloodPlain' option during a DetailedLossAnalysis."
+                            },
+                            "percentagesByLineOfBusiness": {
+                              "type": "array",
+                              "description": "Contains the percentages of each line of business for this DetailedLossAnalysis.",
+                              "items": {
+                                "$ref": "#/components/schemas/PercentagesByLineOfBusiness",
+                                "x-stoplight": {
+                                  "id": "vbd17uyyeosia"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "inlandFloodOptions": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "description": "Contains event intensity data for an inland flood event at the location.",
+                          "properties": {
+                            "onFloodplain": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ],
+                              "default": false,
+                              "description": "Indicates whether Synergy Studio should include the 'OnFloodPlain' option during this Detailed Loss Analysis."
+                            },
+                            "offFloodplain": {
+                              "type": [
+                                "boolean",
+                                "null"
+                              ],
+                              "default": false,
+                              "description": "Indicates whether Synergy Studio should include the 'OffFloodPlain' option during this Detailed Loss Analysis."
+                            },
+                            "floodZones": {
+                              "type": "object",
+                              "description": "Contains a list of the flood zones that you would like to include in this Detailed Loss Analysis.",
+                              "properties": {
+                                "default": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ],
+                                  "default": false,
+                                  "description": "Flood zones are not set by default. You can specify any combination of 1, 2, 3, and/or 4 to indicate your selection from among the four flood zones."
+                                },
+                                "zone1": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ],
+                                  "default": false,
+                                  "description": "Indicates the zone 1 that you want to include in a Detailed Loss Analysis."
+                                },
+                                "zone2": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ],
+                                  "default": false,
+                                  "description": "Indicates the zone 2 that you want to include in a Detailed Loss Analysis."
+                                },
+                                "zone3": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ],
+                                  "default": false,
+                                  "description": "Indicates the zone 3 that you want to include in a Detailed Loss Analysis."
+                                },
+                                "zone4": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ],
+                                  "default": false,
+                                  "description": "Indicates the zone 4 that you want to include in a Detailed Loss Analysis."
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "demandSurgeOptions": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "description": "Indicates whether demand surge factor is selected for this Detailed Loss Analysis.",
+                          "properties": {
+                            "applyCustom": {
+                              "type": "boolean",
+                              "x-stoplight": {
+                                "id": "u7u0qsqgtzt2l"
+                              },
+                              "default": false,
+                              "description": "Specifies whether Synergy Studio should use custom Demand Surge Curves for specific regions during the Detailed Loss Analysis."
+                            }
+                          }
+                        },
+                        "averageProperties": {
+                          "type": "string",
+                          "default": "Auto",
+                          "description": "Specifies how Synergy Studio should apply average physical properties, such as soil type and land use/land cover data, at a region-specific geographic resolution during a Detailed Loss Analysis."
+                        },
+                        "ignoreInvalidConstructionOccupancyCodes": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ],
+                          "default": false,
+                          "description": " Indicates whether Synergy Studio should ignore invalid construction/occupancy pairs in the Exposure data during this Detailed Loss Analysis."
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "lossModificationFactorSids": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "description": "Contains the  Synergy Studio generated Sequential Identifier that uniquely identifies the Loss Modification Analysis Templates to use during this Detailed Loss Analysis.",
+                "items": {
+                  "type": "integer",
+                  "format": "int32",
+                  "x-stoplight": {
+                    "id": "84iy98aqnlftq"
+                  },
+                  "minimum": 0
+                }
+              },
+              "baselineAnalysisSid": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "x-stoplight": {
+                  "id": "6zaw3nonok4cg"
+                },
+                "format": "int64",
+                "minimum": 0,
+                "description": "Contains the unique sequential identifier for the base analysis.  "
+              },
+              "advancedSettings": {
+                "type": "object",
+                "x-stoplight": {
+                  "id": "qxmn1uvetac8x"
+                },
+                "additionalProperties": {
+                  "x-stoplight": {
+                    "id": "62iyarv4m4ucp"
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "resultSettings": {
+            "type": "object",
+            "description": "Contains options for configuring the financial perspectives, injury type, number of claims, summary of loss results by coverage or peril, and more.",
+            "required": [
+              "currency",
+              "currencyExchangeRateSid",
+              "lossPerspectives",
+              "saveLossByEvent"
+            ],
+            "properties": {
+              "currency": {
+                "type": "string",
+                "description": "Contains the currency code for this Detailed Loss Analysis.\r\n\r\n Synergy Studio uses the standard ISO three-character currency codes. For the U.S. dollar, the currency code is USD. For the Euro, the currency code is EUR."
+              },
+              "currencyExchangeRateSid": {
+                "type": "integer",
+                "x-stoplight": {
+                  "id": "akr99ktnnm7vf"
+                },
+                "format": "int32",
+                "minimum": 0,
+                "description": "Contains the unique Sequential Identifier of the currency exchange rate set for the exposures defined in this Detailed Loss Analysis."
+              },
+              "lossPerspectives": {
+                "type": "object",
+                "description": "Specifies the loss perspectives to include in loss results. Each loss perspective provides you with a different way of measuring losses from a particular event.",
+                "properties": {
+                  "groundUp": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to include ground up losses in loss results.\r\n\r\n    The total loss generated, before the application of financial terms. "
+                  },
+                  "gross": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to include gross losses in loss results. \r\n\r\n    The total loss generated after the application of contract-level limits and deductibles (including layers and sublimits)."
+                  },
+                  "retained": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "x-stoplight": {
+                      "id": "hpxt2fkv6yo4s"
+                    },
+                    "default": false,
+                    "description": "Indicates whether to include retained losses in loss results. \r\n    \r\n    The total loss generated after the application of location-level deductibles and of anything not covered by other limits or deductibles at the location or contract level."
+                  },
+                  "preLayerGross": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "x-stoplight": {
+                      "id": "foc1o87ux5ks0"
+                    },
+                    "default": false,
+                    "description": "Indicates whether to include pre-layer gross in loss results. \r\n    \r\n    The total loss generated after the application of location-level limits and deductibles."
+                  },
+                  "netOfPreCat": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to include NET of PRE-CAT losses in loss results. \r\n\r\n    The total loss generated after the application of all reinsurance treaties, except for Catastrophe Excess of Loss (CAT XOL) treaties."
+                  },
+                  "postCatNet": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "x-stoplight": {
+                      "id": "428tg8x6aj3gw"
+                    },
+                    "default": false,
+                    "description": "Indicates whether to include POST-CAT NET in loss results. \r\n\r\n    \tThe total loss generated after the application of all reinsurance treaties, including CAT XOL treaties."
+                  }
+                }
+              },
+              "saveLossByEvent": {
+                "type": "object",
+                "required": [
+                  "portfolio"
+                ],
+                "description": "Specifies how Synergy Studio saves loss results for a Detailed Loss Analysis.",
+                "properties": {
+                  "portfolio": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Indicates whether to save loss results by portfolio."
+                  },
+                  "contract": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to save loss results by contract."
+                  },
+                  "layer": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to save loss results by layer."
+                  },
+                  "lineOfBusiness": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to save loss results by multiple lines of business (LOBs)."
+                  },
+                  "contractUdf": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Specifies whether to save loss results by single contract UDF."
+                  },
+                  "locationUdf": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Specifies whether to save loss results by single location UDF."
+                  },
+                  "location": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
+                    "default": false,
+                    "description": "Indicates whether to save loss results by individual location."
+                  },
+                  "geography": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Indicates whether to save loss results by geography."
+                  }
+                }
+              },
+              "coverage": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Indicates whether to save results by individual coverage (building, other structures, contents, time element) for a Detailed Loss Analysis."
+              },
+              "subperil": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Specifies whether to save loss results by subperil."
+              },
+              "epByModel": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Indicates whether Synergy Studio saves the combined losses by model."
+              },
+              "epByPeril": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Indicates whether Synergy Studio saves the combined losses by peril."
+              },
+              "aalSummaryContract": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Specifies that Synergy Studio should include Average Annual Losses (AAL) by Contract (CONSUM) in the loss results from a Detailed Loss Analysis."
+              },
+              "aalSummaryLocation": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Specifies that Synergy Studio should only include by Contract and Location in the loss results from a Detailed Loss Analysis (2)."
+              },
+              "injuryType": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Indicates whether to save results by injury types for a Detailed Loss Analysis.\r\nThe following table details the injury type definitions:\r\n\r\nU.S. Severity Level | Japan Severity Level| Description\r\n---------|----------|---------\r\n Minor | Outpatient | \tInjuries requiring basic medical aid without requiring hospitalization.\r\n Moderate | Hospitalization and Surgery| Injuries requiring a greater degree of medical care and hospitalization, but not expected to progress to a life threatening status.\r\n Major | Disability | Injuries that pose an immediate life-threatening condition if not treated adequately or expeditiously. The majority of these injuries are the result of structural collapse and subsequent entrapment or impairment of the occupants.\r\n Fatal | Death | Instantaneously killed or mortally injured"
+              },
+              "claims": {
+                "type": [
+                  "boolean",
+                  "null"
+                ],
+                "default": false,
+                "description": "Indicates whether to save an estimate of the number of claims that will affect your exposure, in addition to loss estimates for a Detailed Loss Analysis."
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "d06kdjt1ymq9b"
+        }
+      },
+      "PercentagesByLineOfBusiness": {
+        "title": "PercentagesByLineOfBusiness",
+        "type": "object",
+        "required": [
+          "percentage"
+        ],
+        "properties": {
+          "userLinesOfBusiness": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "x-stoplight": {
+                "id": "vkq1puw7u2ew4"
+              },
+              "type": "string"
+            }
+          },
+          "percentage": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0
+          }
+        },
+        "x-stoplight": {
+          "id": "habu1ghrh3upu"
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header",
+        "description": ""
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "DetailedLoss",
+      "description": "DetailedLoss"
+    }
+  ]
+}

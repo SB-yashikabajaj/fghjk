@@ -1,0 +1,824 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "012c8mc5k32tj"
+  },
+  "info": {
+    "title": "Reference Service",
+    "description": "The Reference service is a central source of reference information used by Synergy Studio. For example, when the detailed loss analysis requires line of business codes, the application retrieves code values, the names of the codes, and their descriptions from the relevant database tables by calling the Reference service.",
+    "termsOfService": "",
+    "contact": {
+      "name": "",
+      "url": "",
+      "email": ""
+    },
+    "license": {
+      "name": "",
+      "url": ""
+    },
+    "version": "1.0",
+    "summary": "Provides a central repository of reference codes used by analyses in Synergy Studio. "
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/reference/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/financial/limits": {
+      "get": {
+        "summary": "List financial limits",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {},
+        "operationId": "get-reference-financial-limits",
+        "x-stoplight": {
+          "id": "pshrq10bkwi38"
+        },
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/financial/reinsurance-types": {
+      "get": {
+        "summary": "List reinsurance types",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {},
+        "operationId": "get-reference-financial-reinsurance-types",
+        "x-stoplight": {
+          "id": "s5y3mcyq7m5cu"
+        },
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/building/foundations": {
+      "get": {
+        "summary": "List building foundations",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {},
+        "operationId": "get-reference-building-foundations",
+        "x-stoplight": {
+          "id": "ik5u78uc348uy"
+        },
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/building/constructions": {
+      "get": {
+        "summary": "List building construction codes",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {},
+        "operationId": "get-reference-building-contruction",
+        "x-stoplight": {
+          "id": "72j9rnz6b0hwc"
+        },
+        "description": "Gets a list of valid construction codes.",
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/building/occupancies": {
+      "get": {
+        "summary": "List building occupancy codes",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {},
+        "operationId": "get-reference-building-occupancies",
+        "description": "Gets a list of valid occupancy codes.",
+        "x-stoplight": {
+          "id": "62ll3ylj4weab"
+        },
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/geography/geo-match-levels": {
+      "get": {
+        "summary": "List Geocode Match Levels",
+        "tags": [
+          "Geography"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "mereikbg7bhfd"
+                      },
+                      "format": "int32",
+                      "minimum": 1,
+                      "readOnly": true
+                    },
+                    "items": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "bmbny1pjvu584"
+                      },
+                      "minItems": 1,
+                      "items": {
+                        "x-stoplight": {
+                          "id": "0o9p1fj3acws4"
+                        },
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "integer",
+                            "x-stoplight": {
+                              "id": "e8x2flrwcc3et"
+                            },
+                            "format": "int32",
+                            "minimum": 1,
+                            "readOnly": true
+                          },
+                          "name": {
+                            "type": "string",
+                            "x-stoplight": {
+                              "id": "o66xk1o7fa2qq"
+                            },
+                            "minLength": 1,
+                            "readOnly": true
+                          },
+                          "description": {
+                            "type": "string",
+                            "x-stoplight": {
+                              "id": "eeydap7pdraib"
+                            },
+                            "readOnly": true
+                          }
+                        }
+                      },
+                      "readOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "GetGeographyMatchLevels",
+        "x-stoplight": {
+          "id": "2jo6i4evlwqn1"
+        },
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/geography/countries": {
+      "parameters": [],
+      "get": {
+        "summary": "List countries",
+        "tags": [
+          "Geography"
+        ],
+        "responses": {},
+        "operationId": "get-reference-geography-countries",
+        "x-stoplight": {
+          "id": "gdsjluhoc7eqw"
+        },
+        "x-internal": true
+      }
+    },
+    "/geography/areas": {
+      "get": {
+        "summary": "List areas",
+        "tags": [
+          "Geography"
+        ],
+        "responses": {},
+        "operationId": "get-reference-geography-areas",
+        "x-stoplight": {
+          "id": "yd5ulfhh5eiy4"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "description": "Specify country code"
+          }
+        ],
+        "x-internal": true
+      }
+    },
+    "/geography/subareas": {
+      "get": {
+        "summary": "List subareas",
+        "tags": [
+          "Geography"
+        ],
+        "responses": {},
+        "operationId": "get-reference-geography-subareas",
+        "x-stoplight": {
+          "id": "maxzmqvke96ox"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "country",
+            "required": true,
+            "description": "Specify country code"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "area",
+            "description": "Specify area code",
+            "required": true
+          }
+        ],
+        "x-internal": true
+      }
+    },
+    "/geography/postal-codes": {
+      "get": {
+        "summary": "List postal codes",
+        "tags": [
+          "Geography"
+        ],
+        "responses": {},
+        "operationId": "get-reference-geography-postalCodes",
+        "x-stoplight": {
+          "id": "wkk1ca4m9fzjd"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "country",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "area",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "subarea",
+            "required": true
+          }
+        ],
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/currencies": {
+      "get": {
+        "summary": "Retrieve currencies",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.\r\n\r\nReturns a list of currencies supported by Synergy Studio.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "ioda6lf9u3sor"
+                      },
+                      "format": "int32"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "mh2c7l0pi9yrd"
+                      },
+                      "default": 0,
+                      "format": "int32"
+                    },
+                    "items": {
+                      "x-stoplight": {
+                        "id": "jx8dx4y98dgvd"
+                      },
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Currency",
+                        "x-stoplight": {
+                          "id": "02rcs9j7spmm7"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-currencies",
+        "x-stoplight": {
+          "id": "y285ygfunuuie"
+        },
+        "description": "Retrieves a list of supported currencies in the Verisk Synergy Studio platform. ",
+        "x-internal": false,
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/analysis-types": {
+      "get": {
+        "summary": "Retrieve analysis types",
+        "tags": [
+          "Analysis"
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.\r\n\r\nReturns a list of analysis types available in Synergy Studio. ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "wq3i5yls2yd83"
+                      },
+                      "format": "int32"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "iymsl656ngke4"
+                      },
+                      "format": "int32"
+                    },
+                    "items": {
+                      "x-stoplight": {
+                        "id": "rtfbp8unn3kr2"
+                      },
+                      "type": "array",
+                      "description": "Represents the analysis types that can be performed in Synergy Studio: \r\n- AGGR_LOSS = Aggregate Loss\r\n- CATLOSS = CAT Loss Treaty\r\n- CLSH = Clash\r\n- CLSH_TMPLT = Clash Template\r\n- CMPLOSS = Comparative Loss\r\n- DQ = Data Quality\r\n- DQ_RPT = Data Quality Reports\r\n- DQ_TMPLT = Data Quality Template\r\n- EC = Geospatial\r\n- ECA_TMPLT = Geospatial Analysis Template\r\n- EXPS = Exposure Summary\r\n- HAZ = Hazard\r\n- HAZ_TMPLT = Hazard Template\r\n- IMPACT = Impact Analysis\r\n- LGRP = Detailed Loss Group\r\n- LGRP_MOD = Modified Detailed Loss Group\r\n- LOSS = Detailed Loss\r\n- LOSS_MOD = Modified Detailed Loss Analysis\r\n- LOSS_TMPLT = Detailed Loss Analysis Template\r\n- PGM_TMPLT = Program aggregate loss analysis template\r\n- PRT_TMPLT = Portfolio aggregate loss analysis template\r\n- SPTL = Spatial\r\n- UW_RPT = Underwriting Report",
+                      "items": {
+                        "$ref": "#/components/schemas/CodedItem",
+                        "x-stoplight": {
+                          "id": "fvdg73m974z6l"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-analysis-types",
+        "x-stoplight": {
+          "id": "u4zh8wtpiprsf"
+        },
+        "description": "Retrieves a list of analysis types that can be performed in Synergy Studio.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/analysis-target-type": {
+      "get": {
+        "summary": "Retrieve analysis target type codes",
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.\r\n\r\nReturns the target of each analysis. For example: \r\n\r\nAnalysis type | Analysis target\r\n---------|----------\r\n Detailed loss analysis |  Exposure view\r\n Marginal impact analysis | It has two analysis targets: the reference portfolio and the new portfolio or policy.\r\n Loss group analysis | It has two or more analysis targets: the loss result sets or loss groups to combine.\r\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "x48n9pjherzjt"
+                      },
+                      "format": "int32"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "ctni47tn4y9ih"
+                      },
+                      "format": "int32"
+                    },
+                    "items": {
+                      "x-stoplight": {
+                        "id": "ig99zg9ldeq1z"
+                      },
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CodedItem",
+                        "x-stoplight": {
+                          "id": "r9p02qkvizccm"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-analysis-target-type-codes",
+        "x-stoplight": {
+          "id": "pteaxzrh40x2w"
+        },
+        "tags": [
+          "Analysis"
+        ],
+        "description": "Retrieves a list of the analysis target types.\r\n\r\nAn analysis target is the data to analyze, for example, an exposure view.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/perils": {
+      "get": {
+        "summary": "Retrieve perils",
+        "tags": [
+          "Exposure"
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded. \r\n\r\nReturns a list of perils.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "c36q00bx9r08k"
+                      },
+                      "format": "int32"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "e9zrvq29zf83l"
+                      },
+                      "format": "int32"
+                    },
+                    "items": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "wvdme9chewcof"
+                      },
+                      "items": {
+                        "$ref": "#/components/schemas/Peril",
+                        "x-stoplight": {
+                          "id": "tzdf4cvr9ynu1"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-perils",
+        "x-stoplight": {
+          "id": "gi2plesmvkwdm"
+        },
+        "description": "Retrieves a list of codes that represent the perils supported by the Verisk Synergy Studio platform.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/geo-levels": {
+      "get": {
+        "summary": "Retrieve geographic levels",
+        "tags": [
+          "Geography"
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.\r\n\r\nReturns a list of geographic levels supported in Synergy Studio.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "description": "Represents the number of geographic levels.",
+                      "x-stoplight": {
+                        "id": "mxmctaegnwcx0"
+                      },
+                      "format": "int32",
+                      "minimum": 1,
+                      "readOnly": true
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Represents the total number of locations within the designated match level.",
+                      "x-stoplight": {
+                        "id": "65gbzv8wrthnv"
+                      }
+                    },
+                    "items": {
+                      "x-stoplight": {
+                        "id": "8znfpesbprslt"
+                      },
+                      "type": "array",
+                      "description": "Returns the code that represents the geographic levels.\r\n- AREA = Area\r\n- COUN = Country\r\n- CRES = CRESTA\r\n- LOC = Location\r\n- POST = Postal\r\n- SUB2 = Subarea2\r\n- SUBA = Subarea\r\n- ZONE = Custom Zone",
+                      "items": {
+                        "$ref": "#/components/schemas/CodedItem",
+                        "x-stoplight": {
+                          "id": "vfb9yjl1lsnul"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "GetGeographyLevels",
+        "x-stoplight": {
+          "id": "ofuokhxyk7dms"
+        },
+        "description": "Retrieves a set of codes that represents the geographic levels supported by the Verisk Synergy Studio platform.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Currency": {
+        "title": "Currency",
+        "x-stoplight": {
+          "id": "n6ng9i5gm4skj"
+        },
+        "description": "Stores ISO-3 character code for the currency.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CodedItem",
+            "x-stoplight": {
+              "id": "3x4h3gb512iwn"
+            },
+            "description": "Stores a collection of objects that represents the name, code, and description of items in that collection."
+          },
+          {
+            "x-stoplight": {
+              "id": "mnptv43gts6yz"
+            },
+            "type": "object",
+            "properties": {
+              "analyzeReCompatible": {
+                "type": "boolean",
+                "description": "Indicates whether the currency is supported in Analyze Re.\n- 1 = Supported\n- 2 = Not supported",
+                "x-stoplight": {
+                  "id": "ejk17w8ayfwkb"
+                }
+              },
+              "active": {
+                "type": "boolean",
+                "description": "Indicates whether the currency is available for use.\n- 1 = Yes available\n- 0 = Not available",
+                "x-stoplight": {
+                  "id": "e9p3z59e0h8ny"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Peril": {
+        "title": "Peril",
+        "x-stoplight": {
+          "id": "ousq4awfxxab2"
+        },
+        "description": "Stores codes that represent the perils supported by the application.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CodedItem",
+            "x-stoplight": {
+              "id": "necnlgmb1q58k"
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "order": {
+                "type": "integer",
+                "x-stoplight": {
+                  "id": "fi5yaarfhapus"
+                },
+                "description": "Order of the peril in the user interface. The order specifies where the peril appears in configuration screens.",
+                "readOnly": true
+              },
+              "perilSetCode": {
+                "type": "integer",
+                "description": "Numeric code for the single peril or set of perils.",
+                "x-stoplight": {
+                  "id": "3soz6a874wh1r"
+                }
+              },
+              "perilDisplayGroup": {
+                "type": "string",
+                "description": " Name of the group under which the peril is categorized on the user interface, when applicable. For example, Earthquake is the display group for Fire Following and Tropical Cyclone is the display group for Wind.",
+                "x-stoplight": {
+                  "id": "klbjsw23xm4pd"
+                }
+              },
+              "modRulePerilSetCode": {
+                "type": "string",
+                "description": "Numeric code for the single peril or set of perils that can be used as a filter in a loss modification template rule.",
+                "x-stoplight": {
+                  "id": "m9fvn0s9h3o0n"
+                }
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Indicates whether the peril is available for use.\n- 1 = Yes available\n- 0 = Not available",
+                "x-stoplight": {
+                  "id": "tl540erwb0s06"
+                }
+              },
+              "reinsurance": {
+                "type": "boolean",
+                "description": "Indicates whether the peril is supported in Reinsurance Portfolio Modeling.\n- 1 = Yes supported\n- 0 = Not supported",
+                "x-stoplight": {
+                  "id": "ajsziwkov4ys1"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CodedItem": {
+        "title": "CodedItem",
+        "x-stoplight": {
+          "id": "6a2z2jaw09zln"
+        },
+        "type": "object",
+        "description": "Stores a collection of objects that represents the name, code, and description of items in that collection. \n\nA Codeditem collection contains the: \n- Geographic levels\n- Analysis types\n- Currency types",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "A code that represents a collection type. For example: \r\n\r\n\r\nCollection type | Code |\r\n---------|----------|\r\n Geographic levels | ZONE\r\n Analysis types | AGGR_LOSS\r\n Currency | USD",
+            "x-stoplight": {
+              "id": "xnnk1kwaj4grh"
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the item stored in the collection. ",
+            "x-stoplight": {
+              "id": "9mr5u2kr3cdur"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the item stored in a collection. For example:\r\n- AggregateLoss\r\n- U.S. Dollar",
+            "x-stoplight": {
+              "id": "yt9x19opo2pbu"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header"
+      }
+    }
+  }
+}

@@ -1,0 +1,1408 @@
+{
+  "collapseTableOfContents": true,
+  "items": [
+    {
+      "type": "item",
+      "title": "Introduction",
+      "uri": "/docs/introduction.md"
+    },
+    {
+      "type": "item",
+      "title": "Mapping between the SOAP Services and REST API Operations",
+      "uri": "/docs/soap-to-rest-api-endpoints.md"
+    },
+    {
+      "type": "item",
+      "title": "Verisk Synergy Studio Loss Workflow",
+      "uri": "/docs/loss-workflow.md"
+    },
+    {
+      "type": "divider",
+      "title": "API Reference"
+    },
+    {
+      "type": "group",
+      "title": "Activity Management",
+      "uri": "/reference/Activity-Management.json",
+      "items": [
+        {
+          "type": "group",
+          "title": "Activities",
+          "items": [
+            {
+              "type": "item",
+              "title": "Submit a new activity.",
+              "uri": "/reference/Activity-Management.json/paths/~1activities/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve activities",
+              "uri": "/reference/Activity-Management.json/paths/~1activities/get"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve activity information",
+              "uri": "/reference/Activity-Management.json/paths/~1activities~1{sid}/get"
+            },
+            {
+              "type": "item",
+              "title": "Update activity",
+              "uri": "/reference/Activity-Management.json/paths/~1activities~1{sid}/patch"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve activity status",
+              "uri": "/reference/Activity-Management.json/paths/~1activities~1{sid}~1status/get"
+            },
+            {
+              "type": "item",
+              "title": "Cancel activity",
+              "uri": "/reference/Activity-Management.json/paths/~1activities~1{sid}~1actions~1cancel/post"
+            },
+            {
+              "type": "item",
+              "title": "Resubmits an activity",
+              "uri": "/reference/Activity-Management.json/paths/~1activities~1{sid}~1actions~1resubmit/post"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "ActivityDefinition",
+          "items": [
+            {
+              "type": "item",
+              "title": "Get a ActivityDefinition record by Id",
+              "uri": "/reference/Activity-Management.json/paths/~1definitions~1{definitionId}~1{definitionVersion}/get"
+            },
+            {
+              "type": "item",
+              "title": "Get the ActivityDefinition records for specified Id",
+              "uri": "/reference/Activity-Management.json/paths/~1definitions~1{definitionId}/get"
+            },
+            {
+              "type": "item",
+              "title": "Get all ActivityDefinitions",
+              "uri": "/reference/Activity-Management.json/paths/~1definitions/get"
+            },
+            {
+              "type": "item",
+              "title": "Register a new activity definition",
+              "uri": "/reference/Activity-Management.json/paths/~1definitions/post"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Tenants",
+          "items": [
+            {
+              "type": "item",
+              "title": "Returns activity statistics for the specified tenant",
+              "uri": "/reference/Activity-Management.json/paths/~1tenants~1{tenantId}~1stats~1activities/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "Activity",
+              "uri": "/reference/Activity-Management.json/components/schemas/Activity"
+            },
+            {
+              "type": "item",
+              "title": "ActivityAction",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityAction"
+            },
+            {
+              "type": "item",
+              "title": "ActivityActions",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityActions"
+            },
+            {
+              "type": "item",
+              "title": "ActivityCollection",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityCollection"
+            },
+            {
+              "type": "item",
+              "title": "ActivityDefinition",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityDefinition"
+            },
+            {
+              "type": "item",
+              "title": "ActivityDefinitionCollection",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityDefinitionCollection"
+            },
+            {
+              "type": "item",
+              "title": "ActivityDefinitionInfo",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityDefinitionInfo"
+            },
+            {
+              "type": "item",
+              "title": "ActivityMetrics",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityMetrics"
+            },
+            {
+              "type": "item",
+              "title": "ActivityMetricsByActivityDefinition",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityMetricsByActivityDefinition"
+            },
+            {
+              "type": "item",
+              "title": "ActivityMetricsByState",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityMetricsByState"
+            },
+            {
+              "type": "item",
+              "title": "ActivityStage",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityStage"
+            },
+            {
+              "type": "item",
+              "title": "ActivityState",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityState"
+            },
+            {
+              "type": "item",
+              "title": "ActivityStatus",
+              "uri": "/reference/Activity-Management.json/components/schemas/ActivityStatus"
+            },
+            {
+              "type": "item",
+              "title": "NewActivity",
+              "uri": "/reference/Activity-Management.json/components/schemas/NewActivity"
+            },
+            {
+              "type": "item",
+              "title": "NewActivityDefinition",
+              "uri": "/reference/Activity-Management.json/components/schemas/NewActivityDefinition"
+            },
+            {
+              "type": "item",
+              "title": "Stage",
+              "uri": "/reference/Activity-Management.json/components/schemas/Stage"
+            },
+            {
+              "type": "item",
+              "title": "StageOverride",
+              "uri": "/reference/Activity-Management.json/components/schemas/StageOverride"
+            },
+            {
+              "type": "item",
+              "title": "UpdateActivity",
+              "uri": "/reference/Activity-Management.json/components/schemas/UpdateActivity"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Detailed Loss Service",
+      "uri": "/reference/Detailed-Loss.json",
+      "items": [
+        {
+          "type": "group",
+          "title": "DetailedLoss",
+          "items": [
+            {
+              "type": "item",
+              "title": "Submit Detailed loss analysis",
+              "uri": "/reference/Detailed-Loss.json/paths/~1detailed-loss/post"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "DetailedLossAnalysis",
+              "uri": "/reference/Detailed-Loss.json/components/schemas/DetailedLossAnalysis"
+            },
+            {
+              "type": "item",
+              "title": "DetailedLossAnalysisOptions",
+              "uri": "/reference/Detailed-Loss.json/components/schemas/DetailedLossAnalysisOptions"
+            },
+            {
+              "type": "item",
+              "title": "PercentagesByLineOfBusiness",
+              "uri": "/reference/Detailed-Loss.json/components/schemas/PercentagesByLineOfBusiness"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Event Set Management Service",
+      "uri": "/reference/EventSet-Management.json",
+      "items": [
+        {
+          "type": "item",
+          "title": "Retrieve event sets",
+          "uri": "/reference/EventSet-Management.json/paths/~1event-sets/get"
+        },
+        {
+          "type": "item",
+          "title": "Retrieve event set",
+          "uri": "/reference/EventSet-Management.json/paths/~1event-sets~1{sid}/get"
+        },
+        {
+          "type": "item",
+          "title": "Update event set",
+          "uri": "/reference/EventSet-Management.json/paths/~1event-sets~1{sid}/put"
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "Event Set",
+              "uri": "/reference/EventSet-Management.json/components/schemas/DetailedEventSet"
+            },
+            {
+              "type": "item",
+              "title": "EventSetInformation",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EventSetInformation"
+            },
+            {
+              "type": "item",
+              "title": "Catalog",
+              "uri": "/reference/EventSet-Management.json/components/schemas/Catalog"
+            },
+            {
+              "type": "item",
+              "title": "Model",
+              "uri": "/reference/EventSet-Management.json/components/schemas/Model"
+            },
+            {
+              "type": "item",
+              "title": "WorkersCompensation",
+              "uri": "/reference/EventSet-Management.json/components/schemas/WorkersCompensation"
+            },
+            {
+              "type": "item",
+              "title": "EarthquakeOptions",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EarthquakeOptions"
+            },
+            {
+              "type": "item",
+              "title": "DemandSurgeOptions",
+              "uri": "/reference/EventSet-Management.json/components/schemas/DemandSurgeOptions"
+            },
+            {
+              "type": "item",
+              "title": "InlandFloodOptions",
+              "uri": "/reference/EventSet-Management.json/components/schemas/InlandFloodOptions"
+            },
+            {
+              "type": "item",
+              "title": "FloodZones",
+              "uri": "/reference/EventSet-Management.json/components/schemas/FloodZones"
+            },
+            {
+              "type": "item",
+              "title": "PercentageByLineOfBusiness",
+              "uri": "/reference/EventSet-Management.json/components/schemas/PercentageByLineOfBusiness"
+            },
+            {
+              "type": "item",
+              "title": "PrecipitationFloodOptions",
+              "uri": "/reference/EventSet-Management.json/components/schemas/PrecipitationFloodOptions"
+            },
+            {
+              "type": "item",
+              "title": "ModelTransferDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/ModelTransferDto"
+            },
+            {
+              "type": "item",
+              "title": "EventSetTransferDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EventSetTransferDto"
+            },
+            {
+              "type": "item",
+              "title": "EventSetUpdateDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EventSetUpdateDto"
+            },
+            {
+              "type": "item",
+              "title": "DetailedEventSetUpdateDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/DetailedEventSetUpdateDto"
+            },
+            {
+              "type": "item",
+              "title": "AggregateEventSet",
+              "uri": "/reference/EventSet-Management.json/components/schemas/AggregateEventSet"
+            },
+            {
+              "type": "item",
+              "title": "AggregateModelDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/AggregateModelDto"
+            },
+            {
+              "type": "item",
+              "title": "AggregateEarthquakeOptions",
+              "uri": "/reference/EventSet-Management.json/components/schemas/AggregateEarthquakeOptions"
+            },
+            {
+              "type": "item",
+              "title": "AggregateModelUpdateDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/AggregateModelUpdateDto"
+            },
+            {
+              "type": "item",
+              "title": "EventSetType",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EventSetType"
+            },
+            {
+              "type": "item",
+              "title": "EventSetInformationCollection",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EventSetInformationCollection"
+            },
+            {
+              "type": "item",
+              "title": "EventSet",
+              "uri": "/reference/EventSet-Management.json/components/schemas/EventSet"
+            },
+            {
+              "type": "item",
+              "title": "Country",
+              "uri": "/reference/EventSet-Management.json/components/schemas/Country"
+            },
+            {
+              "type": "item",
+              "title": "DisaggregationRegion",
+              "uri": "/reference/EventSet-Management.json/components/schemas/DisaggregationRegion"
+            },
+            {
+              "type": "item",
+              "title": "CatalogType",
+              "uri": "/reference/EventSet-Management.json/components/schemas/CatalogType"
+            },
+            {
+              "type": "item",
+              "title": "CountryUpdateDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/CountryUpdateDto"
+            },
+            {
+              "type": "item",
+              "title": "DisaggregationRegionUpdateDto",
+              "uri": "/reference/EventSet-Management.json/components/schemas/DisaggregationRegionUpdateDto"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Loss Modification Service",
+      "uri": "/reference/Loss-Modification.json",
+      "items": [
+        {
+          "type": "group",
+          "title": "Template",
+          "items": [
+            {
+              "type": "item",
+              "title": "Retrieve upload.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1import~1upload/get"
+            },
+            {
+              "type": "item",
+              "title": "Submit import.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1import/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve Loss Modification Templates",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates/get"
+            },
+            {
+              "type": "item",
+              "title": "Create template.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve Loss Modification Template",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}/get"
+            },
+            {
+              "type": "item",
+              "title": "Update template",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}/put"
+            },
+            {
+              "type": "item",
+              "title": "Delete template",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}/delete"
+            },
+            {
+              "type": "item",
+              "title": "Submit export",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}~1export/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve download info",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1export~1{activitySid}/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Template Draft",
+          "items": [
+            {
+              "type": "item",
+              "title": "Create template draft.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}~1drafts/post"
+            },
+            {
+              "type": "item",
+              "title": "Update template draft.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1drafts~1{draftId}/patch"
+            },
+            {
+              "type": "item",
+              "title": "Delete template draft.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1drafts~1{draftId}/delete"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Template Draft Rule",
+          "items": [
+            {
+              "type": "item",
+              "title": "Retrieve draft template rules.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1drafts~1{draftId}~1rules/get"
+            },
+            {
+              "type": "item",
+              "title": "Create draft template rules.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1drafts~1{draftId}~1rules/post"
+            },
+            {
+              "type": "item",
+              "title": "Update draft template rule.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1drafts~1{draftId}~1rules~1{draftRuleId}/put"
+            },
+            {
+              "type": "item",
+              "title": "Delete draft template rule.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1drafts~1{draftId}~1rules~1{draftRuleId}/delete"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Template Rule",
+          "items": [
+            {
+              "type": "item",
+              "title": "Retrieve template rules",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}~1rules/get"
+            },
+            {
+              "type": "item",
+              "title": "Create template rules.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}~1rules/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve template rules collisions.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{sid}~1rules~1collisions/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Event Paramater",
+          "items": [
+            {
+              "type": "item",
+              "title": "Retrieve event parameters defined in a template.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1event-parameters/get"
+            },
+            {
+              "type": "item",
+              "title": "Create new event parameter.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1event-parameters/post"
+            },
+            {
+              "type": "item",
+              "title": "Update event parameter.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1{templateSid}~1event-parameters~1{id}/put"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve event parameters with their available operators and values.",
+              "uri": "/reference/Loss-Modification.json/paths/~1templates~1event-parameters~1mapping/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "FileType",
+              "uri": "/reference/Loss-Modification.json/components/schemas/FileType"
+            },
+            {
+              "type": "item",
+              "title": "NewUpload",
+              "uri": "/reference/Loss-Modification.json/components/schemas/NewUpload"
+            },
+            {
+              "type": "item",
+              "title": "NewImport",
+              "uri": "/reference/Loss-Modification.json/components/schemas/NewImport"
+            },
+            {
+              "type": "item",
+              "title": "TemplateJob",
+              "uri": "/reference/Loss-Modification.json/components/schemas/TemplateJob"
+            },
+            {
+              "type": "item",
+              "title": "TemplateSaveResponse",
+              "uri": "/reference/Loss-Modification.json/components/schemas/TemplateSaveResponse"
+            },
+            {
+              "type": "item",
+              "title": "TemplateStatus",
+              "uri": "/reference/Loss-Modification.json/components/schemas/TemplateStatus"
+            },
+            {
+              "type": "item",
+              "title": "NewTemplate",
+              "uri": "/reference/Loss-Modification.json/components/schemas/NewTemplate"
+            },
+            {
+              "type": "item",
+              "title": "ExistingTemplate",
+              "uri": "/reference/Loss-Modification.json/components/schemas/ExistingTemplate"
+            },
+            {
+              "type": "item",
+              "title": "ExistingTemplatePage",
+              "uri": "/reference/Loss-Modification.json/components/schemas/ExistingTemplatePage"
+            },
+            {
+              "type": "item",
+              "title": "UpdateTemplate",
+              "uri": "/reference/Loss-Modification.json/components/schemas/UpdateTemplate"
+            },
+            {
+              "type": "item",
+              "title": "ExportDownloadInfo",
+              "uri": "/reference/Loss-Modification.json/components/schemas/ExportDownloadInfo"
+            },
+            {
+              "type": "item",
+              "title": "NewTemplateRule",
+              "uri": "/reference/Loss-Modification.json/components/schemas/NewTemplateRule"
+            },
+            {
+              "type": "item",
+              "title": "ExistingTemplateRule",
+              "uri": "/reference/Loss-Modification.json/components/schemas/ExistingTemplateRule"
+            },
+            {
+              "type": "item",
+              "title": "DraftRuleAction",
+              "uri": "/reference/Loss-Modification.json/components/schemas/DraftRuleAction"
+            },
+            {
+              "type": "item",
+              "title": "DraftTemplateRule",
+              "uri": "/reference/Loss-Modification.json/components/schemas/DraftTemplateRule"
+            },
+            {
+              "type": "item",
+              "title": "DraftTemplateRulePage",
+              "uri": "/reference/Loss-Modification.json/components/schemas/DraftTemplateRulePage"
+            },
+            {
+              "type": "item",
+              "title": "ExistingTemplateRulePage",
+              "uri": "/reference/Loss-Modification.json/components/schemas/ExistingTemplateRulePage"
+            },
+            {
+              "type": "item",
+              "title": "PageRequestWithoutFilter",
+              "uri": "/reference/Loss-Modification.json/components/schemas/PageRequestWithoutFilter"
+            },
+            {
+              "type": "item",
+              "title": "PageRequestWithFilter",
+              "uri": "/reference/Loss-Modification.json/components/schemas/PageRequestWithFilter"
+            },
+            {
+              "type": "item",
+              "title": "TemplateDraft",
+              "uri": "/reference/Loss-Modification.json/components/schemas/TemplateDraft"
+            },
+            {
+              "type": "item",
+              "title": "ExistingEventParameter",
+              "uri": "/reference/Loss-Modification.json/components/schemas/ExistingEventParameter"
+            },
+            {
+              "type": "item",
+              "title": "NewEventParameter",
+              "uri": "/reference/Loss-Modification.json/components/schemas/NewEventParameter"
+            },
+            {
+              "type": "item",
+              "title": "EventParameterMapping",
+              "uri": "/reference/Loss-Modification.json/components/schemas/EventParameterMapping"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Loss Set Management Service",
+      "uri": "/reference/Loss-Sets-Management.json",
+      "items": [
+        {
+          "type": "item",
+          "title": "Retrieve list of loss sets",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets/get"
+        },
+        {
+          "type": "item",
+          "title": "Create a new loss set",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets/post"
+        },
+        {
+          "type": "item",
+          "title": "Retrieve a loss set",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{sid}/get"
+        },
+        {
+          "type": "item",
+          "title": "Modify a loss set",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{sid}/patch"
+        },
+        {
+          "type": "item",
+          "title": "Delete a loss set",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{sid}/delete"
+        },
+        {
+          "type": "item",
+          "title": "Retrieve the loss set profile.",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views~1{analysisViewSid}~1profile/get"
+        },
+        {
+          "type": "item",
+          "title": "Retrieve a subset of data from the loss set.",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views~1{analysisViewSid}~1data/get"
+        },
+        {
+          "type": "item",
+          "title": "List analysis views",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views/get"
+        },
+        {
+          "type": "item",
+          "title": "Add a new analysis view",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views/post"
+        },
+        {
+          "type": "item",
+          "title": "Get analysis view",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views~1{analysisViewSid}/get"
+        },
+        {
+          "type": "item",
+          "title": "Remove analysis view",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views~1{analysisViewSid}/delete"
+        },
+        {
+          "type": "item",
+          "title": "Modify a Loss Set Analysis View",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views~1{analysisViewSid}/patch"
+        },
+        {
+          "type": "item",
+          "title": "validate analysis view data update upload",
+          "uri": "/reference/Loss-Sets-Management.json/paths/~1loss-sets~1{lossSetSid}~1analysis-views~1{analysisViewSid}~1actions~1validate/post"
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "LossSet",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSet"
+            },
+            {
+              "type": "item",
+              "title": "LossSetList",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSetList"
+            },
+            {
+              "type": "item",
+              "title": "ParametricLossSet",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/ParametricLossSet"
+            },
+            {
+              "type": "item",
+              "title": "LossSetFieldMetaData",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSetFieldMetaData"
+            },
+            {
+              "type": "item",
+              "title": "LossSetModelInfo",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSetModelInfo"
+            },
+            {
+              "type": "item",
+              "title": "LossSetProfile",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSetProfile"
+            },
+            {
+              "type": "item",
+              "title": "LossSetData",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSetData"
+            },
+            {
+              "type": "item",
+              "title": "LossSetListItem",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/LossSetListItem"
+            },
+            {
+              "type": "item",
+              "title": "AnalysisView",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/AnalysisView"
+            },
+            {
+              "type": "item",
+              "title": "DetailedAnalysisLossSet",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/DetailedAnalysisLossSet"
+            },
+            {
+              "type": "item",
+              "title": "MarketShareLossSet",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/MarketShareLossSet"
+            },
+            {
+              "type": "item",
+              "title": "ExposureFootprintLossSet",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/ExposureFootprintLossSet"
+            },
+            {
+              "type": "item",
+              "title": "AnalysisViewList",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/AnalysisViewList"
+            },
+            {
+              "type": "item",
+              "title": "AnalysisViewListItem",
+              "uri": "/reference/Loss-Sets-Management.json/components/schemas/AnalysisViewListItem"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Program Management Service",
+      "uri": "/reference/ProgramAPI.yaml",
+      "items": [
+        {
+          "type": "group",
+          "title": "AdjustmentFactors",
+          "items": [
+            {
+              "type": "item",
+              "title": "EBAF",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/EBAF"
+            },
+            {
+              "type": "item",
+              "title": "Scale",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Scale"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Layers",
+          "items": [
+            {
+              "type": "item",
+              "title": "List Layers",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1layers/get"
+            },
+            {
+              "type": "item",
+              "title": "Create Layer",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1layers/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve Layer",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1layers~1{layerSid}/get"
+            },
+            {
+              "type": "item",
+              "title": "Update Layer",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1layers~1{layerSid}/put"
+            },
+            {
+              "type": "item",
+              "title": "Delete Layer",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1layers~1{layerSid}/delete"
+            },
+            {
+              "type": "item",
+              "title": "List Layers Across All Programs",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1layers/get"
+            },
+            {
+              "type": "item",
+              "title": "LayerList",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LayerList"
+            },
+            {
+              "type": "item",
+              "title": "LayerCreate",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LayerCreate"
+            },
+            {
+              "type": "item",
+              "title": "LayerView",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LayerView"
+            },
+            {
+              "type": "item",
+              "title": "Layer",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Layer"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Loss Groups",
+          "items": [
+            {
+              "type": "item",
+              "title": "List Loss Groups",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1loss-groups/get"
+            },
+            {
+              "type": "item",
+              "title": "Create Loss Group",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1loss-groups/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve Loss Group",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1loss-groups~1{lossGroupSid}/get"
+            },
+            {
+              "type": "item",
+              "title": "Update Loss Group",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1loss-groups~1{lossGroupSid}/put"
+            },
+            {
+              "type": "item",
+              "title": "Delete Loss Group",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1loss-groups~1{lossGroupSid}/delete"
+            },
+            {
+              "type": "item",
+              "title": "LossGroupList",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossGroupList"
+            },
+            {
+              "type": "item",
+              "title": "LossModifier",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossModifier"
+            },
+            {
+              "type": "item",
+              "title": "LossGroupCreate",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossGroupCreate"
+            },
+            {
+              "type": "item",
+              "title": "LossGroupView",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossGroupView"
+            },
+            {
+              "type": "item",
+              "title": "LossGroup",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossGroup"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Programs",
+          "items": [
+            {
+              "type": "item",
+              "title": "Retrieve Programs",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs/get"
+            },
+            {
+              "type": "item",
+              "title": "Create Program",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve Program",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}/get"
+            },
+            {
+              "type": "item",
+              "title": "Update Program",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}/put"
+            },
+            {
+              "type": "item",
+              "title": "Delete Program",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}/delete"
+            },
+            {
+              "type": "item",
+              "title": "ProgramList",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ProgramList"
+            },
+            {
+              "type": "item",
+              "title": "ProgramCreate",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ProgramCreate"
+            },
+            {
+              "type": "item",
+              "title": "ProgramView",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ProgramView"
+            },
+            {
+              "type": "item",
+              "title": "Program",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Program"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Scenarios",
+          "items": [
+            {
+              "type": "item",
+              "title": "List Scenarios",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1scenarios/get"
+            },
+            {
+              "type": "item",
+              "title": "Create Scenarios",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{sid}~1scenarios/post"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve Scenario",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{programSid}~1scenarios~1{scenarioSid}/get"
+            },
+            {
+              "type": "item",
+              "title": "Update Scenario",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{programSid}~1scenarios~1{scenarioSid}/put"
+            },
+            {
+              "type": "item",
+              "title": "Delete Scenario",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{programSid}~1scenarios~1{scenarioSid}/delete"
+            },
+            {
+              "type": "item",
+              "title": "Apply Scenario",
+              "uri": "/reference/ProgramAPI.yaml/paths/~1programs~1{programSid}~1scenarios~1actions~1apply/post"
+            },
+            {
+              "type": "item",
+              "title": "ScenarioList",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ScenarioList"
+            },
+            {
+              "type": "item",
+              "title": "ProgramOverride",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ProgramOverride"
+            },
+            {
+              "type": "item",
+              "title": "ScenarioCreate",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ScenarioCreate"
+            },
+            {
+              "type": "item",
+              "title": "ScenarioInline",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ScenarioInline"
+            },
+            {
+              "type": "item",
+              "title": "Scenario",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Scenario"
+            },
+            {
+              "type": "item",
+              "title": "ScenarioReference",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ScenarioReference"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Contract Types",
+          "items": [
+            {
+              "type": "item",
+              "title": "QuotaShare",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/QuotaShare"
+            },
+            {
+              "type": "item",
+              "title": "AggXL",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/AggXL"
+            },
+            {
+              "type": "item",
+              "title": "CatXL",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/CatXL"
+            },
+            {
+              "type": "item",
+              "title": "Reinstatements",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Reinstatements"
+            },
+            {
+              "type": "item",
+              "title": "TriggerMinMax",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/TriggerMinMax"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Coverage",
+          "items": [
+            {
+              "type": "item",
+              "title": "BasicFilter",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/BasicFilter"
+            },
+            {
+              "type": "item",
+              "title": "Coverage",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Coverage"
+            },
+            {
+              "type": "item",
+              "title": "AppliesToArea",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/AppliesToArea"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Relationships",
+          "items": [
+            {
+              "type": "item",
+              "title": "SourceRelationship",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/SourceRelationship"
+            },
+            {
+              "type": "item",
+              "title": "InuringRelationship",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/InuringRelationship"
+            },
+            {
+              "type": "item",
+              "title": "StepRelationship",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/StepRelationship"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Loss Sources",
+          "items": [
+            {
+              "type": "item",
+              "title": "LossSetSourceReference",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossSetSourceReference"
+            },
+            {
+              "type": "item",
+              "title": "LayerSourceReference",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LayerSourceReference"
+            },
+            {
+              "type": "item",
+              "title": "ProgramSourceReference",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/ProgramSourceReference"
+            },
+            {
+              "type": "item",
+              "title": "LossGroupSourceReference",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/LossGroupSourceReference"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "Perspectives",
+              "uri": "/reference/ProgramAPI.yaml/components/schemas/Perspective"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Reference Service",
+      "uri": "/reference/Reference.json",
+      "items": [
+        {
+          "type": "group",
+          "title": "Exposure",
+          "items": [
+            {
+              "type": "item",
+              "title": "List financial limits",
+              "uri": "/reference/Reference.json/paths/~1financial~1limits/get"
+            },
+            {
+              "type": "item",
+              "title": "List reinsurance types",
+              "uri": "/reference/Reference.json/paths/~1financial~1reinsurance-types/get"
+            },
+            {
+              "type": "item",
+              "title": "List building foundations",
+              "uri": "/reference/Reference.json/paths/~1building~1foundations/get"
+            },
+            {
+              "type": "item",
+              "title": "List building construction codes",
+              "uri": "/reference/Reference.json/paths/~1building~1constructions/get"
+            },
+            {
+              "type": "item",
+              "title": "List building occupancy codes",
+              "uri": "/reference/Reference.json/paths/~1building~1occupancies/get"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve currencies",
+              "uri": "/reference/Reference.json/paths/~1currencies/get"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve perils",
+              "uri": "/reference/Reference.json/paths/~1perils/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Geography",
+          "items": [
+            {
+              "type": "item",
+              "title": "List Geocode Match Levels",
+              "uri": "/reference/Reference.json/paths/~1geography~1geo-match-levels/get"
+            },
+            {
+              "type": "item",
+              "title": "List countries",
+              "uri": "/reference/Reference.json/paths/~1geography~1countries/get"
+            },
+            {
+              "type": "item",
+              "title": "List areas",
+              "uri": "/reference/Reference.json/paths/~1geography~1areas/get"
+            },
+            {
+              "type": "item",
+              "title": "List subareas",
+              "uri": "/reference/Reference.json/paths/~1geography~1subareas/get"
+            },
+            {
+              "type": "item",
+              "title": "List postal codes",
+              "uri": "/reference/Reference.json/paths/~1geography~1postal-codes/get"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve geographic levels",
+              "uri": "/reference/Reference.json/paths/~1geo-levels/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Analysis",
+          "items": [
+            {
+              "type": "item",
+              "title": "Retrieve analysis types",
+              "uri": "/reference/Reference.json/paths/~1analysis-types/get"
+            },
+            {
+              "type": "item",
+              "title": "Retrieve analysis target type codes",
+              "uri": "/reference/Reference.json/paths/~1analysis-target-type/get"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "Currency",
+              "uri": "/reference/Reference.json/components/schemas/Currency"
+            },
+            {
+              "type": "item",
+              "title": "Peril",
+              "uri": "/reference/Reference.json/components/schemas/Peril"
+            },
+            {
+              "type": "item",
+              "title": "CodedItem",
+              "uri": "/reference/Reference.json/components/schemas/CodedItem"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Reinsurance Loss Service",
+      "uri": "/reference/Reinsurance-Loss.json",
+      "items": [
+        {
+          "type": "item",
+          "title": "Retrieve reinsurance analyses",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses/get"
+        },
+        {
+          "type": "item",
+          "title": "Submit reinsurance analysis",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses/post"
+        },
+        {
+          "type": "item",
+          "title": "Retrieve reinsurance program",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses~1{sid}/get"
+        },
+        {
+          "type": "item",
+          "title": "Delete reinsurance analysis",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses~1{sid}/delete"
+        },
+        {
+          "type": "item",
+          "title": "Get EP summary",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses~1{sid}~1results~1ep-summary/get"
+        },
+        {
+          "type": "item",
+          "title": "Get annual EP ",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses~1{sid}~1results~1ep/get"
+        },
+        {
+          "type": "item",
+          "title": "Get event loss",
+          "uri": "/reference/Reinsurance-Loss.json/paths/~1program-analyses~1{sid}~1results~1event-loss/get"
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "ProgramAnalysisList",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/ProgramAnalysisList"
+            },
+            {
+              "type": "item",
+              "title": "ProgramAnalysis",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/ProgramAnalysis"
+            },
+            {
+              "type": "item",
+              "title": "ResultSettings",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/ResultSettings"
+            },
+            {
+              "type": "item",
+              "title": "LedgerExport",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/LedgerExport"
+            },
+            {
+              "type": "item",
+              "title": "YeltResult",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/YeltResult"
+            },
+            {
+              "type": "item",
+              "title": "MetricsResult",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/MetricsResult"
+            },
+            {
+              "type": "item",
+              "title": "ProbabilityWindow",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/ProbabilityWindow"
+            },
+            {
+              "type": "item",
+              "title": "TimeFilter",
+              "uri": "/reference/Reinsurance-Loss.json/components/schemas/TimeFilter"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    }
+  ],
+  "version": 2
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-stoplight": {
+    "id": "5vnc5xbt91fcy"
+  },
+  "title": "Money",
+  "type": "object",
+  "required": [
+    "amount",
+    "currencyCode"
+  ],
+  "properties": {
+    "amount": {
+      "type": "number",
+      "x-stoplight": {
+        "id": "z1ag50cgvfswj"
+      },
+      "format": "double",
+      "example": 1000000
+    },
+    "currencyCode": {
+      "type": "string",
+      "x-stoplight": {
+        "id": "5unt2ctus8sn8"
+      },
+      "minLength": 3,
+      "maxLength": 3,
+      "pattern": "^[A-Z]{3}$",
+      "example": "USD"
+    }
+  },
+  "description": "Contains the currency information supported by Verisk Synergy Studio."
+}

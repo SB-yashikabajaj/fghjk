@@ -1,0 +1,40 @@
+{
+  "title": "UserInfo",
+  "x-stoplight": {
+    "id": "4vv7mri78pfol"
+  },
+  "type": "object",
+  "description": "The UserInfo stores user contact information.   ",
+  "properties": {
+    "email": {
+      "type": "string",
+      "x-stoplight": {
+        "id": "miucurf55fezg"
+      },
+      "format": "email",
+      "example": "vesper.lynd@example.com",
+      "description": "The email address of the user.",
+      "readOnly": true
+    },
+    "id": {
+      "type": "string",
+      "x-stoplight": {
+        "id": "hpolxbf37onk1"
+      },
+      "minLength": 1,
+      "example": "00u10vmi9nfogCKDl0h8",
+      "description": "The system identifer of the user.",
+      "readOnly": true
+    },
+    "name": {
+      "type": "string",
+      "x-stoplight": {
+        "id": "tq1g52km23550"
+      },
+      "minLength": 1,
+      "example": "Lynd, Vesper",
+      "description": "The name of the user, last name first.",
+      "readOnly": true
+    }
+  }
+}

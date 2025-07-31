@@ -1,0 +1,717 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "3xnj46edrncb2"
+  },
+  "info": {
+    "title": "Reinsurance Loss Analysis Service",
+    "version": "1.0",
+    "contact": {
+      "name": "",
+      "email": "",
+      "url": ""
+    },
+    "summary": "Reinsurance loss analysis API",
+    "description": "The Reinsurance Loss Analysis Service provides the API operations for performing Reinsurance Loss Modeling in Synergy Studio.",
+    "license": {
+      "name": "License",
+      "url": ""
+    },
+    "termsOfService": ""
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/reinsurance-loss/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/program-analyses": {
+      "get": {
+        "summary": "Retrieve reinsurance analyses",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgramAnalysisList"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-reinsurance-analysises",
+        "x-stoplight": {
+          "id": "hq0szd3663hnj"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "nameAndIdOnly",
+            "description": "When this is set to true, the list items will have only id and name values."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "listProperties",
+            "description": "Comma separated property names to retrieve"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "count"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "filter"
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "skip"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "orderBy"
+          }
+        ],
+        "description": "Retrieves a list of reinsurance loss analyses.  \r\nQuery parameters are supported for paging, filtering, ordering and column selections.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Submit reinsurance analysis",
+        "tags": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgramAnalysis"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-reinsurance-analysises",
+        "x-stoplight": {
+          "id": "gcvd941kjfc0z"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramAnalysis"
+              }
+            }
+          }
+        },
+        "description": "Submit a new reinsurance program analysis.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/program-analyses/{sid}": {
+      "get": {
+        "summary": "Retrieve reinsurance program",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ProgramAnalysis"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-reinsurance-analysises-analysisId",
+        "x-stoplight": {
+          "id": "0vulegl1o44l2"
+        },
+        "description": "Retrieves the detailed information of a specific reinsurance program. ",
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "delete": {
+        "summary": "Delete reinsurance analysis",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "operationId": "delete-reinsurance-analysises-analysisId",
+        "x-stoplight": {
+          "id": "679v0fzqnbxxq"
+        },
+        "description": "Deletes a reinsurance loss analysis.",
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "requestBody": {
+          "description": "Contains the unique identifier of the reinsurance loss anlysis that you want to delete."
+        }
+      }
+    },
+    "/program-analyses/{sid}/results/ep-summary": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get EP summary",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-reinsurance-analysis-program-analyses-analysisId-results-ep-summary",
+        "x-stoplight": {
+          "id": "wlm9ais0rytwe"
+        },
+        "x-internal": true
+      }
+    },
+    "/program-analyses/{sid}/results/ep": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisId",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get annual EP ",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-reinsurance-analysis-program-analyses-analysisId-results-ep",
+        "x-stoplight": {
+          "id": "hvdhvgciaemy4"
+        },
+        "x-internal": true
+      }
+    },
+    "/program-analyses/{sid}/results/event-loss": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "analysisId",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "catalogType",
+          "description": "Historical, Scenarios or Stochastic"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "others",
+          "description": "tbd"
+        }
+      ],
+      "get": {
+        "summary": "Get event loss",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-reinsurance-analysis-program-analyses-analysisId-results-event-loss",
+        "x-stoplight": {
+          "id": "1x11y6np0srzz"
+        },
+        "x-internal": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProgramAnalysisList": {
+        "title": "ProgramAnalysisList",
+        "x-stoplight": {
+          "id": "v2ge72y7uj6yh"
+        },
+        "type": "object",
+        "description": "Contains a paginated collection of analyzed programs, including the sequential identifier (SID)s that uniquely identifies each program, its scenario information, and analysis options for modeling event loss results.",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "e5fuir22dbxlm"
+            },
+            "description": "Number of items returned in this response.",
+            "readOnly": true
+          },
+          "offset": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "m7q0zvqqwrsla"
+            },
+            "description": "The starting position of this batch of results (for pagination).",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "ct8npiszefhtf"
+            },
+            "description": "The total number of program analyses available.",
+            "readOnly": true
+          },
+          "items": {
+            "$ref": "#/components/schemas/ProgramAnalysis",
+            "x-stoplight": {
+              "id": "hk4za1ery8rgm"
+            }
+          }
+        }
+      },
+      "ProgramAnalysis": {
+        "title": "ProgramAnalysis",
+        "x-stoplight": {
+          "id": "8krlx0xyolcp9"
+        },
+        "type": "object",
+        "description": "Contains the program information for Reinsurance loss analysis, including its name and sid of the reinsurance program, unique scenario id, and analysis options. ",
+        "required": [
+          "programSid",
+          "scenarioSid"
+        ],
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "uknbbr9qyzjon"
+            },
+            "example": 1,
+            "default": 1,
+            "format": "int64",
+            "description": "Unique identifier for this program analysis.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4j31mwe7dwjwa"
+            },
+            "example": "program analysis 1",
+            "description": "Name of the program analysis."
+          },
+          "programSid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "8x1u8pb0lopfc"
+            },
+            "format": "int64",
+            "minimum": 1,
+            "example": 11,
+            "description": "Unique identifier for the associated program."
+          },
+          "scenarioSid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "dnk2xuo9twj6h"
+            },
+            "format": "int64",
+            "minimum": 1,
+            "example": 10,
+            "description": "Identifier for the scenario under which the program has to be analyzed."
+          },
+          "activitySid": {
+            "x-stoplight": {
+              "id": "tsjgyczaaq3vw"
+            },
+            "description": "sid of the activity for this analysis",
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "resultSettings": {
+            "$ref": "#/components/schemas/ResultSettings",
+            "x-stoplight": {
+              "id": "9sd4o2b0s0dee"
+            },
+            "description": "This object contains the analysis results settings that the platform will use during reinsurance loss analysis."
+          }
+        }
+      },
+      "ResultSettings": {
+        "title": "ResultSettings",
+        "x-stoplight": {
+          "id": "udquzxcxdidiu"
+        },
+        "type": "object",
+        "description": "Contains the core result settings for configuring reinsurance loss analysis, including currency exchange details, event losses, loss metrics for perspectives, and options for exporting loss sets.",
+        "properties": {
+          "currencyCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "m745uve7x1tip"
+            },
+            "default": "USD",
+            "example": "USD",
+            "description": "Contains the currency code that the platform should use when performing reinsurance loss analysis."
+          },
+          "exchangeRateSetSid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "d3vh50w1d0v6g"
+            },
+            "format": "int64",
+            "example": 1,
+            "minimum": 1,
+            "maximum": 9223372036854776000
+          },
+          "eventLosses": {
+            "x-stoplight": {
+              "id": "9v8fst4xtchtx"
+            },
+            "type": "array",
+            "description": "Contains the event losses by gross, net, and retained for each user-specified component ID. ",
+            "items": {
+              "$ref": "#/components/schemas/YeltResult",
+              "x-stoplight": {
+                "id": "60c40cgqjylua"
+              }
+            }
+          },
+          "metrics": {
+            "x-stoplight": {
+              "id": "k0d4rdturxgxc"
+            },
+            "type": "array",
+            "description": "Contains a collection of event losses for each component ID, reinsurance loss distribution type, and related metadata for reporting.",
+            "items": {
+              "$ref": "#/components/schemas/MetricsResult",
+              "x-stoplight": {
+                "id": "u1o2x6rvinz1f"
+              }
+            }
+          },
+          "exportLossSet": {
+            "$ref": "#/components/schemas/LedgerExport",
+            "x-stoplight": {
+              "id": "4h1b2gn4m1uxz"
+            },
+            "description": "Contains the name and directory path of the AWS S3 bucket where you want to export the loss sets."
+          }
+        }
+      },
+      "LedgerExport": {
+        "title": "LedgerExport",
+        "x-stoplight": {
+          "id": "w4gbipqclmarc"
+        },
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "kn32if8r38fmf"
+            },
+            "description": "name of the exported loss set"
+          },
+          "s3Path": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "zqm7u182tfi3j"
+            },
+            "description": "the folder path the loss set is assoicated with in the UI",
+            "example": "s3://mybucket/myfolder"
+          }
+        },
+        "description": "Contains the name and directory path of the AWS S3 bucket where you want to export the loss sets."
+      },
+      "YeltResult": {
+        "title": "YeltResult",
+        "x-stoplight": {
+          "id": "3teo82nqaruk1"
+        },
+        "type": "object",
+        "description": "Contains the event level losses that you can import into the platform.",
+        "properties": {
+          "componentId": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "166gqwz3koz3z"
+            },
+            "description": "User specified "
+          },
+          "perspective": {
+            "x-stoplight": {
+              "id": "5l5h9pudnusqk"
+            },
+            "enum": [
+              "Gross",
+              "Net",
+              "Retained"
+            ],
+            "description": "Indicates the type of loss perspective: gross, net, or retained losses."
+          },
+          "topEventLossesOnly": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "m69nf42dm4gfj"
+            },
+            "default": false,
+            "example": true
+          },
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "5ve4h76m4908g"
+            },
+            "default": 0,
+            "example": 100
+          }
+        }
+      },
+      "MetricsResult": {
+        "title": "MetricsResult",
+        "x-stoplight": {
+          "id": "q35i6q008855d"
+        },
+        "type": "object",
+        "properties": {
+          "componentId": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "p8ui4ru77wm3z"
+            }
+          },
+          "perspective": {
+            "x-stoplight": {
+              "id": "voi240zs2mwuu"
+            },
+            "enum": [
+              "Gross",
+              "Net",
+              "Retained"
+            ]
+          },
+          "recordTypes": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "vouv0bbnklrc7"
+            },
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "Loss",
+                "Premium",
+                "ReinstatementPremium"
+              ]
+            }
+          },
+          "targetEntities": {
+            "type": "array",
+            "description": "program reference, layer, etc.",
+            "minItems": 1,
+            "items": {
+              "x-stoplight": {
+                "id": "6kv6w71nf7fay"
+              },
+              "enum": [
+                "Program",
+                "Layer"
+              ]
+            }
+          },
+          "aggregationMethod": {
+            "x-stoplight": {
+              "id": "g8i7danqmo2d5"
+            },
+            "enum": [
+              "Occurrence",
+              "Aggregate"
+            ]
+          },
+          "windows": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "9mz2kli2b0ect"
+            },
+            "items": {
+              "$ref": "#/components/schemas/ProbabilityWindow",
+              "x-stoplight": {
+                "id": "16h918mpmq0pe"
+              }
+            }
+          },
+          "metaDataFilter": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4qnn3un3fag63"
+            }
+          },
+          "timeline": {
+            "$ref": "#/components/schemas/TimeFilter",
+            "x-stoplight": {
+              "id": "sjtgbfw3xknx2"
+            }
+          }
+        },
+        "description": "Contains the event loss results for each component ID, including their perspective, target reinsurance layers, loss distribution type, and related metadata for reporting."
+      },
+      "ProbabilityWindow": {
+        "title": "ProbabilityWindow",
+        "x-stoplight": {
+          "id": "zhjq3wlupvuas"
+        },
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "31fhn3wkhv2ae"
+            },
+            "example": 0,
+            "format": "double",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "max": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "29c194h1ywken"
+            },
+            "example": 1,
+            "format": "double",
+            "default": 1,
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          }
+        }
+      },
+      "TimeFilter": {
+        "title": "TimeFilter",
+        "x-stoplight": {
+          "id": "w0m7drngju7oo"
+        },
+        "type": "object",
+        "properties": {
+          "startDay": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "iamf0rvbqf67a"
+            },
+            "minimum": 1,
+            "example": 1
+          },
+          "endDay": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "ru9ksoybtt1l9"
+            },
+            "example": 365,
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header",
+        "description": ""
+      }
+    }
+  }
+}

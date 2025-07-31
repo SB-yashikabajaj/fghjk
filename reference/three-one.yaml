@@ -1,0 +1,335 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 5wh3izclwmw20
+info:
+  title: Toyota
+  version: '1.0'
+  license:
+    url: 'https://stoplight.io/'
+    name: license
+  description: |-
+    Link to [User](../reference/three-one.yaml/components/schemas/User)
+
+    [Overview PATCH link](../reference/three-one.yaml/paths/~1users~1{userId}/patch)
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/users/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: |-
+            This is [Plink1](paths/~1user/post)
+
+            This is [Plink2](../reference/three-one.yaml/paths/~1user/post)
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: |
+        Retrieve the information of the user with the matching user ID.
+
+        User Found this is a [link](../reference/three-one.yaml/components/schemas/mask-ref)
+
+        Endpoint [POST link](../reference/three-one.yaml/paths/~1user/post)
+      x-stoplight:
+        id: h4mw9o7cfqm4w
+      requestBody:
+        $ref: '#/components/requestBodies/request1'
+      security:
+        - Bearer: []
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: |-
+        Link to [User](../reference/three-one.yaml/components/schemas/User)
+
+        Link to [User2](../three-one.yaml/components/schemas/User)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: 'stoplight://resources/overrides/R6cO2VLgxoU'
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+      x-stoplight:
+        id: roi3i995yx5qd
+      x-internal: true
+  /user:
+    post:
+      summary: Create New Userss
+      operationId: post-user
+      responses:
+        '200':
+          description: 'User Created - Link to [User](../reference/three-one.yaml/components/schemas/User)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - email
+                - dateOfBirth
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+                DL1:
+                  $ref: 'https://stoplight.io/api/v1/projects/ana/8112/nodes/models/model7.yaml?mid=19'
+                  x-stoplight:
+                    id: o4a8w13rg2bk3
+                ref-User:
+                  $ref: '#/components/schemas/Red-user3'
+                  x-stoplight:
+                    id: jautrqyeo1yqt
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+      x-stoplight:
+        id: vqfb87ofvc77m
+      x-internal: false
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      examples:
+        - id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      x-stoplight:
+        id: 8ciwwiohulvb4
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
+      properties:
+        id:
+          type: array
+          description: Unique identifier for the given user.
+          x-stoplight:
+            id: 1vs12c7tu5xxj
+          items:
+            x-stoplight:
+              id: dfrhhihixeif4
+            type: object
+            additionalProperties:
+              x-stoplight:
+                id: t8h26d0l5m1hx
+              type:
+                - object
+                - string
+        firstName:
+          type: string
+          x-stoplight:
+            id: reujuyfcbauid
+        lastName:
+          type: string
+          x-stoplight:
+            id: reujuyfcbauid
+        email:
+          type: string
+          format: email
+          x-stoplight:
+            id: jay5c3l6lnme2
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+          x-stoplight:
+            id: u2ht7u7wrdxve
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+          x-stoplight:
+            id: za79l6evia6tm
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+          x-stoplight:
+            id: 34x9cjvrv5jeo
+        DL:
+          $ref: 'https://stoplight.io/api/v1/projects/ana/8112/nodes/models/model2.yaml?mid=19'
+          x-stoplight:
+            id: 5j0b0tvhuxfod
+    mask-ref:
+      type: object
+      $ref: 'stoplight://resources/overrides/R6cO2VLgxoU'
+      x-stoplight:
+        id: vb58i4d2mapes
+    Tests:
+      title: Tests
+      x-stoplight:
+        id: 5nydpdal0e4pw
+      type: object
+      properties:
+        id:
+          type: object
+          x-stoplight:
+            id: w2il3tk8qulnl
+          additionalProperties:
+            x-stoplight:
+              id: vdcbi2srot7ev
+            type:
+              - object
+              - string
+        array:
+          type: array
+          x-stoplight:
+            id: 9d8dvrm62sqqh
+          items:
+            x-stoplight:
+              id: dtev3r78uo2p2
+            type: object
+            additionalProperties:
+              x-stoplight:
+                id: u4xulcxbvlxec
+              type:
+                - object
+                - string
+    new2:
+      title: new2
+      x-stoplight:
+        id: 7urjp2lvptam2
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: vdu8u5liv5tya
+        name:
+          type: string
+          x-stoplight:
+            id: jgwhjjsm2mvxh
+    Red-user3:
+      title: new2
+      x-stoplight:
+        id: og8mutrwjvutf
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: vdu8u5liv5tya
+        name:
+          type: string
+          x-stoplight:
+            id: null
+  requestBodies:
+    request1:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                x-stoplight:
+                  id: 6utk27j559uzt
+                description: |-
+                  POST LINKS 
+
+                  This is [pplink1](paths/~1user/post)
+
+                  This is [pplink2](../reference/three-one.yaml/paths/~1user/post)Create New Users - this is a [link test](paths/~1user/post)
+              last-name:
+                type: string
+                x-stoplight:
+                  id: 8qm2tz4c0fknz
+              email:
+                type: string
+                x-stoplight:
+                  id: a9yn2e2zs9hnk
+      description: |-
+        POST LINKS
+
+        This is [link1](paths/~1user/post)
+
+        This is [link2](../reference/three-one.yaml/paths/~1user/post)
+  responses: {}
+  securitySchemes:
+    Bearer:
+      name: Authorization
+      type: apiKey
+      in: header
+security:
+  - Bearer: []

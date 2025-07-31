@@ -1,0 +1,570 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "6p5r64zidj2az"
+  },
+  "info": {
+    "title": "Currency Service",
+    "version": "1.0",
+    "description": "The Currency Service provides information about supported currencies and currency exchange rate used by analyses in Synergy Studio.\r\n\r\n",
+    "summary": "Currency and currency exchange API",
+    "contact": {
+      "name": "",
+      "email": "",
+      "url": ""
+    },
+    "termsOfService": "",
+    "license": {
+      "name": "",
+      "url": ""
+    }
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/api/currency-management/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/exchange-rate-sets/{sid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "sid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieve information of a currency exchange rate set",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ExchangeRateSet"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-currrency-exchange-sets-currencyExchangeSetId",
+        "x-stoplight": {
+          "id": "56ib25jtm3xyv"
+        },
+        "description": "Retrieve details of a currency exchange rate set",
+        "x-internal": true
+      },
+      "patch": {
+        "summary": "Modify information of a currency exchange rate set ",
+        "tags": [],
+        "responses": {},
+        "operationId": "patch-currrency-exchange-sets-currencyExchangeSetId",
+        "x-stoplight": {
+          "id": "1eg1qud7p9pk6"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/ExchangeRateSet"
+              }
+            }
+          }
+        },
+        "description": "Modify information of a currency exchange rate set",
+        "x-internal": true
+      },
+      "delete": {
+        "summary": "Remove a currency exchange rate set ",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "operationId": "delete-currrency-exchange-sets-currencyExchangeSetId",
+        "x-stoplight": {
+          "id": "hvjtxlqaffrxb"
+        },
+        "description": "Remove a currency exchange set",
+        "x-internal": true
+      }
+    },
+    "/defaults": {
+      "get": {
+        "summary": "Retrieves the default currency setting.",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/DefaultCurrencySetting"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-currency-defaults-display-currency",
+        "x-stoplight": {
+          "id": "ubrtisvtg1flc"
+        },
+        "description": "Retrieves the default display currency setting.  ",
+        "requestBody": {
+          "content": {}
+        },
+        "x-internal": true
+      },
+      "put": {
+        "summary": "Update the default currency setting.",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "operationId": "put-currency-defaults-display-currency",
+        "x-stoplight": {
+          "id": "ca0cthfyyiz6r"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/DefaultCurrencySetting"
+              }
+            }
+          }
+        },
+        "x-internal": true
+      },
+      "parameters": []
+    },
+    "/exchange-rate-sets": {
+      "get": {
+        "summary": "Retrieves list of currency exchange rate sets",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/ExchangeRateSetList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-currency-exchange-sets",
+        "x-stoplight": {
+          "id": "hge7r5fhpise2"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "nameAndSidOnly",
+            "description": "When this is set to true, the list items will have only sid and name values."
+          }
+        ],
+        "description": "Retrieves list of currency exchange rate sets",
+        "x-internal": true
+      },
+      "post": {
+        "summary": "Create a new  currency exchange rate set",
+        "tags": [],
+        "responses": {},
+        "operationId": "post-currency-exchange-sets",
+        "x-stoplight": {
+          "id": "ihovq4q6bbjqm"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/ExchangeRateSet"
+              }
+            }
+          }
+        },
+        "description": "Create a new currency exchange rate set",
+        "x-internal": true
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "ExchangeRateSet": {
+        "title": "ExchangeRateSet",
+        "x-stoplight": {
+          "id": "mg74ndn5rpib4"
+        },
+        "type": "object",
+        "description": "Currency exchange rate set",
+        "required": [
+          "name",
+          "baseCurrencyCode"
+        ],
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "gvifxjkbwofeg"
+            },
+            "default": 0,
+            "example": 1,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "7xfgtq14pr9m4"
+            }
+          },
+          "default": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "mvr1yjr29og4x"
+            },
+            "description": "Default currency exchange rate sets are readonly",
+            "default": false,
+            "readOnly": true
+          },
+          "baseCurrencyCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "g69jbbkb50m7f"
+            }
+          },
+          "description": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "xksoj2aliw4cp"
+            }
+          },
+          "dateCreated": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "qgsb5lgbw36qt"
+            },
+            "format": "date-time",
+            "readOnly": true
+          },
+          "dateModified": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "idyw957zglxdb"
+            },
+            "format": "date-time",
+            "readOnly": true
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "e4sxjjnkh5lge"
+            }
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "938c72yxrsi6t"
+            }
+          },
+          "exchangeRates": {
+            "$ref": "#/components/schemas/ExchangeRate",
+            "x-stoplight": {
+              "id": "d690w26anhj0p"
+            }
+          }
+        }
+      },
+      "ExchangeRate": {
+        "title": "ExchangeRate",
+        "x-stoplight": {
+          "id": "ivsqwksymk63a"
+        },
+        "type": "object",
+        "description": "Exchange rate between base and target currencies.",
+        "required": [
+          "currencyCode",
+          "rate"
+        ],
+        "properties": {
+          "currencyCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "qm3gythn0i2rf"
+            }
+          },
+          "rate": {
+            "type": "number",
+            "x-stoplight": {
+              "id": "9rztwhhflr73q"
+            },
+            "default": 1,
+            "example": 1.23
+          }
+        }
+      },
+      "ExchangeRateSetList": {
+        "title": "ExchangeRateSetList",
+        "x-stoplight": {
+          "id": "sm16e7rgzeokd"
+        },
+        "type": "object",
+        "description": "List of currency exchange rate sets",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "ay1cr5mbui50c"
+            }
+          },
+          "items": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "tmv5px16serc2"
+            },
+            "items": {
+              "$ref": "#/components/schemas/ExchangeRateSetListItem",
+              "x-stoplight": {
+                "id": "q0n5yw8m0qdgg"
+              }
+            }
+          }
+        }
+      },
+      "ExchangeRateSetListItem": {
+        "title": "ExchangeRateSetListItem",
+        "x-stoplight": {
+          "id": "1ugbeajscpsxy"
+        },
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "y62hlxgk8m7vf"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "5gb6xf2giki6o"
+            }
+          },
+          "baseCurrencyCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "2jh6xanwpkyy6"
+            }
+          },
+          "dateCreated": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "fe1zmd1jagb2v"
+            },
+            "format": "date-time",
+            "readOnly": true
+          },
+          "dateModified": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "rm0ajbkxgowwd"
+            },
+            "format": "date-time",
+            "readOnly": true
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "4dbkwvtve0yxy"
+            }
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json",
+            "x-stoplight": {
+              "id": "rf7vwezz1sner"
+            }
+          }
+        }
+      },
+      "Currency": {
+        "title": "Currency",
+        "x-stoplight": {
+          "id": "kpbzrftbwquvn"
+        },
+        "type": "object",
+        "description": "Currency",
+        "properties": {
+          "code": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "8calqsmwwmk0t"
+            },
+            "default": "USD",
+            "example": "USD"
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "dj4ndhb75csl4"
+            },
+            "default": "US Dollar",
+            "example": "US Dollar"
+          },
+          "isActive": {
+            "type": "boolean",
+            "x-stoplight": {
+              "id": "0mw9xxkuwk89g"
+            }
+          }
+        }
+      },
+      "CurrencySetting": {
+        "title": "CurrencySetting",
+        "x-stoplight": {
+          "id": "24lrf9zb0l04r"
+        },
+        "type": "object",
+        "description": "Represent a currency setting such as analysis currency setting, display currency setting etc.",
+        "properties": {
+          "currencyCode": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "vtbao1vo9ut2e"
+            },
+            "default": "USD",
+            "example": "USD"
+          },
+          "exchangeRateSetSid": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "abzymkfk5jbgc"
+            },
+            "default": 0,
+            "example": 1
+          }
+        }
+      },
+      "DefaultCurrencySetting": {
+        "title": "DefaultCurrencySetting",
+        "x-stoplight": {
+          "id": "h6lcu2fj2oxxs"
+        },
+        "type": "object",
+        "properties": {
+          "display": {
+            "$ref": "#/components/schemas/CurrencySetting",
+            "x-stoplight": {
+              "id": "iibwrc5ae20ux"
+            }
+          },
+          "analysis": {
+            "$ref": "#/components/schemas/CurrencySetting",
+            "x-stoplight": {
+              "id": "0j0kvdsxxvtqk"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "name": "Authorization",
+        "type": "apiKey",
+        "in": "header",
+        "description": ""
+      }
+    }
+  }
+}

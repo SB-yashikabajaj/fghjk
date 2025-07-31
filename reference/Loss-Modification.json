@@ -1,0 +1,3243 @@
+{
+  "openapi": "3.0.1",
+  "x-stoplight": {
+    "id": "5sbexa281eds4"
+  },
+  "info": {
+    "version": "1.0",
+    "title": "Loss Modification Service",
+    "description": "The Loss Modification Service provides the API operation for performing Loss Modification analysis with one or more loss modification templates. \r\n\r\nYou can use this service to retrieve single or multiple loss modification templates.",
+    "termsOfService": "",
+    "contact": {
+      "name": "",
+      "url": "",
+      "email": ""
+    },
+    "license": {
+      "url": "",
+      "name": "License"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://staging-na.synergystudio.verisk.com/pi/loss-modification/v1",
+      "description": "Staging"
+    }
+  ],
+  "paths": {
+    "/templates/import/upload": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Retrieve upload.",
+        "description": "Retrieves upload information for Loss Modification Template import. It contains pre-signed URL for upload and an id to use in the Create import operation.",
+        "operationId": "GetUpload",
+        "parameters": [
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "The type of file that will be uploaded. AWS S3 will issue a pre-signed URL for that type and will restrict other file types to be uploaded.",
+            "schema": {
+              "$ref": "#/components/schemas/FileType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewUpload"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "jmxvuek54cmk5"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/import": {
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Submit import.",
+        "description": "Submits a Loss Modification template import. It will start the import job.",
+        "operationId": "CreateImport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewImport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "msuawe9m7kv3b"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Retrieve Loss Modification Templates",
+        "description": "Retrieves a set of Loss Modification Analysis Templates with filtering and pagination options.",
+        "operationId": "GetTemplates",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "The number of records to skip before retrieving new records.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of records to retrieve.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The filter conditions applied when retrieving the records.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The sort order applied on the retrieved items after filtering. It supports multiple properties.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.\r\n\r\nReturns a collection of Loss Modification Templates.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingTemplatePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "6rq2l9upwm3jv"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Create template.",
+        "description": "Create a new Loss Modification template.",
+        "operationId": "CreateTemplate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTemplate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingTemplate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "rdx9hywei0pue"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{sid}": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Retrieve Loss Modification Template",
+        "description": "Retrieves a single existing Loss Modification template by SID. \r\n\r\n**Note**: The retrieve operation doesn't include the template rules.",
+        "operationId": "GetTemplate",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded. \r\n\r\nReturns a Loss Modification Template specified in the request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingTemplate"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "480avo5ae09t5"
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Update template",
+        "description": "Updates Loss Modification template.",
+        "operationId": "UpdateTemplate",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTemplate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingTemplate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "uaqamn0mdj57y"
+        },
+        "x-internal": true
+      },
+      "delete": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Delete template",
+        "description": "Deletes Loss Modification template.",
+        "operationId": "DeleteTemplate",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "dob4zh44hljrk"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{sid}/export": {
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Submit export",
+        "description": "Submits a Loss Modification template export. It will start the export job.",
+        "operationId": "CreateExport",
+        "parameters": [
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "The type of file to be generated. Supported formats are csv and lmtf.",
+            "schema": {
+              "$ref": "#/components/schemas/FileType"
+            }
+          },
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "vua0224voxrrb"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{templateSid}/export/{activitySid}": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Retrieve download info",
+        "description": "Retrieves download info for an export. It contains pre-signed URL for downloading the file and id and type of the export. If the activity is still running it will return 400 Bad Request.",
+        "operationId": "GetExportDownloadInfo",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "activitySid",
+            "in": "path",
+            "description": "The export activity sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportDownloadInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "t8sjelus5qp54"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{sid}/rules": {
+      "get": {
+        "tags": [
+          "Template Rule"
+        ],
+        "summary": "Retrieve template rules",
+        "description": "Retrieves a list of Loss Modification template rules with pagination options.",
+        "operationId": "GetTemplateRules",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "The number of records to skip before retrieving new records.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of records to retrieve.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The sort order applied on the retrieved items. It supports multiple properties.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingTemplateRulePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "ap6yoksg3fow2"
+        },
+        "x-internal": true
+      },
+      "post": {
+        "tags": [
+          "Template Rule"
+        ],
+        "summary": "Create template rules.",
+        "description": "Creates rules on a Loss Modification Template.",
+        "operationId": "CreateTemplateRules",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewTemplateRule"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateSaveResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "0gofj1c0om0fc"
+        }
+      }
+    },
+    "/templates/{sid}/rules/collisions": {
+      "get": {
+        "tags": [
+          "Template Rule"
+        ],
+        "summary": "Retrieve template rules collisions.",
+        "description": "Retrieves a list of Loss Modification template rules with collisions.",
+        "operationId": "GetTemplateRulesCollisions",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "The number of records to skip before retrieving new records.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of records to retrieve.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The sort order applied on the retrieved items. It supports multiple properties.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingTemplateRulePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "ff2aduua4hg22"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{sid}/drafts": {
+      "post": {
+        "tags": [
+          "Template Draft"
+        ],
+        "summary": "Create template draft.",
+        "description": "Creates a Loss Modification template draft. Edits to the template rules in the current session will be staged to that draft. Draft is per user and in the backend is created with the user id.",
+        "operationId": "CreateTemplateDraft",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {}
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateDraft"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "ivhvq760vfv6h"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{templateSid}/drafts/{draftId}": {
+      "patch": {
+        "tags": [
+          "Template Draft"
+        ],
+        "summary": "Update template draft.",
+        "description": "Updates the Loss Modification template draft in the template. This operation starts a job which will combine the draft rules data with the template rules and run collision check. If no errors the update will succeed, if there are errors it will fail.  The draft is identified by user id.",
+        "operationId": "UpdateTemplateDraft",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The draft id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateSaveResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateJob"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "0m5888gfnuqmy"
+        },
+        "x-internal": true
+      },
+      "delete": {
+        "tags": [
+          "Template Draft"
+        ],
+        "summary": "Delete template draft.",
+        "description": "Deletes a Loss Modification template draft. This will discard all staged data. The draft is identified by user id.",
+        "operationId": "DeleteTemplateDraft",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The template draft id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "1xm8o5g78i55a"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{templateSid}/drafts/{draftId}/rules": {
+      "get": {
+        "tags": [
+          "Template Draft Rule"
+        ],
+        "summary": "Retrieve draft template rules.",
+        "description": "Retrieves the modified template rules from the draft.",
+        "operationId": "GetTemplateDraftRules",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The draft id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "The number of records to skip before retrieving new records.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of records to retrieve.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The sort order applied on the retrieved items. It supports multiple properties.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftTemplateRulePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "5x7s6dskfqi3x"
+        }
+      },
+      "post": {
+        "tags": [
+          "Template Draft Rule"
+        ],
+        "summary": "Create draft template rules.",
+        "description": "Creates rules on a Loss Modification Template draft.",
+        "operationId": "CreateTemplateDraftRules",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The draft id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewTemplateRule"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DraftTemplateRule"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "h0b5qv1wha6xt"
+        }
+      }
+    },
+    "/templates/{templateSid}/drafts/{draftId}/rules/{draftRuleId}": {
+      "put": {
+        "tags": [
+          "Template Draft Rule"
+        ],
+        "summary": "Update draft template rule.",
+        "description": "Updates a Loss Modification Template rule on a draft.",
+        "operationId": "UpdateTemplateDraftRule",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The draft id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "draftRuleId",
+            "in": "path",
+            "description": "The draft rule id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftTemplateRule"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftTemplateRule"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "5lqbhefiygt1p"
+        },
+        "x-internal": true
+      },
+      "delete": {
+        "tags": [
+          "Template Draft Rule"
+        ],
+        "summary": "Delete draft template rule.",
+        "description": "Deletes a rule from a Loss Modification template draft.",
+        "operationId": "DeleteTemplateDraftRule",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "draftId",
+            "in": "path",
+            "description": "The draft id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "draftRuleId",
+            "in": "path",
+            "description": "The draft rule id.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-stoplight": {
+          "id": "nzqufns8bcxnp"
+        },
+        "x-internal": true
+      }
+    },
+    "/templates/{templateSid}/event-parameters": {
+      "get": {
+        "tags": [
+          "Event Paramater"
+        ],
+        "summary": "Retrieve event parameters defined in a template.",
+        "description": "Retrieves all event parameters defined in a specified template.",
+        "operationId": "GetEventParameters",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExistingEventParameter"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "5vywulnfqsuwv"
+        }
+      },
+      "post": {
+        "tags": [
+          "Event Paramater"
+        ],
+        "summary": "Create new event parameter.",
+        "description": "Creates an event parameter.",
+        "operationId": "CreateEventParameter",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEventParameter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingEventParameter"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "ucu6jnz8m8h6a"
+        }
+      }
+    },
+    "/templates/{templateSid}/event-parameters/{id}": {
+      "put": {
+        "tags": [
+          "Event Paramater"
+        ],
+        "summary": "Update event parameter.",
+        "description": "Updates an event parameter.",
+        "operationId": "UpdateEventParameter",
+        "parameters": [
+          {
+            "name": "templateSid",
+            "in": "path",
+            "description": "The Loss Modification template sid.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The Event Parameter sid.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExistingEventParameter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExistingEventParameter"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "x-internal": true,
+        "x-stoplight": {
+          "id": "wclbbh5yhdgnh"
+        }
+      }
+    },
+    "/templates/event-parameters/mapping": {
+      "get": {
+        "tags": [
+          "Event Paramater"
+        ],
+        "summary": "Retrieve event parameters with their available operators and values.",
+        "description": "Retrieves the predefined event parameters with their available operators and values.",
+        "operationId": "GetEventParameterMapping",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventParameterMapping"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../models/ProblemDetails.json"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "d3glnlhsnxxzd"
+        },
+        "x-internal": true
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Template",
+      "description": "Loss Modification Template resource."
+    },
+    {
+      "name": "Template Draft",
+      "description": "Loss Modification Template draft resource."
+    },
+    {
+      "name": "Template Draft Rule",
+      "description": "Loss Modification Template draft rule resource."
+    },
+    {
+      "name": "Template Rule",
+      "description": "Loss Modification Template rule resource."
+    },
+    {
+      "name": "Event Parameter",
+      "description": "Loss Modification event parameter resource."
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "JWT": {
+        "type": "apiKey",
+        "description": "",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "FileType": {
+        "type": "string",
+        "x-stoplight": {
+          "id": "aue7tiktb2nr5"
+        },
+        "enum": [
+          "csv",
+          "lmtf"
+        ]
+      },
+      "NewUpload": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uploadId": {
+            "type": "string"
+          },
+          "presignedUrl": {
+            "type": "string"
+          }
+        },
+        "x-stoplight": {
+          "id": "egxrup0j6tny5"
+        }
+      },
+      "NewImport": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uploadId": {
+            "type": "string"
+          },
+          "templateName": {
+            "type": "string"
+          }
+        },
+        "x-stoplight": {
+          "id": "8lgwgjcif4o6d"
+        }
+      },
+      "TemplateJob": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "skudp47ktnwhp"
+        },
+        "properties": {
+          "activitySid": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "templateStatus": {
+            "type": "object",
+            "$ref": "#/components/schemas/TemplateStatus"
+          }
+        }
+      },
+      "TemplateSaveResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "templateStatus": {
+            "type": "object",
+            "$ref": "#/components/schemas/TemplateStatus"
+          },
+          "isValid": "boolean",
+          "rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExistingTemplateRule"
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "f8ktvuntsfu5v"
+        }
+      },
+      "TemplateStatus": {
+        "type": "string",
+        "enum": [
+          "Validating",
+          "Validated"
+        ],
+        "x-stoplight": {
+          "id": "qo3ho7p9y0xzi"
+        }
+      },
+      "NewTemplate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "x-stoplight": {
+          "id": "rv8wwd867vdcb"
+        }
+      },
+      "ExistingTemplate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "userCreated": {
+            "$ref": "../models/UserInfo.json"
+          },
+          "userModified": {
+            "$ref": "../models/UserInfo.json"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TemplateStatus"
+          },
+          "isValid": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "x-stoplight": {
+          "id": "yohtox9r2ghvj"
+        }
+      },
+      "ExistingTemplatePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "request": {
+            "$ref": "#/components/schemas/PageRequestWithFilter"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExistingTemplate"
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "n2ziif4sqtnhc"
+        }
+      },
+      "UpdateTemplate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "x-stoplight": {
+          "id": "2pgc86gkwxkqx"
+        }
+      },
+      "ExportDownloadInfo": {
+        "type": "object",
+        "description": "Response returned when Export download is requested.",
+        "additionalProperties": false,
+        "properties": {
+          "activitySid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fileType": {
+            "$ref": "#/components/schemas/FileType"
+          },
+          "downloadUrl": {
+            "type": "string"
+          }
+        },
+        "x-stoplight": {
+          "id": "1u39245nwvve7"
+        }
+      },
+      "NewTemplateRule": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "sl13htdnu0mnr"
+        },
+        "properties": {
+          "perils": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "coverage": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "lineOfBusiness": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "eventParameters": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ExistingEventParameter"
+            }
+          },
+          "occupancyCodes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "constructionCodes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "yearBuilt": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "x-stoplight": {
+                "id": "ikva4n4yz0w4s"
+              },
+              "type": "integer"
+            }
+          },
+          "stories": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "x-stoplight": {
+                "id": "rih011x8ni1nh"
+              },
+              "type": "integer"
+            }
+          },
+          "contractIds": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationIds": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined1": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined2": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined3": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined4": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined5": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "crestaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subareaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "factor": {
+            "type": "number"
+          }
+        }
+      },
+      "ExistingTemplateRule": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-stoplight": {
+          "id": "8jb4gj6ahw3e2"
+        },
+        "properties": {
+          "sid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perils": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "coverage": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "lineOfBusiness": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "eventParameters": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ExistingEventParameter"
+            }
+          },
+          "occupancyCodes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "constructionCodes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "yearBuilt": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "stories": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "contractIds": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationIds": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined1": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined2": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined3": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined4": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined5": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "conflictedRules": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "crestaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subareaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "factor": {
+            "type": "number"
+          }
+        }
+      },
+      "DraftRuleAction": {
+        "type": "string",
+        "enum": [
+          "Create",
+          "Update",
+          "Delete"
+        ],
+        "x-stoplight": {
+          "id": "s5vsdn0yarxrf"
+        }
+      },
+      "DraftTemplateRule": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "draftRuleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "action": {
+            "$ref": "#/components/schemas/DraftRuleAction"
+          },
+          "sid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "perils": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "coverage": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "lineOfBusiness": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "eventParameters": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ExistingEventParameter"
+            }
+          },
+          "occupancyCodes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "constructionCodes": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "yearBuilt": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "stories": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "contractIds": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationIds": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined1": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined2": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined3": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined4": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationUserDefined5": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "crestaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "areaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subareaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "factor": {
+            "type": "number"
+          }
+        },
+        "x-stoplight": {
+          "id": "5jpcs1427bnxd"
+        }
+      },
+      "DraftTemplateRulePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "request": {
+            "$ref": "#/components/schemas/PageRequestWithoutFilter"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DraftTemplateRule"
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "y1x318b6j41ai"
+        }
+      },
+      "ExistingTemplateRulePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "request": {
+            "$ref": "#/components/schemas/PageRequestWithoutFilter"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExistingTemplateRule"
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "7z5cwj65s8v26"
+        }
+      },
+      "PageRequestWithoutFilter": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "x-stoplight": {
+          "id": "pkiy0mwvtr0om"
+        }
+      },
+      "PageRequestWithFilter": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "skip": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "filter": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "x-stoplight": {
+          "id": "g2m42vyiqog4x"
+        }
+      },
+      "TemplateDraft": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "x-stoplight": {
+          "id": "9dtw0pqwg6ohs"
+        }
+      },
+      "ExistingEventParameter": {
+        "type": "object",
+        "x-stoplight": {
+          "id": "xo2nym53sez0n"
+        },
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "templateSid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rules": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "parameterSid": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "parameterName": {
+                  "type": "string"
+                },
+                "condition": {
+                  "type": "string"
+                },
+                "value1": {
+                  "type": "string"
+                },
+                "value2": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewEventParameter": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "templateSid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "rules": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "parameterSid": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "parameterName": {
+                  "type": "string"
+                },
+                "condition": {
+                  "type": "string"
+                },
+                "value1": {
+                  "type": "string"
+                },
+                "value2": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "hrud6zgj4wuks"
+        }
+      },
+      "EventParameterMapping": {
+        "title": "EventParameterMapping",
+        "x-stoplight": {
+          "id": "q8do11sbrcwtt"
+        },
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "x-stoplight": {
+              "id": "pltrxxoco5d47"
+            },
+            "minimum": 0
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "l3or0ev6vgvy0"
+            }
+          },
+          "conditions": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "6sf50bqcuux9h"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "8274l4ntimkor"
+              },
+              "type": "string"
+            }
+          },
+          "values": {
+            "type": "array",
+            "x-stoplight": {
+              "id": "uq4gjcbezbk09"
+            },
+            "items": {
+              "x-stoplight": {
+                "id": "dzvysrlg2alba"
+              },
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-internal": false
+}
